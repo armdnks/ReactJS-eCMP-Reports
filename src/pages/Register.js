@@ -1,8 +1,11 @@
-/* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { FormInput } from "../components/form-components";
 import { Button } from "../components";
+
+import useAuthContext from "../context/auth-context.js";
+
 import styled from "styled-components";
 
 const initialState = {
@@ -14,7 +17,10 @@ const initialState = {
 };
 
 const Register = () => {
+  const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
+
+  const { setupUser, getToken } = useAuthContext();
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -23,6 +29,31 @@ const Register = () => {
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { name, email, password, confirmPassword, isMember } = values;
+    if (!email || !password || (!isMember && !name)) {
+      return;
+    }
+
+    const currentUser = { name, email, password, confirmPassword };
+
+    if (isMember) {
+      setupUser({ currentUser, endpoint: "login" });
+    } else {
+      setupUser({ currentUser, endpoint: "register" });
+    }
+  };
+
+  useEffect(() => {
+    // FIXME: Fix navigate("/") when user successfully register or login!
+    if (getToken) {
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    }
+  }, [getToken, navigate]);
 
   return (
     <RegisterPage>
@@ -35,18 +66,20 @@ const Register = () => {
           </p>
         </div>
 
-        <form className="register-page-form">
-          <FormInput
-            name="name"
-            type="text"
-            value={values.name}
-            onChange={handleChange}
-            placeholder="e.g. John Doe"
-          />
+        <form onSubmit={handleSubmit} className="register-page-form">
+          {!values.isMember && (
+            <FormInput
+              name="name"
+              type="text"
+              value={values.name}
+              onChange={handleChange}
+              placeholder="e.g. John Doe"
+            />
+          )}
 
           <FormInput
             name="email"
-            type="email"
+            type="text"
             value={values.email}
             onChange={handleChange}
             placeholder="e.g. john@email.com"
@@ -54,28 +87,29 @@ const Register = () => {
 
           <FormInput
             name="password"
-            type="password"
+            type="text"
             value={values.password}
             onChange={handleChange}
             placeholder="Your secret password"
           />
 
-          <FormInput
-            label="confirm password"
-            name="confirmPassword"
-            type="password"
-            value={values.confirmPassword}
-            onChange={handleChange}
-            placeholder="Confirm your secret password"
-          />
+          {!values.isMember && (
+            <FormInput
+              name="confirmPassword"
+              type="text"
+              value={values.confirmPassword}
+              onChange={handleChange}
+              placeholder="Confirm your secret password"
+            />
+          )}
 
           <Button
             type="submit"
-            title="register"
+            title={values.isMember ? "register" : "login"}
             className="register-form-btn"
           />
 
-          {/* <p className="register-page-member">
+          <p className="register-page-member">
             {values.isMember ? "Not a member yet?" : "Already a member?"}
             <button
               type="button"
@@ -84,7 +118,7 @@ const Register = () => {
             >
               {values.isMember ? "Register" : "Login"}
             </button>
-          </p> */}
+          </p>
         </form>
       </div>
     </RegisterPage>
