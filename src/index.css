@@ -26,27 +26,16 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
+  color: var(--color-gray-700);
 }
 
 a {
   text-decoration: none;
 }
 
-.btn {
-  background: var(--color-primary);
-  color: var(--color-white);
-  padding: 1.25rem 1.5rem;
-  border-radius: 0.5rem;
-  text-transform: capitalize;
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
   font-size: 1rem;
-}
-
-.btn:hover {
-  background: var(--color-accent);
-  color: var(--color-primary);
-}
-
-.btn:active {
-  background: var(--color-primary);
-  color: var(--color-white);
 }
