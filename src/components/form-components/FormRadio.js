@@ -13,7 +13,15 @@ const FormRadio = ({ name, options, onChange, label }) => {
           const id = name + "_" + option;
           return (
             <div key={index} className="form-input-radio-container">
-              <input type="radio" id={id} name={name} value={option} checked={checked} onChange={onChange} className="form-input-radio-field" />
+              <input
+                type="radio"
+                id={id}
+                name={name}
+                value={option}
+                checked={checked}
+                onChange={onChange}
+                className="form-input-radio-field"
+              />
               <label htmlFor={id} className="form-input-radio-label">
                 {option}
               </label>
@@ -38,7 +46,7 @@ const FormRadioWrapper = styled.div`
   .form-input-label {
     text-transform: uppercase;
     font-weight: bold;
-    color: var(--color-primary);
+    color: var(--color-primary-500);
   }
 
   .form-input-radio {

@@ -7,10 +7,10 @@ import styled from "styled-components";
 const SharedLayout = () => {
   return (
     <Wrapper>
-      <SideNavigation />
       <main className="shared-layout-main">
         <Outlet />
       </main>
+      <SideNavigation />
     </Wrapper>
   );
 };

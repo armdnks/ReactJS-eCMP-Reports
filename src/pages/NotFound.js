@@ -36,7 +36,9 @@ const NotFound = () => {
 
         <div className="not-found-info">
           <h1 className="not-found-title">page not found</h1>
-          <p className="not-found-body">The page you're looking for is now beyond our reach.</p>
+          <p className="not-found-body">
+            The page you're looking for is now beyond our reach.
+          </p>
         </div>
 
         <Link to="/" className="not-found-btn">
@@ -69,7 +71,7 @@ const Wrapper = styled.div`
   .not-found-progress-bar {
     width: 0;
     height: 100%;
-    background: var(--color-primary);
+    background: var(--color-primary-500);
   }
 
   .not-found-container {
@@ -102,7 +104,7 @@ const Wrapper = styled.div`
   }
 
   .not-found-title {
-    color: var(--color-primary);
+    color: var(--color-primary-500);
     text-transform: uppercase;
   }
 
@@ -111,7 +113,7 @@ const Wrapper = styled.div`
   }
 
   .not-found-btn {
-    background: var(--color-primary);
+    background: var(--color-primary-500);
     color: var(--color-white);
     padding: 1.25rem 1.5rem;
     border-radius: 0.5rem;
@@ -120,12 +122,12 @@ const Wrapper = styled.div`
   }
 
   .not-found-btn:hover {
-    background: var(--color-accent);
-    color: var(--color-primary);
+    background: var(--color-primary-200);
+    color: var(--color-primary-500);
   }
 
   .not-found-btn:active {
-    background: var(--color-primary);
+    background: var(--color-primary-500);
     color: var(--color-white);
   }
 `;

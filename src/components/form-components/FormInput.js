@@ -1,6 +1,14 @@
 import styled from "styled-components";
 
-const FormInput = ({ type, name, value, onChange, label, placeholder, className }) => {
+const FormInput = ({
+  type,
+  name,
+  value,
+  onChange,
+  label,
+  placeholder,
+  className,
+}) => {
   return (
     <FormInputWrapper className={className}>
       {name !== "" && (
@@ -37,7 +45,7 @@ const FormInputWrapper = styled.div`
   .form-input-label {
     text-transform: uppercase;
     font-weight: bold;
-    color: var(--color-primary);
+    color: var(--color-primary-500);
     font-size: 1rem;
   }
 

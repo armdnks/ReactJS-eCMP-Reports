@@ -140,8 +140,8 @@ const RegisterPage = styled.main`
 
   background: linear-gradient(
     160deg,
-    var(--color-accent),
-    var(--color-primary)
+    var(--color-primary-200),
+    var(--color-primary-500)
   );
 
   .register-page-container {
@@ -162,7 +162,7 @@ const RegisterPage = styled.main`
   }
 
   .register-page-title {
-    color: var(--color-primary);
+    color: var(--color-primary-500);
     margin-bottom: 0.75rem;
     font-size: 3rem;
     text-transform: capitalize;
@@ -194,7 +194,7 @@ const RegisterPage = styled.main`
   }
 
   .register-page-member-btn {
-    color: var(--color-primary);
+    color: var(--color-primary-500);
     text-decoration: underline;
   }
 `;

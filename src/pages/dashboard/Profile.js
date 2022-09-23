@@ -102,8 +102,8 @@ const Wrapper = styled.div`
 
   background: linear-gradient(
     160deg,
-    var(--color-accent),
-    var(--color-primary)
+    var(--color-accent-200),
+    var(--color-primary-500)
   );
 
   .profile-page-container {
