@@ -7,7 +7,7 @@ import { Button } from "../../components";
 import useAuthContext from "../../context/auth-context";
 import styled from "styled-components";
 
-const Profile = () => {
+const Settings = () => {
   const { userState: user, updateUser } = useAuthContext();
 
   const [name, setName] = useState(user?.name);
@@ -93,24 +93,23 @@ const Profile = () => {
 
 const Wrapper = styled.div`
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 
-  background: linear-gradient(
+  /* background: linear-gradient(
     160deg,
     var(--color-accent-200),
     var(--color-primary-500)
-  );
+  ); */
 
   .profile-page-container {
     width: 100%;
     max-width: 600px;
-    min-height: 100vh;
-    margin: 0 auto;
+    height: 100%;
     padding: 0 4.5rem;
     background: var(--color-white);
     display: flex;
@@ -138,4 +137,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default Profile;
+export default Settings;

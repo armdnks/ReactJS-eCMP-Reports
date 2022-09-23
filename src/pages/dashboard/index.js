@@ -1,7 +1,8 @@
-import SharedLayout from "./SharedLayout";
-import Home from "./Home";
-import AllReports from "./AllReports";
 import AddReport from "./AddReport";
-import Profile from "./Profile";
+import AllReports from "./AllReports";
+import Home from "./Home";
+import ReportDetail from "./ReportDetail";
+import Settings from "./Settings";
+import SharedLayout from "./SharedLayout";
 
-export { SharedLayout, Home, AllReports, AddReport, Profile };
+export { AddReport, AllReports, Home, Settings, ReportDetail, SharedLayout };

@@ -1,30 +1,39 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+
+import useAuthContext from "./auth-context";
 
 const FormContext = createContext();
 
 export const FormContextProvider = ({ children }) => {
+  const { authFetch } = useAuthContext();
+
   // ### useState
+  const [reportState, setReportState] = useState([]);
   const [formData, setFormData] = useState({});
 
-  /**
-   *  ### HandleChange
-   *
-   *  @param {String} name
-   *  @param {String} value
-   *
-   */
-
-  function contextHandleChange({ name, value }) {
+  function changeHandler({ name, value }) {
     setFormData({ ...formData, [name]: value });
   }
 
-  /**
-   *  ### Create Report
-   *
-   */
+  useEffect(() => {
+    getAllReports();
+    // eslint-disable-next-line
+  }, []);
 
-  async function contextCreateReport() {
+  async function getAllReports() {
+    let url = `/reports`;
+
+    try {
+      const { data } = await authFetch(url);
+      const { reports } = data;
+      setReportState(reports);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function createReport() {
     try {
       const config = {
         method: "POST",
@@ -44,9 +53,11 @@ export const FormContextProvider = ({ children }) => {
   }
 
   const value = {
+    reportState,
     formData,
-    contextHandleChange,
-    contextCreateReport,
+    getAllReports,
+    changeHandler,
+    createReport,
   };
 
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>;

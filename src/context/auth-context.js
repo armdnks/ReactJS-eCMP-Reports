@@ -20,12 +20,12 @@ export const AuthContextProvider = ({ children }) => {
     if (userState) setTimeout(() => localStorage.clear(), oneDay);
   }, [userState]);
 
-  // axios
+  // ### axios
   const authFetch = axios.create({
     baseURL: "/api/v1",
   });
 
-  // request
+  // ### request
   authFetch.interceptors.request.use(
     (config) => {
       config.headers.common["Authorization"] = `Bearer ${tokenState}`;
@@ -36,13 +36,12 @@ export const AuthContextProvider = ({ children }) => {
     }
   );
 
-  // response
+  // ### response
   authFetch.interceptors.response.use(
     (response) => {
       return response;
     },
     (error) => {
-      // console.log(error.response)
       if (error.response.status === 401) {
         logoutUser();
       }
@@ -59,7 +58,7 @@ export const AuthContextProvider = ({ children }) => {
    *  ### Setup User
    *
    *  @param {Object} currentUser
-   *  @param {String} endpoint
+   *  @param {String} endpoint login or register
    *
    */
 
@@ -93,6 +92,7 @@ export const AuthContextProvider = ({ children }) => {
   /**
    *  ### Update User
    *
+   *  @param {Object} currentUser
    */
 
   async function updateUser(currentUser) {
@@ -116,6 +116,7 @@ export const AuthContextProvider = ({ children }) => {
   async function logoutUser() {}
 
   const value = {
+    authFetch,
     userState,
     tokenState,
     isLoading,

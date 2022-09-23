@@ -19,7 +19,6 @@ const SideNavigation = () => {
         <ul className="side-nav-links">
           {links.map((link) => {
             const { id, title, path, icon } = link;
-
             return (
               <NavLink
                 key={id}
@@ -44,6 +43,7 @@ const SideNavigation = () => {
             </span>
             <p className="side-nav-item-title">logout</p>
           </NavLink>
+
           <p className="side-nav-footer-version">
             <strong>eCMP reports</strong> version 1.0.0
           </p>
@@ -55,8 +55,11 @@ const SideNavigation = () => {
 
 const Wrapper = styled.div`
   width: 360px;
-  min-height: 100vh;
-  position: relative;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  right: 0;
+  background: var(--color-white);
 
   .side-nav-container {
     width: 100%;
@@ -105,7 +108,7 @@ const Wrapper = styled.div`
     gap: 0.5rem;
     padding: 1rem 1.25rem;
     color: var(--color-gray-500);
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     transition: all 0.25s ease;
   }
 
@@ -120,7 +123,6 @@ const Wrapper = styled.div`
   .side-nav-item-icon {
     width: 35px;
     height: 35px;
-    border-radius: 10px;
     font-size: 1.75rem;
     color: var(--color-primary-500);
   }
@@ -145,6 +147,10 @@ const Wrapper = styled.div`
 
   .side-nav-item-inactive {
     background: none;
+  }
+
+  .side-nav-footer-version {
+    color: var(--color-gray-300);
   }
 `;
 

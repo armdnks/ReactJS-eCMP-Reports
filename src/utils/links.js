@@ -1,7 +1,7 @@
 import {
-  AiOutlineUser,
   AiOutlineAppstore,
   AiOutlineFile,
+  AiOutlineSetting,
 } from "react-icons/ai";
 
 const links = [
@@ -19,9 +19,9 @@ const links = [
   },
   {
     id: 3,
-    title: "profile",
-    path: "/profile",
-    icon: <AiOutlineUser />,
+    title: "settings",
+    path: "/settings",
+    icon: <AiOutlineSetting />,
   },
 ];
 

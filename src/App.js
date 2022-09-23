@@ -7,11 +7,12 @@ import {
 
 import { Landing, NotFound, Register, ProtectedRoute } from "./pages";
 import {
-  SharedLayout,
-  Home,
   AllReports,
   AddReport,
-  Profile,
+  Home,
+  Settings,
+  ReportDetail,
+  SharedLayout,
 } from "./pages/dashboard";
 
 const App = () => {
@@ -28,9 +29,10 @@ const App = () => {
             }
           >
             <Route index element={<Home />} />
-            <Route path="/all-reports" element={<AllReports />} />
             <Route path="/add-report" element={<AddReport />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/all-reports" element={<AllReports />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/report/:id" element={<ReportDetail />} />
           </Route>
 
           <Route path="/register" element={<Register />} />
