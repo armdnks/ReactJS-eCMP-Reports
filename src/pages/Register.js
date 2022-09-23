@@ -60,7 +60,7 @@ const Register = () => {
     <RegisterPage>
       <div className="register-page-container">
         <div className="register-page-header">
-          <h1 className="register-page-title">Join Us</h1>
+          <h1 className="register-page-title">{values.isMember ? "login" : "register"}</h1>
           <p className="register-page-subtitle">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium, placeat.
           </p>
@@ -95,6 +95,7 @@ const Register = () => {
 
           {!values.isMember && (
             <FormInput
+              label="confirm password"
               name="confirmPassword"
               type="text"
               value={values.confirmPassword}
@@ -147,8 +148,15 @@ const RegisterPage = styled.main`
 
   .register-page-title {
     color: var(--color-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     font-size: 3rem;
+    text-transform: capitalize;
+  }
+
+  .register-page-subtitle {
+    border-left: 0.25rem solid var(--color-gray-500);
+    color: var(--color-gray-500);
+    padding-left: 0.75rem;
   }
 
   .register-page-form {
@@ -167,6 +175,7 @@ const RegisterPage = styled.main`
     align-items: center;
     gap: 0.25rem;
     margin-top: 1rem;
+    color: var(--color-gray-500);
   }
 
   .register-page-member-btn {

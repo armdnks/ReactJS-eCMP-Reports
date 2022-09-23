@@ -30,7 +30,7 @@ const NotFound = () => {
       </div>
 
       <div className="not-found-container">
-        <div className="notfound-image">
+        <div className="not-found-image">
           <img src="img/not-found-img.jpg" alt="not-found-img.jpg" />
         </div>
 
@@ -81,12 +81,12 @@ const Wrapper = styled.div`
     padding: 0 2rem;
   }
 
-  .notfound-image {
+  .not-found-image {
     width: 100%;
     height: 360px;
   }
 
-  .notfound-image img {
+  .not-found-image img {
     width: 100%;
     height: 100%;
     object-fit: contain;

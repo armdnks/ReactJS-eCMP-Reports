@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { Home, Landing, NotFound, Register, ProtectedRoute } from "./pages";
+
+import { Landing, NotFound, Register, ProtectedRoute } from "./pages";
+import { SharedLayout, Home, AllReports, AddReport, Profile } from "./pages/dashboard";
 
 const App = () => {
   return (
@@ -10,10 +12,15 @@ const App = () => {
             path="/"
             element={
               <ProtectedRoute>
-                <Home />
+                <SharedLayout />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<Home />} />
+            <Route path="/all-reports" element={<AllReports />} />
+            <Route path="/add-report" element={<AddReport />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
 
           <Route path="/register" element={<Register />} />
           <Route path="/landing" element={<Landing />} />

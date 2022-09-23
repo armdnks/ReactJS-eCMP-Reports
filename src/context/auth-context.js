@@ -9,7 +9,7 @@ const userStorage = localStorage.getItem("user");
 
 export const AuthContextProvider = ({ children }) => {
   // ### useState
-  const [tokenState, setTokenState] = useState(JSON.parse(tokenStorage) || "");
+  const [tokenState, setTokenState] = useState(tokenStorage || "");
   const [userState, setUserState] = useState(JSON.parse(userStorage) || null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -19,6 +19,41 @@ export const AuthContextProvider = ({ children }) => {
     const oneDay = 1000 * 60 * 60 * 24; // miliseconds
     if (userState) setTimeout(() => localStorage.clear(), oneDay);
   }, [userState]);
+
+  // axios
+  const authFetch = axios.create({
+    baseURL: "/api/v1",
+  });
+
+  // request
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.common["Authorization"] = `Bearer ${tokenState}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  // response
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      // console.log(error.response)
+      if (error.response.status === 401) {
+        logoutUser();
+      }
+      return Promise.reject(error);
+    }
+  );
+
+  function addUserToLocalStorage({ token, user }) {
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+  }
 
   /**
    *  ### Setup User
@@ -36,23 +71,14 @@ export const AuthContextProvider = ({ children }) => {
       };
 
       const { data } = await axios.post(
-        `${process.env.REACT_APP_URL}/auth/${endpoint}`,
+        `/api/v1/auth/${endpoint}`,
         currentUser,
         config
       );
 
       const { token, user } = data;
 
-      const setupUserStorage = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        password: user.password,
-        role: user.role,
-      };
-
-      localStorage.setItem("token", JSON.stringify(token));
-      localStorage.setItem("user", JSON.stringify(setupUserStorage));
+      addUserToLocalStorage({ token, user });
 
       setTokenState(token);
       setUserState(user);
@@ -64,12 +90,38 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
+  /**
+   *  ### Update User
+   *
+   */
+
+  async function updateUser(currentUser) {
+    try {
+      const config = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      };
+
+      await authFetch.put(`/auth/me`, currentUser, config);
+
+      const { data } = await authFetch.get(`/auth/me`);
+      const { token, user } = data;
+
+      addUserToLocalStorage({ token, user });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function logoutUser() {}
+
   const value = {
     userState,
     tokenState,
     isLoading,
     isError,
     setupUser,
+    updateUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

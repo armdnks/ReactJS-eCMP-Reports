@@ -3,8 +3,9 @@ import useAuthContext from "../context/auth-context";
 
 const ProtectedRoute = ({ children }) => {
   const { userState } = useAuthContext();
-
-  if (!userState) return <Navigate to="/landing" />;
+  if (!userState) {
+    return <Navigate to="/landing" />;
+  }
 
   return children;
 };
