@@ -1,6 +1,7 @@
 import Home from "./Home";
 import Landing from "./Landing";
-import Register from "./Register";
 import NotFound from "./NotFound";
+import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
 
-export { Home, Landing, Register, NotFound };
+export { Home, Landing, NotFound, Register, ProtectedRoute };

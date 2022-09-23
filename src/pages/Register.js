@@ -5,7 +5,6 @@ import { FormInput } from "../components/form-components";
 import { Button } from "../components";
 
 import useAuthContext from "../context/auth-context.js";
-
 import styled from "styled-components";
 
 const initialState = {
@@ -20,7 +19,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
 
-  const { setupUser, getToken } = useAuthContext();
+  const { userState, setupUser } = useAuthContext();
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -29,11 +28,13 @@ const Register = () => {
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const { name, email, password, confirmPassword, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
+      // TODO: Alert Message
       return;
     }
 
@@ -47,13 +48,13 @@ const Register = () => {
   };
 
   useEffect(() => {
-    // FIXME: Fix navigate("/") when user successfully register or login!
-    if (getToken) {
+    // FIXME: Fix navigate("/") when user successfully register or login! -- DONE!
+    if (userState) {
       setTimeout(() => {
         navigate("/");
       }, 1500);
     }
-  }, [getToken, navigate]);
+  }, [userState, navigate]);
 
   return (
     <RegisterPage>
@@ -61,8 +62,7 @@ const Register = () => {
         <div className="register-page-header">
           <h1 className="register-page-title">Join Us</h1>
           <p className="register-page-subtitle">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Laudantium, placeat.
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium, placeat.
           </p>
         </div>
 
@@ -103,19 +103,11 @@ const Register = () => {
             />
           )}
 
-          <Button
-            type="submit"
-            title={values.isMember ? "register" : "login"}
-            className="register-form-btn"
-          />
+          <Button type="submit" title={values.isMember ? "login" : "register"} className="register-form-btn" />
 
           <p className="register-page-member">
             {values.isMember ? "Not a member yet?" : "Already a member?"}
-            <button
-              type="button"
-              onClick={toggleMember}
-              className="register-page-member-btn"
-            >
+            <button type="button" onClick={toggleMember} className="register-page-member-btn">
               {values.isMember ? "Register" : "Login"}
             </button>
           </p>
@@ -134,11 +126,7 @@ const RegisterPage = styled.main`
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(
-    160deg,
-    var(--color-accent),
-    var(--color-primary)
-  );
+  background: linear-gradient(160deg, var(--color-accent), var(--color-primary));
 
   .register-page-container {
     width: 100%;
