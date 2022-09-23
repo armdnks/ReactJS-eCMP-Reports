@@ -60,9 +60,12 @@ const Register = () => {
     <RegisterPage>
       <div className="register-page-container">
         <div className="register-page-header">
-          <h1 className="register-page-title">{values.isMember ? "login" : "register"}</h1>
+          <h1 className="register-page-title">
+            {values.isMember ? "login" : "register"}
+          </h1>
           <p className="register-page-subtitle">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium, placeat.
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            Laudantium, placeat.
           </p>
         </div>
 
@@ -104,11 +107,19 @@ const Register = () => {
             />
           )}
 
-          <Button type="submit" title={values.isMember ? "login" : "register"} className="register-form-btn" />
+          <Button
+            type="submit"
+            title={values.isMember ? "login" : "register"}
+            className="register-form-btn"
+          />
 
           <p className="register-page-member">
             {values.isMember ? "Not a member yet?" : "Already a member?"}
-            <button type="button" onClick={toggleMember} className="register-page-member-btn">
+            <button
+              type="button"
+              onClick={toggleMember}
+              className="register-page-member-btn"
+            >
               {values.isMember ? "Register" : "Login"}
             </button>
           </p>
@@ -127,7 +138,11 @@ const RegisterPage = styled.main`
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(160deg, var(--color-accent), var(--color-primary));
+  background: linear-gradient(
+    160deg,
+    var(--color-accent),
+    var(--color-primary)
+  );
 
   .register-page-container {
     width: 100%;

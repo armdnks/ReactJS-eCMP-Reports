@@ -4,6 +4,9 @@
   --color-black: #000;
   --color-white: #fff;
 
+  --color-danger: #ff5758;
+  --color-danger-accent: #ffcece;
+
   --color-gray-900: hsl(0, 0%, 10%);
   --color-gray-800: hsl(0, 0%, 20%);
   --color-gray-700: hsl(0, 0%, 30%);
@@ -38,4 +41,46 @@ button {
   border: none;
   background: none;
   font-size: 1rem;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 1rem 1.5rem;
+  border-radius: 0.25rem;
+  text-transform: capitalize;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.btn:hover {
+  background: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.btn:active {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-block {
+  width: 100%;
+  display: block;
+}
+
+.btn-danger {
+  background: var(--color-danger);
+}
+
+.btn-danger:hover {
+  background: var(--color-danger-accent);
+  color: var(--color-danger);
+}
+
+.btn-danger:active {
+  background: var(--color-danger);
+  color: var(--color-white);
 }

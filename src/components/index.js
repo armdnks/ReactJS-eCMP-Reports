@@ -1,3 +1,4 @@
 import Button from "./Button";
+import SideNavigation from "./SideNavigation";
 
-export { Button };
+export { Button, SideNavigation };
