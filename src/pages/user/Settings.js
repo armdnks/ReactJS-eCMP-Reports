@@ -9,9 +9,9 @@ const Settings = () => {
       <div className="settings-page-container">
         <PageTitle title="settings" />
 
-        <div className="setting-page-control">
+        {/* <div className="setting-page-control">
           <h1>darkmode</h1>
-        </div>
+        </div> */}
 
         <Profile />
       </div>

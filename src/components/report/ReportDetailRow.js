@@ -18,10 +18,19 @@ const Wrapper = styled.div`
     flex: 1;
     color: var(--color-primary-main);
     text-transform: capitalize;
+    font-weight: 500;
   }
 
   .report-detail-row-body {
     flex: 2;
+  }
+
+  @media (max-width: 720px) {
+    & {
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
   }
 `;
 

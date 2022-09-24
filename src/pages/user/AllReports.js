@@ -60,8 +60,9 @@ const Wrapper = styled.div`
     top: 2.5rem;
     left: 0;
     padding: 1rem;
-    background: var(--color-gray-light);
-    border-radius: 0.25rem;
+    /* background: var(--color-gray-light); */
+    /* border-radius: 0.25rem; */
+    border-right: 1px solid var(--color-gray-light);
   }
 
   .all-reports-main {
@@ -72,7 +73,7 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 `;
 
