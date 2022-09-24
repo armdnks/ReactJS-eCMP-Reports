@@ -28,25 +28,24 @@ export const ReportContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch(`/reports/${id}`);
       const { report } = data;
+
       setReportState(report);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function createReport(data) {
+  async function createReport(formdata) {
     try {
       const config = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       };
 
-      await authFetch.post(
-        `${process.env.REACT_APP_URL}/api/v1/reports`,
-        data,
-        config
-      );
+      const { data } = await authFetch.post(`${process.env.REACT_APP_URL}/api/v1/reports`, formdata, config);
+      const { report } = data;
 
+      setReportState(report);
       setReportData({}); // reset form
     } catch (error) {
       console.log(error);
@@ -63,9 +62,7 @@ export const ReportContextProvider = ({ children }) => {
     createReport,
   };
 
-  return (
-    <ReportContext.Provider value={value}>{children}</ReportContext.Provider>
-  );
+  return <ReportContext.Provider value={value}>{children}</ReportContext.Provider>;
 };
 
 export default function useReportContext() {

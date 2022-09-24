@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 import { ReportDetailRow } from "../../components/report";
 
@@ -9,9 +7,7 @@ import snakeToCamel from "../../utils/snakeToCamel";
 import styled from "styled-components";
 
 const ReportDetail = () => {
-  const { id } = useParams();
-
-  const { reportState: report, getReport } = useReportContext();
+  const { reportState: report } = useReportContext();
 
   const reportChangeCase = snakeToCamel(report);
 
@@ -38,11 +34,6 @@ const ReportDetail = () => {
     mdEmail,
     mdPhone,
   } = reportChangeCase;
-
-  useEffect(() => {
-    getReport(id);
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <Wrapper>

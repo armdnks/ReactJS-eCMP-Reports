@@ -1,12 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { Button, FormSelect } from "../shared";
 import FormPatient from "./FormPatient";
 import FormDoctor from "./FormDoctor";
 
 import useReportContext from "../../context/report-context";
-
 import styled from "styled-components";
 
 const Form = () => {
+  const navigate = useNavigate();
   const { reportData, changeHandler, createReport } = useReportContext();
 
   function onChangeHandler(e) {
@@ -16,8 +17,10 @@ const Form = () => {
 
   function onSubmitHandler(e) {
     e.preventDefault();
-    // console.log(reportData);
+
     createReport(reportData);
+
+    navigate(`/report`);
   }
 
   return (
@@ -35,11 +38,7 @@ const Form = () => {
 
           <FormPatient />
           <FormDoctor />
-          <Button
-            type="submit"
-            title="submit report"
-            className="form-main-submit-btn btn-block"
-          />
+          <Button type="submit" title="submit report" className="form-main-submit-btn btn-block" />
         </form>
       </div>
     </Wrapper>

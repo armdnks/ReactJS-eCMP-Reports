@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import { Landing, NotFound, Register, ProtectedRoute } from "./pages";
-import { AllReports, AddReport, Home, Settings, ReportDetail, SharedLayout } from "./pages/user";
+import { AllReports, AddReport, Home, Settings, ReportDetail, ReportResult, SharedLayout } from "./pages/user";
 
 const App = () => {
   return (
@@ -20,6 +20,7 @@ const App = () => {
             <Route path="/add-report" element={<AddReport />} />
             <Route path="/all-reports" element={<AllReports />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/report" element={<ReportResult />} />
             <Route path="/report/:id" element={<ReportDetail />} />
           </Route>
 
