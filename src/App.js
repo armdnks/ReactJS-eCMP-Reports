@@ -1,19 +1,7 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import { Landing, NotFound, Register, ProtectedRoute } from "./pages";
-import {
-  AllReports,
-  AddReport,
-  Home,
-  Settings,
-  ReportDetail,
-  SharedLayout,
-} from "./pages/dashboard";
+import { AllReports, AddReport, Home, Settings, ReportDetail, SharedLayout } from "./pages/user";
 
 const App = () => {
   return (

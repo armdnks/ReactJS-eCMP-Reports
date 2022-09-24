@@ -4,25 +4,20 @@ import axios from "axios";
 
 const AuthContext = createContext();
 
-// ### Local Storage
 const tokenStorage = localStorage.getItem("token");
 const userStorage = localStorage.getItem("user");
 
 export const AuthContextProvider = ({ children }) => {
-  // ### useState
   const [tokenState, setTokenState] = useState(tokenStorage || null);
   const [userState, setUserState] = useState(JSON.parse(userStorage) || null);
 
-  // ### useEffect
   useEffect(() => {
     const oneDay = 1000 * 60 * 60 * 24; // miliseconds
     if (userState) setTimeout(() => localStorage.clear(), oneDay);
   }, [userState]);
 
-  // ### axios
-  const authFetch = axios.create({ baseURL: "/api/v1" });
+  const authFetch = axios.create({ baseURL: `${process.env.REACT_APP_URL}/api/v1` });
 
-  // ### request
   authFetch.interceptors.request.use(
     (config) => {
       config.headers.common["Authorization"] = `Bearer ${tokenState}`;
@@ -33,7 +28,6 @@ export const AuthContextProvider = ({ children }) => {
     }
   );
 
-  // ### response
   authFetch.interceptors.response.use(
     (response) => {
       return response;
@@ -56,14 +50,6 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.removeItem("user");
   }
 
-  /**
-   *  ### Setup User
-   *
-   *  @param {Object} currentUser
-   *  @param {String} endpoint login or register
-   *
-   */
-
   async function setupUser({ currentUser, endpoint }) {
     try {
       const config = {
@@ -71,7 +57,7 @@ export const AuthContextProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
       };
 
-      const { data } = await axios.post(`/api/v1/auth/${endpoint}`, currentUser, config);
+      const { data } = await axios.post(`${process.env.REACT_APP_URL}/api/v1/auth/${endpoint}`, currentUser, config);
 
       const { token, user } = data;
 
@@ -87,12 +73,6 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
-  /**
-   *  ### Update User
-   *
-   *  @param {Object} currentUser
-   */
-
   async function updateUser(currentUser) {
     try {
       const config = {
@@ -100,7 +80,7 @@ export const AuthContextProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
       };
 
-      await authFetch.put(`/auth/me`, currentUser, config);
+      await authFetch.put(`${process.env.REACT_APP_URL}/auth/me`, currentUser, config);
 
       const { data } = await authFetch.get(`/auth/me`);
       const { token, user } = data;

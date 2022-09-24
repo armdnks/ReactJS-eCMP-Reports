@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { ReportItem } from "../../components/report";
-import { Container } from "../../components/layout";
+import { PageTitle } from "../../components/shared";
 
 import useReportContext from "../../context/report-context";
 import styled from "styled-components";
@@ -15,21 +15,25 @@ const AllReports = () => {
   }, []);
 
   return (
-    <Container>
-      <Wrapper>
-        <div className="all-reports-container">
-          <header className="all-reports-header">
-            <h1 className="all-reports-header-title">all reports</h1>
-          </header>
+    <Wrapper>
+      <div className="all-reports-container">
+        <div className="all-reports-filter">
+          <div className="all-reports-filter-content">
+            <h1>filter</h1>
+          </div>
+        </div>
+
+        <main className="all-reports-main">
+          <PageTitle title="all reports" />
 
           <div className="all-reports-list">
             {reports.map((report) => {
               return <ReportItem key={report.id} report={report} />;
             })}
           </div>
-        </div>
-      </Wrapper>
-    </Container>
+        </main>
+      </div>
+    </Wrapper>
   );
 };
 
@@ -37,9 +41,31 @@ const Wrapper = styled.div`
   width: 100%;
 
   .all-reports-container {
-    width: 100%;
     max-width: 1080px;
     margin: 0 auto;
+    padding: 3.5rem 1.5rem 5rem;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 2rem;
+  }
+
+  .all-reports-filter {
+    width: 100%;
+    height: 100%;
+  }
+
+  .all-reports-filter-content {
+    position: sticky;
+    top: 2.5rem;
+    left: 0;
+    padding: 1rem;
+    background: var(--color-gray-light);
+    border-radius: 0.25rem;
+  }
+
+  .all-reports-main {
+    width: 100%;
   }
 
   .all-reports-list {

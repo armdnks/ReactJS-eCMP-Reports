@@ -1,6 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
-
+import { createContext, useContext, useState } from "react";
 import useAuthContext from "./auth-context";
 
 const ReportContext = createContext();
@@ -8,50 +6,53 @@ const ReportContext = createContext();
 export const ReportContextProvider = ({ children }) => {
   const { authFetch } = useAuthContext();
 
-  // ### useState
   const [reportState, setReportState] = useState([]);
-  const [formData, setFormData] = useState({});
+  const [reportData, setReportData] = useState({});
 
   function changeHandler({ name, value }) {
-    setFormData({ ...formData, [name]: value });
+    setReportData({ ...reportData, [name]: value });
   }
 
   async function getAllReports() {
-    let url = `/reports`;
-
     try {
-      const { data } = await authFetch(url);
+      const { data } = await authFetch(`/reports`);
       const { reports } = data;
       setReportState(reports);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   }
 
-  async function createReport() {
+  async function createReport(data) {
     try {
       const config = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       };
 
-      await axios.post(`${process.env.REACT_APP_URL}/reports`, formData, config);
+      await authFetch.post(
+        `${process.env.REACT_APP_URL}/api/v1/reports`,
+        data,
+        config
+      );
 
-      setFormData({}); // reset form
+      setReportData({}); // reset form
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   }
 
   const value = {
     reportState,
-    formData,
+    reportData,
     getAllReports,
     changeHandler,
     createReport,
   };
 
-  return <ReportContext.Provider value={value}>{children}</ReportContext.Provider>;
+  return (
+    <ReportContext.Provider value={value}>{children}</ReportContext.Provider>
+  );
 };
 
 export default function useReportContext() {

@@ -65,13 +65,13 @@ const Wrapper = styled.div`
     left: 0;
     width: 100%;
     height: 0.75rem;
-    background: var(--color-gray-100);
+    background: var(--color-gray-light);
   }
 
   .not-found-progress-bar {
     width: 0;
     height: 100%;
-    background: var(--color-primary-500);
+    background: var(--color-primary-main);
   }
 
   .not-found-container {
@@ -104,16 +104,16 @@ const Wrapper = styled.div`
   }
 
   .not-found-title {
-    color: var(--color-primary-500);
+    color: var(--color-primary-main);
     text-transform: uppercase;
   }
 
   .not-found-body {
-    color: var(--color-gray-400);
+    color: var(--color-gray-maib);
   }
 
   .not-found-btn {
-    background: var(--color-primary-500);
+    background: var(--color-primary-main);
     color: var(--color-white);
     padding: 1.25rem 1.5rem;
     border-radius: 0.5rem;
@@ -122,12 +122,12 @@ const Wrapper = styled.div`
   }
 
   .not-found-btn:hover {
-    background: var(--color-primary-200);
-    color: var(--color-primary-500);
+    background: var(--color-primary-light);
+    color: var(--color-primary-main);
   }
 
   .not-found-btn:active {
-    background: var(--color-primary-500);
+    background: var(--color-primary-main);
     color: var(--color-white);
   }
 `;

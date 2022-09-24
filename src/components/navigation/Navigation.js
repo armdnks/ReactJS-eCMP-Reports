@@ -14,7 +14,7 @@ const Navigation = () => {
     <Wrapper>
       <div className="main-nav-container">
         <div className="main-nav-logo">
-          <h3>logo</h3>
+          <img src="img/company-logo-white.png" alt="company-logo-white.png" />
         </div>
 
         <div className="main-nav-links">
@@ -52,7 +52,20 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .main-nav-logo {
+    height: 100%;
+  }
+
+  .main-nav-logo img {
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .main-nav-logo {
+    height: 100%;
   }
 
   .main-nav-links {
