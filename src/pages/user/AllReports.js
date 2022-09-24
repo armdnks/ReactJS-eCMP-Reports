@@ -7,7 +7,7 @@ import useReportContext from "../../context/report-context";
 import styled from "styled-components";
 
 const AllReports = () => {
-  const { reportState: reports, getAllReports } = useReportContext();
+  const { reportsState: reports, getAllReports } = useReportContext();
 
   useEffect(() => {
     getAllReports();
@@ -72,7 +72,7 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 `;
 

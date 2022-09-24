@@ -1,3 +1,4 @@
+import ReportDetailRow from "./ReportDetailRow";
 import ReportItem from "./ReportItem";
 
-export { ReportItem };
+export { ReportDetailRow, ReportItem };

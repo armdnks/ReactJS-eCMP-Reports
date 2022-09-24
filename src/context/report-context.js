@@ -6,7 +6,8 @@ const ReportContext = createContext();
 export const ReportContextProvider = ({ children }) => {
   const { authFetch } = useAuthContext();
 
-  const [reportState, setReportState] = useState([]);
+  const [reportsState, setReportsState] = useState([]);
+  const [reportState, setReportState] = useState({});
   const [reportData, setReportData] = useState({});
 
   function changeHandler({ name, value }) {
@@ -17,7 +18,17 @@ export const ReportContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch(`/reports`);
       const { reports } = data;
-      setReportState(reports);
+      setReportsState(reports);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function getReport(id) {
+    try {
+      const { data } = await authFetch(`/reports/${id}`);
+      const { report } = data;
+      setReportState(report);
     } catch (error) {
       console.log(error);
     }
@@ -43,9 +54,11 @@ export const ReportContextProvider = ({ children }) => {
   }
 
   const value = {
+    reportsState,
     reportState,
     reportData,
     getAllReports,
+    getReport,
     changeHandler,
     createReport,
   };
