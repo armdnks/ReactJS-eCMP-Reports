@@ -1,5 +1,6 @@
 import Form from "./Form";
 import FormDoctor from "./FormDoctor";
 import FormPatient from "./FormPatient";
+import FormSideEffects from "./FormSideEffects";
 
-export { FormDoctor, FormPatient, Form };
+export { Form, FormDoctor, FormPatient, FormSideEffects };

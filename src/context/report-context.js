@@ -42,11 +42,25 @@ export const ReportContextProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
       };
 
-      const { data } = await authFetch.post(`${process.env.REACT_APP_URL}/api/v1/reports`, formdata, config);
+      const { data } = await authFetch.post(
+        `${process.env.REACT_APP_URL}/api/v1/reports`,
+        formdata,
+        config
+      );
       const { report } = data;
 
       setReportState(report);
       setReportData({}); // reset form
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function deleteReport(id) {
+    try {
+      await authFetch.delete(`/reports/${id}`);
+
+      getAllReports();
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +74,7 @@ export const ReportContextProvider = ({ children }) => {
     getReport,
     changeHandler,
     createReport,
+    deleteReport,
   };
 
   return <ReportContext.Provider value={value}>{children}</ReportContext.Provider>;

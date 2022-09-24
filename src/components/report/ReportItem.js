@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import snakeToCamel from "../../utils/snakeToCamel";
 
-const ReportItem = ({ report }) => {
-  const reportChangeCase = snakeToCamel(report);
+import useReportContext from "../../context/report-context";
 
-  // console.log(reportChangeCase);
+const ReportItem = ({ report }) => {
+  const { deleteReport } = useReportContext();
+
+  const reportChangeCase = snakeToCamel(report);
 
   const {
     id,
@@ -18,6 +20,10 @@ const ReportItem = ({ report }) => {
     user,
     createdAt,
   } = reportChangeCase;
+
+  function onDeleteReport() {
+    if (window.confirm("are you sure?")) deleteReport(id);
+  }
 
   return (
     <Wrapper>
@@ -66,7 +72,9 @@ const ReportItem = ({ report }) => {
             preview
           </Link>
           <button className="report-item-actions-btn">edit</button>
-          <button className="report-item-actions-btn">delete</button>
+          <button onClick={onDeleteReport} className="report-item-actions-btn">
+            delete
+          </button>
         </div>
       </div>
     </Wrapper>

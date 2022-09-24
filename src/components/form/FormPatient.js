@@ -1,6 +1,6 @@
-import { FormCheckbox, FormInput, FormRadio } from "../shared";
+import { FormInput, FormRadio } from "../shared";
+import FormSideEffects from "./FormSideEffects";
 import useReportContext from "../../context/report-context";
-
 import styled from "styled-components";
 
 const FormPatient = () => {
@@ -34,12 +34,7 @@ const FormPatient = () => {
         placeholder="Please input patient last name"
       />
 
-      <FormRadio
-        name="patient_gender"
-        options={["male", "female"]}
-        onChange={onChangeHandler}
-        label="patient gender"
-      />
+      <FormRadio name="patient_gender" options={["male", "female"]} onChange={onChangeHandler} label="patient gender" />
 
       <FormInput
         type="number"
@@ -103,41 +98,9 @@ const FormPatient = () => {
         onChange={onChangeHandler}
         label="clinical result"
       />
-      {/* <div className="form-control-column">
-        <label htmlFor="s_effects" className="form-sub-label">
-          side effects
-        </label>
 
-        <FormCheckbox
-          name="s_effects_mild"
-          valueSelect={reportData.s_effects_mild_grade}
-          valueInput={reportData.s_effects_mild_desc || ""}
-          onChange={onChangeHandler}
-          label="mild"
-          onClick={() => sideEffectsClickHandler("mild")}
-          disabled={!isSideEffectsChecked.mild}
-        />
-
-        <FormCheckbox
-          name="s_effects_moderate"
-          valueSelect={reportData.s_effects_moderate_grade}
-          valueInput={reportData.s_effects_moderate_desc || ""}
-          onChange={onChangeHandler}
-          label="moderate"
-          onClick={() => sideEffectsClickHandler("moderate")}
-          disabled={!isSideEffectsChecked.moderate}
-        />
-
-        <FormCheckbox
-          name="s_effects_severe"
-          valueSelect={reportData.s_effects_severe_grade}
-          valueInput={reportData.s_effects_severe_desc || ""}
-          onChange={onChangeHandler}
-          label="severe"
-          onClick={() => sideEffectsClickHandler("severe")}
-          disabled={!isSideEffectsChecked.severe}
-        />
-      </div> */}
+      {/* MARK: SIDE EFFECTS */}
+      <FormSideEffects />
     </Wrapper>
   );
 };

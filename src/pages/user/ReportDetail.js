@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -6,10 +6,13 @@ import { ReportDetailRow } from "../../components/report";
 
 import useReportContext from "../../context/report-context";
 import snakeToCamel from "../../utils/snakeToCamel";
+import toCapitalize from "../../utils/toCapitalize";
+
 import styled from "styled-components";
 
 const ReportDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { reportState: report, getReport } = useReportContext();
 
@@ -40,9 +43,11 @@ const ReportDetail = () => {
   } = reportChangeCase;
 
   useEffect(() => {
-    getReport(id);
+    if (id) getReport(id);
     // eslint-disable-next-line
   }, []);
+
+  if (Object.values(report).length === 0) navigate("/");
 
   return (
     <Wrapper>
@@ -70,7 +75,10 @@ const ReportDetail = () => {
           <div className="report-detail-section">
             <h1 className="report-detail-section-title">patient information</h1>
 
-            <ReportDetailRow title="name" body={patientFirstName + " " + patientLastName} />
+            <ReportDetailRow
+              title="name"
+              body={patientFirstName + " " + patientLastName}
+            />
 
             <ReportDetailRow title="gender" body={patientGender} />
             <ReportDetailRow title="age" body={patientAge} />
@@ -81,22 +89,31 @@ const ReportDetail = () => {
             <ReportDetailRow title="indication" body={indicationCommon} />
             <ReportDetailRow title="indication other" body={indicationOther || "-"} />
 
-            <ReportDetailRow title="total dosing per cycle" body={totalDosingPerCycle + " mg"} />
+            <ReportDetailRow
+              title="total dosing per cycle"
+              body={totalDosingPerCycle + " mg"}
+            />
             <ReportDetailRow title="clinical result" body={clinicalResult} />
 
             <div className="report-detail-effects">
               <h4 className="report-detail-effects-title">side effects</h4>
 
-              <h4 className="report-detail-effects-subtitle">mild</h4>
-              <ReportDetailRow title="grade" body={sEffectsMildGrade || "-"} />
+              <ReportDetailRow
+                title="mild"
+                body={sEffectsMildGrade ? toCapitalize(sEffectsMildGrade) : "-"}
+              />
               <ReportDetailRow title="description" body={sEffectsMildDesc || "-"} />
 
-              <h4 className="report-detail-effects-subtitle">moderate</h4>
-              <ReportDetailRow title="grade" body={sEffectsModerateGrade || "-"} />
+              <ReportDetailRow
+                title="moderate"
+                body={sEffectsModerateGrade ? toCapitalize(sEffectsModerateGrade) : "-"}
+              />
               <ReportDetailRow title="description" body={sEffectsModerateDesc || "-"} />
 
-              <h4 className="report-detail-effects-subtitle">severe</h4>
-              <ReportDetailRow title="grade" body={sEffectsSevereGrade || "-"} />
+              <ReportDetailRow
+                title="severe"
+                body={sEffectsSevereGrade ? toCapitalize(sEffectsSevereGrade) : "-"}
+              />
               <ReportDetailRow title="description" body={sEffectsSevereDesc || "-"} />
             </div>
           </div>
