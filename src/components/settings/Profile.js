@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { FormInput } from "../form";
-import Button from "../Button";
+import { Button, FormInput } from "../shared";
 
 import useAuthContext from "../../context/auth-context";
 import styled from "styled-components";

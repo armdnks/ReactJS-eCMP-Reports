@@ -13,7 +13,7 @@ const Footer = () => {
 const Wrapper = styled.footer`
   width: 100%;
   height: 50px;
-  background: var(--color-primary-900);
+  background: var(--color-gray-main);
 
   .main-footer-container {
     width: 100%;

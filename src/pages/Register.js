@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoLogInOutline, IoDocumentTextOutline, IoEyeOff, IoEye } from "react-icons/io5";
-import { toast } from "react-toastify";
 
-import { FormInput } from "../components/form";
-import { Button } from "../components";
+import { Button, FormInput } from "../components/shared";
 
 import useAuthContext from "../context/auth-context.js";
 import styled from "styled-components";
@@ -79,7 +77,7 @@ const Register = () => {
           <FormInput name="email" type="text" value={values.email} onChange={handleChange} placeholder="e.g. john@email.com" />
 
           <div className="register-page-password-field">
-            <button onClick={togglePassword} className="register-page-password-field-icon">
+            <button type="button" onClick={togglePassword} className="register-page-password-field-icon">
               {isVisible ? <IoEye /> : <IoEyeOff />}
             </button>
             <FormInput name="password" type={isVisible ? "text" : "password"} value={values.password} onChange={handleChange} placeholder="Your secret password" />
@@ -179,6 +177,7 @@ const RegisterPage = styled.main`
 
   .register-page-password-field {
     position: relative;
+    z-index: 9;
   }
 
   .register-page-password-field-icon {

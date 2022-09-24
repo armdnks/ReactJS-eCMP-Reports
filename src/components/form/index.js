@@ -1,6 +1,5 @@
-import FormCheckbox from "./FormCheckbox";
-import FormInput from "./FormInput";
-import FormRadio from "./FormRadio";
-import FormSelect from "./FormSelect";
+import Form from "./Form";
+import FormDoctor from "./FormDoctor";
+import FormPatient from "./FormPatient";
 
-export { FormCheckbox, FormInput, FormRadio, FormSelect };
+export { FormDoctor, FormPatient, Form };

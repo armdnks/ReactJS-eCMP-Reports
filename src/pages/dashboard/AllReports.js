@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 import { ReportItem } from "../../components/report";
+import { Container } from "../../components/layout";
 
 import useReportContext from "../../context/report-context";
 import styled from "styled-components";
@@ -14,19 +15,21 @@ const AllReports = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <div className="all-reports-container">
-        <header className="all-reports-header">
-          <h1 className="all-reports-header-title">all reports</h1>
-        </header>
+    <Container>
+      <Wrapper>
+        <div className="all-reports-container">
+          <header className="all-reports-header">
+            <h1 className="all-reports-header-title">all reports</h1>
+          </header>
 
-        <div className="all-reports-list">
-          {reports.map((report) => {
-            return <ReportItem key={report.id} report={report} />;
-          })}
+          <div className="all-reports-list">
+            {reports.map((report) => {
+              return <ReportItem key={report.id} report={report} />;
+            })}
+          </div>
         </div>
-      </div>
-    </Wrapper>
+      </Wrapper>
+    </Container>
   );
 };
 

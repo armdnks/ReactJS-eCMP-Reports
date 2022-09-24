@@ -1,4 +1,4 @@
-import useUIContext from "../context/ui-context";
+import useUIContext from "../../context/ui-context";
 
 import styled from "styled-components";
 

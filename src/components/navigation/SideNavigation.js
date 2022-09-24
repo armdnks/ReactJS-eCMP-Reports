@@ -1,8 +1,8 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineLogout } from "react-icons/ai";
 
-import useAuthContext from "../context/auth-context";
-import links from "../utils/links";
+import useAuthContext from "../../context/auth-context";
+import links from "../../utils/links";
 import styled from "styled-components";
 
 const SideNavigation = () => {
