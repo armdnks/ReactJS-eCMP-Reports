@@ -18,7 +18,7 @@ const ButtonStyle = styled.button`
   & {
     cursor: pointer;
     border: none;
-    background: var(--color-primary-500);
+    background: var(--color-primary-main);
     color: var(--color-white);
     padding: 1rem 1.5rem;
     border-radius: 0.25rem;
@@ -28,12 +28,12 @@ const ButtonStyle = styled.button`
   }
 
   &:hover {
-    background: var(--color-primary-200);
-    color: var(--color-primary-600);
+    background: var(--color-primary-light);
+    color: var(--color-primary-main);
   }
 
   &:active {
-    background: var(--color-primary-500);
+    background: var(--color-primary-main);
     color: var(--color-white);
   }
 `;

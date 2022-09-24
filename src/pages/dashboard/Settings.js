@@ -1,92 +1,20 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Profile } from "../../components/settings";
 
-import { FormInput } from "../../components/form-components";
-import { Button } from "../../components";
-
-import useAuthContext from "../../context/auth-context";
 import styled from "styled-components";
 
 const Settings = () => {
-  const { userState: user, updateUser } = useAuthContext();
-
-  const [name, setName] = useState(user?.name);
-  const [email, setEmail] = useState(user?.email);
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    if (!name || !email) {
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      return;
-    }
-
-    updateUser({ name, email, password, confirmPassword });
-
-    setPassword("");
-    setConfirmPassword("");
-  }
-
   return (
     <Wrapper>
-      <div className="profile-page-container">
-        <div className="profile-page-header">
-          <p className="profile-page-header-greet">hello,</p>
-          <h1 className="profile-page-header-name">{name}</h1>
+      <div className="settings-page-left">
+        <div className="settings-page-title">
+          <h1>Settings</h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="profile-page-form">
-          <FormInput
-            name="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="e.g. John Doe"
-          />
-
-          <FormInput
-            name="email"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="e.g. john@email.com"
-          />
-
-          <FormInput
-            name="password"
-            type="text"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Your secret password"
-          />
-
-          <FormInput
-            label="confirm password"
-            name="confirmPassword"
-            type="text"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm your secret password"
-          />
-
-          <div className="profile-page-form-action">
-            <Link to="/" className="btn btn-danger btn-block">
-              cancel
-            </Link>
-
-            <Button
-              type="submit"
-              title="update"
-              className="profile-page-form-btn btn-block"
-            />
-          </div>
-        </form>
+        <div className="setting-page-control">
+          <h1>darkmode</h1>
+        </div>
       </div>
+      <Profile />
     </Wrapper>
   );
 };
@@ -95,45 +23,17 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
 
-  /* background: linear-gradient(
-    160deg,
-    var(--color-accent-200),
-    var(--color-primary-500)
-  ); */
+  gap: 1rem;
+  padding: 1.5rem;
 
-  .profile-page-container {
-    width: 100%;
-    max-width: 600px;
-    height: 100%;
-    padding: 0 4.5rem;
-    background: var(--color-white);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-  }
-
-  .profile-page-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .profile-page-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .profile-page-form-action {
-    margin-top: 1rem;
-    width: 100%;
-    display: flex;
-    gap: 1rem;
+  @media (max-width: 720px) {
+    & {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 `;
 

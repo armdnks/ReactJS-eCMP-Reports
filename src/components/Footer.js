@@ -4,9 +4,7 @@ const Footer = () => {
   return (
     <Wrapper>
       <div className="main-footer-container">
-        <p className="main-footer-copyright">
-          eCMP Reports &copy; {new Date().getFullYear()}
-        </p>
+        <p className="main-footer-copyright">eCMP Reports &copy; {new Date().getFullYear()}</p>
       </div>
     </Wrapper>
   );

@@ -3,9 +3,9 @@ import axios from "axios";
 
 import useAuthContext from "./auth-context";
 
-const FormContext = createContext();
+const ReportContext = createContext();
 
-export const FormContextProvider = ({ children }) => {
+export const ReportContextProvider = ({ children }) => {
   const { authFetch } = useAuthContext();
 
   // ### useState
@@ -16,11 +16,6 @@ export const FormContextProvider = ({ children }) => {
     setFormData({ ...formData, [name]: value });
   }
 
-  useEffect(() => {
-    getAllReports();
-    // eslint-disable-next-line
-  }, []);
-
   async function getAllReports() {
     let url = `/reports`;
 
@@ -29,7 +24,7 @@ export const FormContextProvider = ({ children }) => {
       const { reports } = data;
       setReportState(reports);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -40,15 +35,11 @@ export const FormContextProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
       };
 
-      await axios.post(
-        `${process.env.REACT_APP_URL}/reports`,
-        formData,
-        config
-      );
+      await axios.post(`${process.env.REACT_APP_URL}/reports`, formData, config);
 
       setFormData({}); // reset form
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -60,14 +51,14 @@ export const FormContextProvider = ({ children }) => {
     createReport,
   };
 
-  return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
+  return <ReportContext.Provider value={value}>{children}</ReportContext.Provider>;
 };
 
-export default function useFormContext() {
-  const context = useContext(FormContext);
+export default function useReportContext() {
+  const context = useContext(ReportContext);
 
   if (context === undefined) {
-    throw new Error("useFormContext must be used within FormContext!");
+    throw new Error("useReportContext must be used within ReportContext!");
   }
 
   return context;

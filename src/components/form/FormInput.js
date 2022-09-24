@@ -1,14 +1,6 @@
 import styled from "styled-components";
 
-const FormInput = ({
-  type,
-  name,
-  value,
-  onChange,
-  label,
-  placeholder,
-  className,
-}) => {
+const FormInput = ({ type, name, value, onChange, label, placeholder, className }) => {
   return (
     <FormInputWrapper className={className}>
       {name !== "" && (
@@ -16,15 +8,7 @@ const FormInput = ({
           {label || name}
         </label>
       )}
-      <input
-        type={type}
-        name={name}
-        id={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className="form-input-field"
-      />
+      <input type={type} name={name} id={name} value={value} onChange={onChange} placeholder={placeholder} className="form-input-field" />
     </FormInputWrapper>
   );
 };
@@ -45,20 +29,20 @@ const FormInputWrapper = styled.div`
   .form-input-label {
     text-transform: uppercase;
     font-weight: bold;
-    color: var(--color-primary-500);
+    color: var(--color-primary-main);
     font-size: 1rem;
   }
 
   .form-input-field {
     padding: 1rem;
-    border: 1px solid var(--color-gray-300);
+    border: 1px solid var(--color-gray-light);
     border-radius: 0.25rem;
     font-size: 1rem;
-    color: var(--color-gray-700);
+    color: var(--color-gray-dark);
   }
 
   .form-input-field::placeholder {
-    color: var(--color-gray-300);
+    color: var(--color-gray-light);
   }
 
   .form-input-field[type="date"] {

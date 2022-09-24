@@ -1,10 +1,29 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 // import axios from "axios";
 
 const UIContext = createContext();
 
 export const UIContextProvider = ({ children }) => {
-  const value = "";
+  const [isShowAlert, setIsShowAlert] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  function displayAlert() {
+    setIsShowAlert(true);
+    clearAlert();
+  }
+
+  function clearAlert() {
+    setTimeout(() => {
+      setIsShowAlert(false);
+    }, 4000);
+  }
+
+  const value = {
+    isShowAlert,
+    isDarkMode,
+    displayAlert,
+  };
+
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>;
 };
 

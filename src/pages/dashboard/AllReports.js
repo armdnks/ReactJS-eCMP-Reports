@@ -1,10 +1,17 @@
-import { ReportItem } from "../../components";
+import { useEffect } from "react";
 
-import useFormContext from "../../context/form-context";
+import { ReportItem } from "../../components/report";
+
+import useReportContext from "../../context/report-context";
 import styled from "styled-components";
 
 const AllReports = () => {
-  const { reportState: reports } = useFormContext();
+  const { reportState: reports, getAllReports } = useReportContext();
+
+  useEffect(() => {
+    getAllReports();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Wrapper>

@@ -7,11 +7,10 @@ import styled from "styled-components";
 const SharedLayout = () => {
   return (
     <Wrapper>
-      <div className="shared-layout-container">
-        <main className="shared-layout-main">
-          <Outlet />
-        </main>
-      </div>
+      <main className="shared-layout-main">
+        <Outlet />
+      </main>
+
       <SideNavigation />
     </Wrapper>
   );
@@ -19,18 +18,12 @@ const SharedLayout = () => {
 
 const Wrapper = styled.div`
   width: 100%;
+  min-height: 100vh;
   display: flex;
-
-  .shared-layout-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+  background: var(--color-bg);
 
   .shared-layout-main {
     width: 100%;
-    flex: 1;
   }
 `;
 

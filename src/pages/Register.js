@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { IoLogInOutline, IoDocumentTextOutline, IoEyeOff, IoEye } from "react-icons/io5";
+import { toast } from "react-toastify";
 
-import { FormInput } from "../components/form-components";
+import { FormInput } from "../components/form";
 import { Button } from "../components";
 
 import useAuthContext from "../context/auth-context.js";
@@ -18,25 +20,26 @@ const initialState = {
 const Register = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
+  const [isVisible, setIsVisible] = useState(false);
 
   const { userState, setupUser } = useAuthContext();
 
-  const toggleMember = () => {
+  function toggleMember() {
     setValues({ ...values, isMember: !values.isMember });
-  };
+  }
 
-  const handleChange = (e) => {
+  function togglePassword() {
+    setIsVisible(!isVisible);
+  }
+
+  function handleChange(e) {
     setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  }
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
 
     const { name, email, password, confirmPassword, isMember } = values;
-    if (!email || !password || (!isMember && !name)) {
-      // TODO: Alert Message
-      return;
-    }
 
     const currentUser = { name, email, password, confirmPassword };
 
@@ -45,10 +48,9 @@ const Register = () => {
     } else {
       setupUser({ currentUser, endpoint: "register" });
     }
-  };
+  }
 
   useEffect(() => {
-    // FIXME: Fix navigate("/") when user successfully register or login! -- DONE!
     if (userState) {
       setTimeout(() => {
         navigate("/");
@@ -59,67 +61,37 @@ const Register = () => {
   return (
     <RegisterPage>
       <div className="register-page-container">
-        <div className="register-page-header">
-          <h1 className="register-page-title">
-            {values.isMember ? "login" : "register"}
-          </h1>
-          <p className="register-page-subtitle">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Laudantium, placeat.
-          </p>
+        {/* <div className="register-page-header-logo">
+          <img src="img/company-logo-color.png" alt="company-logo-color.png" />
+        </div> */}
+
+        <div className="register-page-title-container">
+          <div className="register-page-title">
+            {values.isMember ? <IoLogInOutline /> : <IoDocumentTextOutline />}
+            <h1 className="register-page-title-heading">{values.isMember ? "login" : "register"}</h1>
+          </div>
+          <p className="register-page-subtitle">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium, placeat.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="register-page-form">
-          {!values.isMember && (
-            <FormInput
-              name="name"
-              type="text"
-              value={values.name}
-              onChange={handleChange}
-              placeholder="e.g. John Doe"
-            />
-          )}
+          {!values.isMember && <FormInput name="name" type="text" value={values.name} onChange={handleChange} placeholder="e.g. John Doe" />}
 
-          <FormInput
-            name="email"
-            type="text"
-            value={values.email}
-            onChange={handleChange}
-            placeholder="e.g. john@email.com"
-          />
+          <FormInput name="email" type="text" value={values.email} onChange={handleChange} placeholder="e.g. john@email.com" />
 
-          <FormInput
-            name="password"
-            type="text"
-            value={values.password}
-            onChange={handleChange}
-            placeholder="Your secret password"
-          />
+          <div className="register-page-password-field">
+            <button onClick={togglePassword} className="register-page-password-field-icon">
+              {isVisible ? <IoEye /> : <IoEyeOff />}
+            </button>
+            <FormInput name="password" type={isVisible ? "text" : "password"} value={values.password} onChange={handleChange} placeholder="Your secret password" />
+          </div>
 
-          {!values.isMember && (
-            <FormInput
-              label="confirm password"
-              name="confirmPassword"
-              type="text"
-              value={values.confirmPassword}
-              onChange={handleChange}
-              placeholder="Confirm your secret password"
-            />
-          )}
+          {!values.isMember && <FormInput label="confirm password" name="confirmPassword" type={isVisible ? "text" : "password"} value={values.confirmPassword} onChange={handleChange} placeholder="Confirm your secret password" />}
 
-          <Button
-            type="submit"
-            title={values.isMember ? "login" : "register"}
-            className="register-form-btn"
-          />
+          <Button type="submit" title={values.isMember ? "login" : "register"} className="register-form-submit-btn" />
 
           <p className="register-page-member">
             {values.isMember ? "Not a member yet?" : "Already a member?"}
-            <button
-              type="button"
-              onClick={toggleMember}
-              className="register-page-member-btn"
-            >
+            <button type="button" onClick={toggleMember} className="register-page-member-btn">
               {values.isMember ? "Register" : "Login"}
             </button>
           </p>
@@ -138,18 +110,15 @@ const RegisterPage = styled.main`
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(
-    160deg,
-    var(--color-primary-200),
-    var(--color-primary-500)
-  );
+  background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-main));
 
   .register-page-container {
+    position: relative;
     width: 100%;
     max-width: 600px;
     min-height: 100vh;
     margin: 0 auto;
-    padding: 0 4.5rem;
+    padding: 3rem 4.5rem;
     background: var(--color-white);
     display: flex;
     flex-direction: column;
@@ -157,20 +126,47 @@ const RegisterPage = styled.main`
     justify-content: center;
   }
 
-  .register-page-header {
-    margin-bottom: 1.5rem;
+  @media (max-width: 600px) {
+    .register-page-container {
+      padding: 2.5rem 2rem 4rem;
+    }
+  }
+
+  .register-page-header-logo {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 0.25rem;
+  }
+
+  .register-page-header-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .register-page-title-container {
+    margin-bottom: 1.75rem;
   }
 
   .register-page-title {
-    color: var(--color-primary-500);
-    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 3.2rem;
+    height: 100px;
+    color: var(--color-primary-main);
+    margin-bottom: 0.25rem;
+  }
+
+  .register-page-title-heading {
+    color: var(--color-primary-main);
     font-size: 3rem;
     text-transform: capitalize;
   }
 
   .register-page-subtitle {
-    border-left: 0.25rem solid var(--color-gray-500);
-    color: var(--color-gray-500);
+    border-left: 0.25rem solid var(--color-gray-main);
+    color: var(--color-gray-main);
     padding-left: 0.75rem;
   }
 
@@ -181,7 +177,19 @@ const RegisterPage = styled.main`
     gap: 1rem;
   }
 
-  .register-form-btn {
+  .register-page-password-field {
+    position: relative;
+  }
+
+  .register-page-password-field-icon {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--color-primary-main);
+  }
+
+  .register-form-submit-btn {
     margin-top: 1rem;
   }
 
@@ -190,11 +198,11 @@ const RegisterPage = styled.main`
     align-items: center;
     gap: 0.25rem;
     margin-top: 1rem;
-    color: var(--color-gray-500);
+    color: var(--color-gray-main);
   }
 
   .register-page-member-btn {
-    color: var(--color-primary-500);
+    color: var(--color-primary-main);
     text-decoration: underline;
   }
 `;

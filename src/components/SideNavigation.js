@@ -1,11 +1,14 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineLogout } from "react-icons/ai";
 
+import useAuthContext from "../context/auth-context";
 import links from "../utils/links";
 import styled from "styled-components";
 
 const SideNavigation = () => {
   const location = useLocation();
+
+  const { logoutUser } = useAuthContext();
 
   return (
     <Wrapper>
@@ -20,15 +23,7 @@ const SideNavigation = () => {
           {links.map((link) => {
             const { id, title, path, icon } = link;
             return (
-              <NavLink
-                key={id}
-                to={path}
-                className={
-                  path === location.pathname
-                    ? "side-nav-item side-nav-item-active"
-                    : "side-nav-item side-nav-item-inactive"
-                }
-              >
+              <NavLink key={id} to={path} className={path === location.pathname ? "side-nav-item side-nav-item-active" : "side-nav-item side-nav-item-inactive"}>
                 <span className="side-nav-item-icon">{icon}</span>
                 <p className="side-nav-item-title">{title}</p>
               </NavLink>
@@ -37,12 +32,12 @@ const SideNavigation = () => {
         </ul>
 
         <div className="side-nav-footer">
-          <NavLink to="/register" className="side-nav-item">
+          <button onClick={logoutUser} className="side-nav-item">
             <span className="side-nav-item-icon">
               <AiOutlineLogout />
             </span>
             <p className="side-nav-item-title">logout</p>
-          </NavLink>
+          </button>
 
           <p className="side-nav-footer-version">
             <strong>eCMP reports</strong> version 1.0.0
@@ -54,12 +49,17 @@ const SideNavigation = () => {
 };
 
 const Wrapper = styled.div`
-  width: 360px;
+  width: 480px;
   height: 100vh;
   position: sticky;
   top: 0;
   right: 0;
-  background: var(--color-white);
+
+  @media (max-width: 900px) {
+    & {
+      display: none;
+    }
+  }
 
   .side-nav-container {
     width: 100%;
@@ -88,7 +88,7 @@ const Wrapper = styled.div`
 
   .side-nav-toggle-btn {
     font-size: 2.5rem;
-    color: var(--color-primary-500);
+    color: var(--color-primary-main);
   }
 
   .side-nav-links {
@@ -107,7 +107,7 @@ const Wrapper = styled.div`
     justify-content: flex-start;
     gap: 0.5rem;
     padding: 1rem 1.25rem;
-    color: var(--color-gray-500);
+    color: var(--color-gray-main);
     border-radius: 0.25rem;
     transition: all 0.25s ease;
   }
@@ -117,14 +117,14 @@ const Wrapper = styled.div`
   }
 
   .side-nav-item:hover:not(.side-nav-item-active) {
-    box-shadow: inset 0 0 0 0.2rem var(--color-gray-100);
+    box-shadow: inset 0 0 0 0.2rem var(--color-primary-light);
   }
 
   .side-nav-item-icon {
     width: 35px;
     height: 35px;
     font-size: 1.75rem;
-    color: var(--color-primary-500);
+    color: var(--color-primary-main);
   }
 
   .side-nav-item-title {
@@ -134,11 +134,7 @@ const Wrapper = styled.div`
 
   .side-nav-item-active {
     color: var(--color-white);
-    background: linear-gradient(
-      90deg,
-      var(--color-primary-300),
-      var(--color-primary-500)
-    );
+    background: linear-gradient(90deg, var(--color-primary-light), var(--color-primary-main));
   }
 
   .side-nav-item-active .side-nav-item-icon {
@@ -150,7 +146,7 @@ const Wrapper = styled.div`
   }
 
   .side-nav-footer-version {
-    color: var(--color-gray-300);
+    color: var(--color-gray-light);
   }
 `;
 

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 const AuthContext = createContext();
@@ -9,10 +10,8 @@ const userStorage = localStorage.getItem("user");
 
 export const AuthContextProvider = ({ children }) => {
   // ### useState
-  const [tokenState, setTokenState] = useState(tokenStorage || "");
+  const [tokenState, setTokenState] = useState(tokenStorage || null);
   const [userState, setUserState] = useState(JSON.parse(userStorage) || null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
 
   // ### useEffect
   useEffect(() => {
@@ -21,9 +20,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [userState]);
 
   // ### axios
-  const authFetch = axios.create({
-    baseURL: "/api/v1",
-  });
+  const authFetch = axios.create({ baseURL: "/api/v1" });
 
   // ### request
   authFetch.interceptors.request.use(
@@ -54,6 +51,11 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
   }
 
+  function removeUserFromLocalStorage() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  }
+
   /**
    *  ### Setup User
    *
@@ -69,11 +71,7 @@ export const AuthContextProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
       };
 
-      const { data } = await axios.post(
-        `/api/v1/auth/${endpoint}`,
-        currentUser,
-        config
-      );
+      const { data } = await axios.post(`/api/v1/auth/${endpoint}`, currentUser, config);
 
       const { token, user } = data;
 
@@ -81,11 +79,11 @@ export const AuthContextProvider = ({ children }) => {
 
       setTokenState(token);
       setUserState(user);
-    } catch (error) {
-      setIsLoading(false);
-      setIsError(true);
 
+      toast.success(`Welcome ${user.name}`);
+    } catch (error) {
       console.log(error);
+      toast.error(error.response.data.error);
     }
   }
 
@@ -110,19 +108,23 @@ export const AuthContextProvider = ({ children }) => {
       addUserToLocalStorage({ token, user });
     } catch (error) {
       console.log(error);
+      toast.error(error.response.data.error);
     }
   }
 
-  async function logoutUser() {}
+  async function logoutUser() {
+    setTokenState(null);
+    setUserState(null);
+    removeUserFromLocalStorage();
+  }
 
   const value = {
     authFetch,
-    userState,
     tokenState,
-    isLoading,
-    isError,
+    userState,
     setupUser,
     updateUser,
+    logoutUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
