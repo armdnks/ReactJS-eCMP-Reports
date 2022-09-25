@@ -14,7 +14,12 @@ const ReportDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { reportState: report, getReport } = useReportContext();
+  const {
+    reportState: report,
+    getReport,
+    setEditReport,
+    deleteReport,
+  } = useReportContext();
 
   const reportChangeCase = snakeToCamel(report);
 
@@ -47,7 +52,14 @@ const ReportDetail = () => {
     // eslint-disable-next-line
   }, []);
 
-  if (Object.values(report).length === 0) navigate("/");
+  function onEditReport() {
+    setEditReport();
+    navigate(`/report/edit/${id}`);
+  }
+
+  function onDeleteReport() {
+    if (window.confirm("are you sure?")) deleteReport(id);
+  }
 
   return (
     <Wrapper>
@@ -59,8 +71,12 @@ const ReportDetail = () => {
         <div className="report-detail-actions-btn-container">
           <button className="report-detail-actions-btn">print</button>
           <button className="report-detail-actions-btn">download</button>
-          <button className="report-detail-actions-btn">edit</button>
-          <button className="report-detail-actions-btn">delete</button>
+          <button onClick={onEditReport} className="report-detail-actions-btn">
+            edit
+          </button>
+          <button onClick={onDeleteReport} className="report-detail-actions-btn">
+            delete
+          </button>
         </div>
       </div>
 

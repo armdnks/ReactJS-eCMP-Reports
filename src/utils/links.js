@@ -1,8 +1,4 @@
-import {
-  AiOutlineAppstore,
-  AiOutlineFile,
-  AiOutlineSetting,
-} from "react-icons/ai";
+import { AiOutlineAppstore, AiOutlineFile, AiOutlineSetting } from "react-icons/ai";
 
 const links = [
   {
@@ -11,14 +7,20 @@ const links = [
     path: "/",
     icon: <AiOutlineAppstore />,
   },
+  // {
+  //   id: 2,
+  //   title: "add report",
+  //   path: "/add-report",
+  //   icon: <AiOutlineAppstore />,
+  // },
   {
-    id: 2,
+    id: 3,
     title: "all reports",
     path: "/all-reports",
     icon: <AiOutlineFile />,
   },
   {
-    id: 3,
+    id: 4,
     title: "settings",
     path: "/settings",
     icon: <AiOutlineSetting />,

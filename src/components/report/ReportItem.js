@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import snakeToCamel from "../../utils/snakeToCamel";
@@ -5,7 +6,9 @@ import snakeToCamel from "../../utils/snakeToCamel";
 import useReportContext from "../../context/report-context";
 
 const ReportItem = ({ report }) => {
-  const { deleteReport } = useReportContext();
+  const navigate = useNavigate();
+
+  const { setEditReport, deleteReport } = useReportContext();
 
   const reportChangeCase = snakeToCamel(report);
 
@@ -20,6 +23,11 @@ const ReportItem = ({ report }) => {
     user,
     createdAt,
   } = reportChangeCase;
+
+  function onEditReport() {
+    setEditReport();
+    navigate(`/report/edit/${id}`);
+  }
 
   function onDeleteReport() {
     if (window.confirm("are you sure?")) deleteReport(id);
@@ -71,7 +79,9 @@ const ReportItem = ({ report }) => {
           <Link to={`/report/${id}`} className="report-item-actions-btn">
             preview
           </Link>
-          <button className="report-item-actions-btn">edit</button>
+          <button onClick={onEditReport} className="report-item-actions-btn">
+            edit
+          </button>
           <button onClick={onDeleteReport} className="report-item-actions-btn">
             delete
           </button>
@@ -123,7 +133,7 @@ const Wrapper = styled.div`
   }
 
   .report-item-actions-btn {
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     background: var(--color-gray-light);
     color: var(--color-white);
     border-radius: 0.25rem;

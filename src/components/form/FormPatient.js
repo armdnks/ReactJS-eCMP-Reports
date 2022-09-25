@@ -34,7 +34,12 @@ const FormPatient = () => {
         placeholder="Please input patient last name"
       />
 
-      <FormRadio name="patient_gender" options={["male", "female"]} onChange={onChangeHandler} label="patient gender" />
+      <FormRadio
+        name="patient_gender"
+        options={["male", "female"]}
+        onChange={onChangeHandler}
+        label="patient gender"
+      />
 
       <FormInput
         type="number"

@@ -9,6 +9,7 @@ export const ReportContextProvider = ({ children }) => {
   const [reportsState, setReportsState] = useState([]);
   const [reportState, setReportState] = useState({});
   const [reportData, setReportData] = useState({});
+  const [isEditReport, setIsEditReport] = useState(false);
 
   function changeHandler({ name, value }) {
     setReportData({ ...reportData, [name]: value });
@@ -56,6 +57,28 @@ export const ReportContextProvider = ({ children }) => {
     }
   }
 
+  function setEditReport() {
+    setIsEditReport(true);
+  }
+
+  async function updateReport(id, newdata) {
+    try {
+      const config = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      };
+
+      const { data } = await authFetch.put(`/reports/${id}`, newdata, config);
+      const { report } = data;
+
+      setReportState(report);
+
+      setReportData({});
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function deleteReport(id) {
     try {
       await authFetch.delete(`/reports/${id}`);
@@ -66,15 +89,25 @@ export const ReportContextProvider = ({ children }) => {
     }
   }
 
+  function resetForm() {
+    setIsEditReport(false);
+    setReportData({});
+    setReportState({});
+  }
+
   const value = {
     reportsState,
     reportState,
     reportData,
+    isEditReport,
     getAllReports,
     getReport,
     changeHandler,
     createReport,
+    setEditReport,
+    updateReport,
     deleteReport,
+    resetForm,
   };
 
   return <ReportContext.Provider value={value}>{children}</ReportContext.Provider>;

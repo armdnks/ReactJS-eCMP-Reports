@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 const FormRadio = ({ name, options, onChange, label }) => {
-  let checked;
-
+  let radio;
   return (
     <FormRadioWrapper>
       <label htmlFor={name} className="form-input-label">
@@ -18,7 +17,7 @@ const FormRadio = ({ name, options, onChange, label }) => {
                 id={id}
                 name={name}
                 value={option}
-                checked={checked}
+                checked={radio}
                 onChange={onChange}
                 className="form-input-radio-field"
               />

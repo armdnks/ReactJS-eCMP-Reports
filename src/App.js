@@ -24,11 +24,12 @@ const App = () => {
             }
           >
             <Route index element={<Home />} />
-            <Route path="/add-report" element={<AddReport />} />
-            <Route path="/all-reports" element={<AllReports />} />
-            <Route path="/settings" element={<Settings />} />
+            {/* <Route path="/add-report" element={<AddReport />} /> */}
             <Route path="/report" element={<ReportDetail />} />
             <Route path="/report/:id" element={<ReportDetail />} />
+            <Route path="/report/edit/:id" element={<AddReport />} />
+            <Route path="/all-reports" element={<AllReports />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
 
           <Route path="/register" element={<Register />} />
