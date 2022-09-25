@@ -14,6 +14,7 @@ const ReportItem = ({ report }) => {
 
   const {
     id,
+    brand,
     patientFirstName,
     patientLastName,
     indicationCommon,
@@ -37,6 +38,13 @@ const ReportItem = ({ report }) => {
     <Wrapper>
       <div className="report-item-container">
         <div className="report-item-content">
+          <div className="report-item-row">
+            <div className="report-item-row-item">
+              <span>brand :</span>
+              <p>{brand}</p>
+            </div>
+          </div>
+
           <div className="report-item-row">
             <div className="report-item-row-item">
               <span>name :</span>
@@ -121,6 +129,7 @@ const Wrapper = styled.div`
     margin-right: 0.25rem;
     color: var(--color-primary-main);
     font-weight: 500;
+    text-transform: capitalize;
   }
 
   .report-item-actions {

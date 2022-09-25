@@ -50,7 +50,9 @@ const FormRadioWrapper = styled.div`
   }
 
   .form-input-radio {
-    display: flex;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     gap: 1rem;
   }

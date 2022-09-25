@@ -68,7 +68,15 @@ const Form = () => {
           <section className="brand-section">
             <FormSelect
               name="brand"
-              options={["medical", "pharma", "tools"]}
+              options={[
+                "carnitor",
+                "ofloxacin",
+                "levaquin",
+                "aspirin",
+                "paracetamol",
+                "cellcept",
+                "reducer",
+              ]}
               value={reportData.brand || ""}
               onChange={(e) => onChangeHandler(e)}
             />
@@ -110,10 +118,10 @@ const Wrapper = styled.div`
 
   .form-main-header {
     width: 100%;
-    margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    margin-bottom: 2rem;
   }
 
   .form-main-header-title {
@@ -127,7 +135,7 @@ const Wrapper = styled.div`
   }
 
   .form-main-title {
-    margin: 1.5rem 0 1.25rem;
+    margin: 2rem 0 1.5rem;
     text-transform: capitalize;
     font-size: 2rem;
     font-weight: 500;

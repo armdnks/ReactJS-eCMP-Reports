@@ -64,7 +64,7 @@ const FormPatient = () => {
       <div className="form-control-column">
         <FormRadio
           name="indication_common"
-          options={["crc", "lung", "other"]}
+          options={["onco panel", "onco lung", "onco crc", "brca 1/2", "pd-l1", "other"]}
           onChange={(e) => onChangeHandler(e)}
           label="indication"
         />
@@ -92,7 +92,7 @@ const FormPatient = () => {
       {/* MARK: CLINICAL RESULT */}
       <FormRadio
         name="clinical_result"
-        options={["cr", "cp", "ps"]}
+        options={["cr", "pr", "sd", "pd"]}
         onChange={(e) => onChangeHandler(e)}
         label="clinical result"
       />
@@ -107,7 +107,7 @@ const Wrapper = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 
   .form-patient-input {
     width: 100%;
@@ -116,7 +116,7 @@ const Wrapper = styled.section`
     border-radius: 0.25rem;
     font-size: 1rem;
     color: var(--color-gray-dark);
-    margin-top: 0.5rem;
+    margin-top: 1rem;
   }
 `;
 
