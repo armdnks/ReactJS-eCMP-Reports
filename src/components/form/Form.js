@@ -55,6 +55,15 @@ const Form = () => {
           </div>
         )}
 
+        <header className="form-main-header">
+          <h1 className="form-main-header-title">eCMP Report</h1>
+          <p className="form-main-header-desc">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, illum
+            quisquam! Saepe eum minima quibusdam dicta distinctio voluptas exercitationem?
+            Eos.
+          </p>
+        </header>
+
         <form onSubmit={onSubmitHandler} className="form-main">
           <section className="brand-section">
             <FormSelect
@@ -65,8 +74,10 @@ const Form = () => {
             />
           </section>
 
+          <h1 className="form-main-title">patient information</h1>
           <FormPatient />
 
+          <h1 className="form-main-title">doctor information</h1>
           <FormDoctor />
 
           <Button
@@ -95,6 +106,33 @@ const Wrapper = styled.div`
     background: var(--color-gray-light);
     color: var(--color-white);
     border-radius: 0.25rem;
+  }
+
+  .form-main-header {
+    width: 100%;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-main-header-title {
+    color: var(--color-primary-main);
+  }
+
+  .form-main-header-desc {
+    font-size: 1rem;
+    border-left: 0.25rem solid var(--color-gray-light);
+    padding-left: 1rem;
+  }
+
+  .form-main-title {
+    margin: 1.5rem 0 1.25rem;
+    text-transform: capitalize;
+    font-size: 2rem;
+    font-weight: 500;
+    border-left: 0.25rem solid var(--color-gray-light);
+    padding-left: 1rem;
   }
 
   .form-main-submit-btn {

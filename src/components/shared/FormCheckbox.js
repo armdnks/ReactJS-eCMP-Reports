@@ -1,14 +1,35 @@
 import styled from "styled-components";
 
-const FormCheckbox = ({ name, valueSelect, valueInput, onChange, label, onClick, disabled }) => {
+const FormCheckbox = ({
+  name,
+  valueSelect,
+  valueInput,
+  onChange,
+  label,
+  onClick,
+  disabled,
+}) => {
   return (
     <FormCheckboxWrapper>
-      <input type="checkbox" name={name} id={name} onClick={onClick} className="form-checkbox-check" />
+      <input
+        type="checkbox"
+        name={name}
+        id={name}
+        onClick={onClick}
+        className="form-checkbox-check"
+      />
       <label htmlFor={name} className="form-checkbox-label">
         {label}
       </label>
 
-      <select name={name + "_grade"} value={valueSelect} onChange={onChange} defaultValue="" disabled={disabled} className="form-checkbox-select">
+      <select
+        name={name + "_grade"}
+        value={valueSelect}
+        onChange={onChange}
+        defaultValue=""
+        disabled={disabled}
+        className="form-checkbox-select"
+      >
         <option value="" disabled>
           choose
         </option>
@@ -17,7 +38,15 @@ const FormCheckbox = ({ name, valueSelect, valueInput, onChange, label, onClick,
         <option value="grade 3">grade 3</option>
       </select>
 
-      <input type="text" name={name + "_desc"} value={valueInput} onChange={onChange} disabled={disabled} placeholder="Please input side effects" className="form-checkbox-input" />
+      <input
+        type="text"
+        name={name + "_desc"}
+        value={valueInput}
+        onChange={onChange}
+        disabled={disabled}
+        placeholder="Please input side effects"
+        className="form-checkbox-input"
+      />
     </FormCheckboxWrapper>
   );
 };
@@ -31,16 +60,20 @@ const FormCheckboxWrapper = styled.div`
     text-transform: uppercase;
     font-weight: bold;
     min-width: 6.3rem;
+    color: var(--color-primary-main);
+    font-size: 1rem;
   }
 
   .form-checkbox-select {
     text-transform: capitalize;
     padding: 0.5rem;
+    font-size: 1rem;
   }
 
   .form-checkbox-input {
     padding: 0.5rem;
     width: 100%;
+    font-size: 1rem;
   }
 `;
 

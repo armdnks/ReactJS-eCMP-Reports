@@ -8,8 +8,6 @@ const FormPatient = () => {
 
   return (
     <Wrapper>
-      <h1 className="form-section-title col-1-span-2">patient information</h1>
-
       {/* MARK: PATIENT INFORMATION */}
       <FormInput
         type="text"
@@ -78,7 +76,7 @@ const FormPatient = () => {
           onChange={(e) => onChangeHandler(e)}
           disabled={reportData.indication_common !== "other"}
           placeholder="Other indication"
-          className="form-sub-input"
+          className="form-patient-input"
         />
       </div>
 
@@ -110,6 +108,16 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  .form-patient-input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--color-gray-light);
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    color: var(--color-gray-dark);
+    margin-top: 0.5rem;
+  }
 `;
 
 export default FormPatient;

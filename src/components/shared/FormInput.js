@@ -8,7 +8,15 @@ const FormInput = ({ type, name, value, onChange, label, placeholder, className 
           {label || name}
         </label>
       )}
-      <input type={type} name={name} id={name} value={value} onChange={onChange} placeholder={placeholder} className="form-input-field" />
+      <input
+        type={type}
+        name={name}
+        id={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="form-input-field"
+      />
     </FormInputWrapper>
   );
 };

@@ -43,12 +43,16 @@ const FormSelectWrapper = styled.div`
   .form-select-label {
     text-transform: uppercase;
     font-weight: bold;
-    color: var(--color-primary-500);
+    color: var(--color-primary-main);
+    font-size: 1rem;
   }
 
   .form-select-field {
-    padding: 0.75rem;
-    text-transform: capitalize;
+    padding: 1rem;
+    border: 1px solid var(--color-gray-light);
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    color: var(--color-gray-dark);
   }
 `;
 

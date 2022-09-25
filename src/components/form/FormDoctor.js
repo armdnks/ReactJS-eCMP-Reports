@@ -8,8 +8,6 @@ const FormDoctor = () => {
 
   return (
     <Wrapper>
-      <h1 className="form-section-title col-1-span-2">doctor information</h1>
-
       {/* MARK: DOCTOR INFORMATION */}
       <FormInput
         type="text"

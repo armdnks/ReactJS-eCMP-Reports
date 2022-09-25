@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FormCheckbox } from "../shared";
 import useReportContext from "../../context/report-context";
-// import styled from "styled-components";
+import styled from "styled-components";
 
 const FormSideEffects = () => {
   const [isSideEffectsChecked, setIsSideEffectsChecked] = useState({
@@ -20,9 +20,9 @@ const FormSideEffects = () => {
   }
 
   return (
-    <div>
+    <Wrapper>
       <div className="form-control-column">
-        <label htmlFor="s_effects" className="form-sub-label">
+        <label htmlFor="s_effects" className="form-effects-label">
           side effects
         </label>
 
@@ -56,7 +56,27 @@ const FormSideEffects = () => {
           disabled={!isSideEffectsChecked.severe}
         />
       </div>
-    </div>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 100%;
+
+  .form-control-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-effects-label {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--color-gray-main);
+    font-size: 1rem;
+    border-left: 0.25rem solid var(--color-gray-light);
+    padding-left: 0.5rem;
+  }
+`;
+
 export default FormSideEffects;

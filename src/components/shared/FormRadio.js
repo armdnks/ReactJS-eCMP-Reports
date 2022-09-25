@@ -45,7 +45,8 @@ const FormRadioWrapper = styled.div`
   .form-input-label {
     text-transform: uppercase;
     font-weight: bold;
-    color: var(--color-primary-500);
+    color: var(--color-primary-main);
+    font-size: 1rem;
   }
 
   .form-input-radio {
