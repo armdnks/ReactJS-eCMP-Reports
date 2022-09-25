@@ -4,12 +4,7 @@ import useReportContext from "../../context/report-context";
 import styled from "styled-components";
 
 const FormDoctor = () => {
-  const { reportData, changeHandler } = useReportContext();
-
-  function onChangeHandler(e) {
-    const { name, value } = e.target;
-    changeHandler({ name, value });
-  }
+  const { reportData, onChangeHandler } = useReportContext();
 
   return (
     <Wrapper>
@@ -20,7 +15,7 @@ const FormDoctor = () => {
         type="text"
         name="md_name"
         value={reportData.md_name || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="md name"
         placeholder="Please input doctor's name"
       />
@@ -29,7 +24,7 @@ const FormDoctor = () => {
         type="text"
         name="md_clinic"
         value={reportData.md_clinic || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="md clinic"
         placeholder="Please input doctor's workplace"
       />
@@ -38,7 +33,7 @@ const FormDoctor = () => {
         type="text"
         name="md_phone"
         value={reportData.md_phone || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="md phone"
         placeholder="Please input doctor's phone number"
       />
@@ -47,7 +42,7 @@ const FormDoctor = () => {
         type="email"
         name="md_email"
         value={reportData.md_email || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="md email"
         placeholder="Please input doctor's email"
       />

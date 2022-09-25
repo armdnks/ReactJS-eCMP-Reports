@@ -24,6 +24,7 @@ const ReportDetail = () => {
   const reportChangeCase = snakeToCamel(report);
 
   const {
+    id: reportID,
     brand,
     patientFirstName,
     patientLastName,
@@ -54,7 +55,7 @@ const ReportDetail = () => {
 
   function onEditReport() {
     setEditReport();
-    navigate(`/report/edit/${id}`);
+    navigate(`/report/edit/${reportID}`);
   }
 
   function onDeleteReport() {

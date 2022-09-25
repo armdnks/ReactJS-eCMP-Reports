@@ -11,7 +11,8 @@ export const ReportContextProvider = ({ children }) => {
   const [reportData, setReportData] = useState({});
   const [isEditReport, setIsEditReport] = useState(false);
 
-  function changeHandler({ name, value }) {
+  function onChangeHandler(e) {
+    const { name, value } = e.target;
     setReportData({ ...reportData, [name]: value });
   }
 
@@ -102,7 +103,7 @@ export const ReportContextProvider = ({ children }) => {
     isEditReport,
     getAllReports,
     getReport,
-    changeHandler,
+    onChangeHandler,
     createReport,
     setEditReport,
     updateReport,

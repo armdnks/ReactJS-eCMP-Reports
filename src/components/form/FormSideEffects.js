@@ -10,12 +10,7 @@ const FormSideEffects = () => {
     severe: false,
   });
 
-  const { reportData, changeHandler } = useReportContext();
-
-  function onChangeHandler(e) {
-    const { name, value } = e.target;
-    changeHandler({ name, value });
-  }
+  const { reportData, onChangeHandler } = useReportContext();
 
   function sideEffectsClickHandler(key) {
     setIsSideEffectsChecked({
@@ -35,7 +30,7 @@ const FormSideEffects = () => {
           name="s_effects_mild"
           valueSelect={reportData.s_effects_mild_grade}
           valueInput={reportData.s_effects_mild_desc || ""}
-          onChange={onChangeHandler}
+          onChange={(e) => onChangeHandler(e)}
           label="mild"
           onClick={() => sideEffectsClickHandler("mild")}
           disabled={!isSideEffectsChecked.mild}
@@ -45,7 +40,7 @@ const FormSideEffects = () => {
           name="s_effects_moderate"
           valueSelect={reportData.s_effects_moderate_grade}
           valueInput={reportData.s_effects_moderate_desc || ""}
-          onChange={onChangeHandler}
+          onChange={(e) => onChangeHandler(e)}
           label="moderate"
           onClick={() => sideEffectsClickHandler("moderate")}
           disabled={!isSideEffectsChecked.moderate}
@@ -55,7 +50,7 @@ const FormSideEffects = () => {
           name="s_effects_severe"
           valueSelect={reportData.s_effects_severe_grade}
           valueInput={reportData.s_effects_severe_desc || ""}
-          onChange={onChangeHandler}
+          onChange={(e) => onChangeHandler(e)}
           label="severe"
           onClick={() => sideEffectsClickHandler("severe")}
           disabled={!isSideEffectsChecked.severe}

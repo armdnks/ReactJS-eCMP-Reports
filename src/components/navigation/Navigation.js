@@ -2,6 +2,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
 
 import useAuthContext from "../../context/auth-context";
+import useReportContext from "../../context/report-context";
 import links from "../../utils/links";
 import styled from "styled-components";
 
@@ -9,6 +10,7 @@ const Navigation = () => {
   const location = useLocation();
 
   const { logoutUser } = useAuthContext();
+  const { resetForm } = useReportContext();
 
   return (
     <Wrapper>
@@ -21,7 +23,16 @@ const Navigation = () => {
           {links.map((link) => {
             const { id, title, path, icon } = link;
             return (
-              <NavLink key={id} to={path} className={path === location.pathname ? "main-nav-item main-nav-item-active" : "main-nav-item main-nav-item-inactive"}>
+              <NavLink
+                key={id}
+                to={path}
+                onClick={resetForm}
+                className={
+                  path === location.pathname
+                    ? "main-nav-item main-nav-item-active"
+                    : "main-nav-item main-nav-item-inactive"
+                }
+              >
                 <span className="main-nav-item-icon">{icon}</span>
                 <p className="main-nav-item-title">{title}</p>
               </NavLink>
@@ -41,7 +52,6 @@ const Navigation = () => {
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 70px;
   background: var(--color-primary-main);
 
   .main-nav-container {
@@ -56,10 +66,12 @@ const Wrapper = styled.div`
   }
 
   .main-nav-logo {
-    height: 100%;
+    width: 200px;
+    height: 70px;
   }
 
   .main-nav-logo img {
+    width: 100%;
     height: 100%;
     object-fit: contain;
   }
@@ -102,6 +114,16 @@ const Wrapper = styled.div`
 
   .main-nav-footer-version {
     color: var(--color-gray-light);
+  }
+
+  @media (max-width: 720px) {
+    .main-nav-container {
+      flex-direction: column;
+    }
+
+    .main-nav-logo {
+      margin: 0.5rem 0;
+    }
   }
 `;
 

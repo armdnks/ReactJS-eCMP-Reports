@@ -75,6 +75,17 @@ const Wrapper = styled.div`
     flex-direction: column;
     gap: 2.5rem;
   }
+
+  @media (max-width: 720px) {
+    .all-reports-container {
+      grid-template-columns: 1fr;
+    }
+
+    .all-reports-filter-content {
+      border-right: none;
+      border-bottom: 1px solid var(--color-gray-light);
+    }
+  }
 `;
 
 export default AllReports;

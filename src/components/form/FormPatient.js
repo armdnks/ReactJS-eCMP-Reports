@@ -4,12 +4,7 @@ import useReportContext from "../../context/report-context";
 import styled from "styled-components";
 
 const FormPatient = () => {
-  const { reportData, changeHandler } = useReportContext();
-
-  function onChangeHandler(e) {
-    const { name, value } = e.target;
-    changeHandler({ name, value });
-  }
+  const { reportData, onChangeHandler } = useReportContext();
 
   return (
     <Wrapper>
@@ -20,7 +15,7 @@ const FormPatient = () => {
         type="text"
         name="patient_first_name"
         value={reportData.patient_first_name || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="patient first name"
         placeholder="Please input patient first name"
       />
@@ -29,7 +24,7 @@ const FormPatient = () => {
         type="text"
         name="patient_last_name"
         value={reportData.patient_last_name || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="patient last name"
         placeholder="Please input patient last name"
       />
@@ -37,7 +32,7 @@ const FormPatient = () => {
       <FormRadio
         name="patient_gender"
         options={["male", "female"]}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="patient gender"
       />
 
@@ -45,7 +40,7 @@ const FormPatient = () => {
         type="number"
         name="patient_age"
         value={reportData.patient_age || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="patient age"
         placeholder="Please input patient age"
       />
@@ -55,7 +50,7 @@ const FormPatient = () => {
         type="date"
         name="therapy_start_date"
         value={reportData.therapy_start_date || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="therapy start date"
       />
 
@@ -63,7 +58,7 @@ const FormPatient = () => {
         type="date"
         name="therapy_end_date"
         value={reportData.therapy_end_date || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="therapy end date"
       />
 
@@ -72,7 +67,7 @@ const FormPatient = () => {
         <FormRadio
           name="indication_common"
           options={["crc", "lung", "other"]}
-          onChange={onChangeHandler}
+          onChange={(e) => onChangeHandler(e)}
           label="indication"
         />
 
@@ -80,7 +75,7 @@ const FormPatient = () => {
           type="text"
           name="indication_other"
           value={reportData.indication_other || ""}
-          onChange={onChangeHandler}
+          onChange={(e) => onChangeHandler(e)}
           disabled={reportData.indication_common !== "other"}
           placeholder="Other indication"
           className="form-sub-input"
@@ -91,7 +86,7 @@ const FormPatient = () => {
         type="number"
         name="total_dosing_per_cycle"
         value={reportData.total_dosing_per_cycle || ""}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="total dosing"
         placeholder="Please input total dosing"
       />
@@ -100,7 +95,7 @@ const FormPatient = () => {
       <FormRadio
         name="clinical_result"
         options={["cr", "cp", "ps"]}
-        onChange={onChangeHandler}
+        onChange={(e) => onChangeHandler(e)}
         label="clinical result"
       />
 

@@ -16,17 +16,11 @@ const Form = () => {
     reportData,
     reportState,
     isEditReport,
-    changeHandler,
+    onChangeHandler,
     getReport,
     createReport,
     updateReport,
-    resetForm,
   } = useReportContext();
-
-  function onChangeHandler(e) {
-    const { name, value } = e.target;
-    changeHandler({ name, value });
-  }
 
   function onSubmitHandler(e) {
     e.preventDefault();
@@ -38,7 +32,6 @@ const Form = () => {
     }
 
     createReport(reportData);
-
     navigate(`/report`);
   }
 
@@ -48,9 +41,6 @@ const Form = () => {
       Object.assign(reportData, reportState);
     }
 
-    if (location.pathname === "/" || location.pathname === "/add-report") {
-      resetForm();
-    }
     // eslint-disable-next-line
   }, [location]);
 
@@ -71,7 +61,7 @@ const Form = () => {
               name="brand"
               options={["medical", "pharma", "tools"]}
               value={reportData.brand || ""}
-              onChange={onChangeHandler}
+              onChange={(e) => onChangeHandler(e)}
             />
           </section>
 

@@ -138,6 +138,13 @@ const Wrapper = styled.div`
     color: var(--color-white);
     border-radius: 0.25rem;
   }
+
+  @media (max-width: 720px) {
+    .report-item-row {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
 `;
 
 export default ReportItem;
