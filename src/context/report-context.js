@@ -11,14 +11,22 @@ export const ReportContextProvider = ({ children }) => {
   const [reportData, setReportData] = useState({});
   const [isEditReport, setIsEditReport] = useState(false);
 
+  const [searchReport, setSearchReport] = useState("");
+
   function onChangeHandler(e) {
     const { name, value } = e.target;
     setReportData({ ...reportData, [name]: value });
   }
 
-  async function getAllReports() {
+  async function getAllReports({ searchReport }) {
+    let url = `/reports`;
+
+    if (searchReport) {
+      url = url + `?search=${searchReport}`;
+    }
+
     try {
-      const { data } = await authFetch(`/reports`);
+      const { data } = await authFetch(url);
       const { reports } = data;
       setReportsState(reports);
     } catch (error) {
@@ -101,6 +109,8 @@ export const ReportContextProvider = ({ children }) => {
     reportState,
     reportData,
     isEditReport,
+    searchReport,
+    setSearchReport,
     getAllReports,
     getReport,
     onChangeHandler,

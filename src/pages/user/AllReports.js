@@ -7,19 +7,36 @@ import useReportContext from "../../context/report-context";
 import styled from "styled-components";
 
 const AllReports = () => {
-  const { reportsState: reports, getAllReports } = useReportContext();
+  let {
+    reportsState: reports,
+    getAllReports,
+    searchReport,
+    setSearchReport,
+  } = useReportContext();
 
   useEffect(() => {
-    getAllReports();
+    getAllReports({ searchReport });
     // eslint-disable-next-line
-  }, []);
+  }, [searchReport]);
 
   return (
     <Wrapper>
       <div className="all-reports-container">
         <div className="all-reports-filter">
           <div className="all-reports-filter-content">
-            <h1>filter</h1>
+            <h1 className="all-reports-filter-title">search</h1>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="all-reports-filter-form"
+            >
+              <input
+                type="text"
+                name="search_report"
+                value={searchReport}
+                onChange={(e) => setSearchReport(e.target.value)}
+                className="all-reports-filter-input"
+              />
+            </form>
           </div>
         </div>
 
@@ -63,6 +80,24 @@ const Wrapper = styled.div`
     /* background: var(--color-gray-light); */
     /* border-radius: 0.25rem; */
     border-right: 1px solid var(--color-gray-light);
+  }
+
+  .all-reports-filter-title {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+    color: var(--color-gray-main);
+    font-weight: 500;
+    border-left: 0.25rem solid var(--color-gray-light);
+    padding-left: 1rem;
+  }
+
+  .all-reports-filter-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-gray-light);
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    color: var(--color-gray-dark);
   }
 
   .all-reports-main {
