@@ -1,9 +1,17 @@
-import { createContext, useContext, useState } from "react";
-// import axios from "axios";
+import { createContext, useContext, useState, useReducer } from "react";
+import {} from "../constants/ui-constant";
+
+import reducer from "../reducers/ui-reducer";
+
+export const initialState = {
+  dark_mode: false,
+};
 
 const UIContext = createContext();
 
 export const UIContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const [isShowAlert, setIsShowAlert] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -20,6 +28,7 @@ export const UIContextProvider = ({ children }) => {
   }
 
   const value = {
+    ...state,
     isShowAlert,
     isDarkMode,
     displayAlert,

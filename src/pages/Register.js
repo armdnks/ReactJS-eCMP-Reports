@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoLogInOutline, IoDocumentTextOutline, IoEyeOff, IoEye } from "react-icons/io5";
-
 import { Button, FormInput } from "../components/shared";
-
-import useAuthContext from "../context/auth-context.js";
+import useAuthContext from "../context/actions/auth-context.js";
 import styled from "styled-components";
 
 const initialState = {
@@ -20,7 +18,7 @@ const Register = () => {
   const [values, setValues] = useState(initialState);
   const [isVisible, setIsVisible] = useState(false);
 
-  const { userState, setupUser } = useAuthContext();
+  const { user_loading: userLoading, user, setupUser } = useAuthContext();
 
   function toggleMember() {
     setValues({ ...values, isMember: !values.isMember });
@@ -30,11 +28,11 @@ const Register = () => {
     setIsVisible(!isVisible);
   }
 
-  function handleChange(e) {
+  function onChangeHandler(e) {
     setValues({ ...values, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e) {
+  function onSubmitHandler(e) {
     e.preventDefault();
 
     const { name, email, password, confirmPassword, isMember } = values;
@@ -42,19 +40,27 @@ const Register = () => {
     const currentUser = { name, email, password, confirmPassword };
 
     if (isMember) {
-      setupUser({ currentUser, endpoint: "login" });
+      setupUser({
+        currentUser,
+        endpoint: "login",
+        userAlertText: "Login Successful! Redirecting...",
+      });
     } else {
-      setupUser({ currentUser, endpoint: "register" });
+      setupUser({
+        currentUser,
+        endpoint: "register",
+        userAlertText: "User Created! Redirecting...",
+      });
     }
   }
 
   useEffect(() => {
-    if (userState) {
+    if (user) {
       setTimeout(() => {
         navigate("/");
       }, 1500);
     }
-  }, [userState, navigate]);
+  }, [user, navigate]);
 
   return (
     <RegisterPage>
@@ -66,30 +72,76 @@ const Register = () => {
         <div className="register-page-title-container">
           <div className="register-page-title">
             {values.isMember ? <IoLogInOutline /> : <IoDocumentTextOutline />}
-            <h1 className="register-page-title-heading">{values.isMember ? "login" : "register"}</h1>
+            <h1 className="register-page-title-heading">
+              {values.isMember ? "login" : "register"}
+            </h1>
           </div>
-          <p className="register-page-subtitle">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium, placeat.</p>
+          <p className="register-page-subtitle">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium, placeat.
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="register-page-form">
-          {!values.isMember && <FormInput name="name" type="text" value={values.name} onChange={handleChange} placeholder="e.g. John Doe" />}
+        <form onSubmit={onSubmitHandler} className="register-page-form">
+          {!values.isMember && (
+            <FormInput
+              name="name"
+              type="text"
+              value={values.name}
+              onChange={onChangeHandler}
+              placeholder="e.g. John Doe"
+            />
+          )}
 
-          <FormInput name="email" type="text" value={values.email} onChange={handleChange} placeholder="e.g. john@email.com" />
+          <FormInput
+            name="email"
+            type="text"
+            value={values.email}
+            onChange={onChangeHandler}
+            placeholder="e.g. john@email.com"
+          />
 
           <div className="register-page-password-field">
-            <button type="button" onClick={togglePassword} className="register-page-password-field-icon">
+            <button
+              type="button"
+              onClick={togglePassword}
+              className="register-page-password-field-icon"
+            >
               {isVisible ? <IoEye /> : <IoEyeOff />}
             </button>
-            <FormInput name="password" type={isVisible ? "text" : "password"} value={values.password} onChange={handleChange} placeholder="Your secret password" />
+            <FormInput
+              name="password"
+              type={isVisible ? "text" : "password"}
+              value={values.password}
+              onChange={onChangeHandler}
+              placeholder="Your secret password"
+            />
           </div>
 
-          {!values.isMember && <FormInput label="confirm password" name="confirmPassword" type={isVisible ? "text" : "password"} value={values.confirmPassword} onChange={handleChange} placeholder="Confirm your secret password" />}
+          {!values.isMember && (
+            <FormInput
+              label="confirm password"
+              name="confirmPassword"
+              type={isVisible ? "text" : "password"}
+              value={values.confirmPassword}
+              onChange={onChangeHandler}
+              placeholder="Confirm your secret password"
+            />
+          )}
 
-          <Button type="submit" title={values.isMember ? "login" : "register"} className="register-form-submit-btn" />
+          <Button
+            type="submit"
+            title={values.isMember ? "login" : "register"}
+            disabled={userLoading}
+            className="register-form-submit-btn"
+          />
 
           <p className="register-page-member">
             {values.isMember ? "Not a member yet?" : "Already a member?"}
-            <button type="button" onClick={toggleMember} className="register-page-member-btn">
+            <button
+              type="button"
+              onClick={toggleMember}
+              className="register-page-member-btn"
+            >
               {values.isMember ? "Register" : "Login"}
             </button>
           </p>
@@ -108,7 +160,11 @@ const RegisterPage = styled.main`
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(160deg, var(--color-primary-light), var(--color-primary-main));
+  background: linear-gradient(
+    160deg,
+    var(--color-primary-light),
+    var(--color-primary-main)
+  );
 
   .register-page-container {
     position: relative;

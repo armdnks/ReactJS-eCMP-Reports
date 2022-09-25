@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { ReportDetailRow } from "../../components/report";
 
-import useReportContext from "../../context/report-context";
+import useReportContext from "../../context/actions/report-context";
 import snakeToCamel from "../../utils/snakeToCamel";
 import toCapitalize from "../../utils/toCapitalize";
 
@@ -14,17 +14,11 @@ const ReportDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const {
-    reportState: report,
-    getReport,
-    setEditReport,
-    deleteReport,
-  } = useReportContext();
+  const { report, getReport, setUpdateReport, deleteReport } = useReportContext();
 
   const reportChangeCase = snakeToCamel(report);
 
   const {
-    id: reportID,
     brand,
     patientFirstName,
     patientLastName,
@@ -54,8 +48,8 @@ const ReportDetail = () => {
   }, []);
 
   function onEditReport() {
-    setEditReport();
-    navigate(`/report/edit/${reportID}`);
+    setUpdateReport(id);
+    navigate(`/report/edit/${id}`);
   }
 
   function onDeleteReport() {

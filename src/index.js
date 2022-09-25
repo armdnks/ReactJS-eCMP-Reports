@@ -4,9 +4,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-import { AuthContextProvider } from "./context/auth-context";
-import { ReportContextProvider } from "./context/report-context";
-import { UIContextProvider } from "./context/ui-context";
+import { AuthContextProvider } from "./context/actions/auth-context";
+import { ReportContextProvider } from "./context/actions/report-context";
+import { UIContextProvider } from "./context/actions/ui-context";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

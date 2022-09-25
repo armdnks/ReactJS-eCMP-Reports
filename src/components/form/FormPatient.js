@@ -1,10 +1,15 @@
 import { FormInput, FormRadio } from "../shared";
 import FormSideEffects from "./FormSideEffects";
-import useReportContext from "../../context/report-context";
+import useReportContext from "../../context/actions/report-context";
 import styled from "styled-components";
 
 const FormPatient = () => {
-  let { reportData, onChangeHandler } = useReportContext();
+  let { report, changeHandler } = useReportContext();
+
+  function onChangeHandler(e) {
+    const { name, value } = e.target;
+    changeHandler({ name, value });
+  }
 
   return (
     <Wrapper>
@@ -12,8 +17,8 @@ const FormPatient = () => {
       <FormInput
         type="text"
         name="patient_first_name"
-        value={reportData.patient_first_name || ""}
-        onChange={(e) => onChangeHandler(e)}
+        value={report.patient_first_name || ""}
+        onChange={onChangeHandler}
         label="patient first name"
         placeholder="Please input patient first name"
       />
@@ -21,8 +26,8 @@ const FormPatient = () => {
       <FormInput
         type="text"
         name="patient_last_name"
-        value={reportData.patient_last_name || ""}
-        onChange={(e) => onChangeHandler(e)}
+        value={report.patient_last_name || ""}
+        onChange={onChangeHandler}
         label="patient last name"
         placeholder="Please input patient last name"
       />
@@ -30,15 +35,15 @@ const FormPatient = () => {
       <FormRadio
         name="patient_gender"
         options={["male", "female"]}
-        onChange={(e) => onChangeHandler(e)}
+        onChange={onChangeHandler}
         label="patient gender"
       />
 
       <FormInput
         type="number"
         name="patient_age"
-        value={reportData.patient_age || ""}
-        onChange={(e) => onChangeHandler(e)}
+        value={report.patient_age || ""}
+        onChange={onChangeHandler}
         label="patient age"
         placeholder="Please input patient age"
       />
@@ -47,16 +52,16 @@ const FormPatient = () => {
       <FormInput
         type="date"
         name="therapy_start_date"
-        value={reportData.therapy_start_date || ""}
-        onChange={(e) => onChangeHandler(e)}
+        value={report.therapy_start_date || ""}
+        onChange={onChangeHandler}
         label="therapy start date"
       />
 
       <FormInput
         type="date"
         name="therapy_end_date"
-        value={reportData.therapy_end_date || ""}
-        onChange={(e) => onChangeHandler(e)}
+        value={report.therapy_end_date || ""}
+        onChange={onChangeHandler}
         label="therapy end date"
       />
 
@@ -65,16 +70,16 @@ const FormPatient = () => {
         <FormRadio
           name="indication_common"
           options={["onco panel", "onco lung", "onco crc", "brca 1/2", "pd-l1", "other"]}
-          onChange={(e) => onChangeHandler(e)}
+          onChange={onChangeHandler}
           label="indication"
         />
 
         <input
           type="text"
           name="indication_other"
-          value={reportData.indication_other || ""}
-          onChange={(e) => onChangeHandler(e)}
-          disabled={reportData.indication_common !== "other"}
+          value={report.indication_other || ""}
+          onChange={onChangeHandler}
+          disabled={report.indication_common !== "other"}
           placeholder="Other indication"
           className="form-patient-input"
         />
@@ -83,8 +88,8 @@ const FormPatient = () => {
       <FormInput
         type="number"
         name="total_dosing_per_cycle"
-        value={reportData.total_dosing_per_cycle || ""}
-        onChange={(e) => onChangeHandler(e)}
+        value={report.total_dosing_per_cycle || ""}
+        onChange={onChangeHandler}
         label="total dosing"
         placeholder="Please input total dosing"
       />
@@ -93,12 +98,12 @@ const FormPatient = () => {
       <FormRadio
         name="clinical_result"
         options={["cr", "pr", "sd", "pd"]}
-        onChange={(e) => onChangeHandler(e)}
+        onChange={onChangeHandler}
         label="clinical result"
       />
 
       {/* MARK: SIDE EFFECTS */}
-      <FormSideEffects />
+      {/* <FormSideEffects /> */}
     </Wrapper>
   );
 };

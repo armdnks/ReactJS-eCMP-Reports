@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineLogout } from "react-icons/ai";
 
-import useAuthContext from "../../context/auth-context";
+import useAuthContext from "../../context/actions/auth-context";
 import links from "../../utils/links";
 import styled from "styled-components";
 
@@ -23,7 +23,15 @@ const SideNavigation = () => {
           {links.map((link) => {
             const { id, title, path, icon } = link;
             return (
-              <NavLink key={id} to={path} className={path === location.pathname ? "side-nav-item side-nav-item-active" : "side-nav-item side-nav-item-inactive"}>
+              <NavLink
+                key={id}
+                to={path}
+                className={
+                  path === location.pathname
+                    ? "side-nav-item side-nav-item-active"
+                    : "side-nav-item side-nav-item-inactive"
+                }
+              >
                 <span className="side-nav-item-icon">{icon}</span>
                 <p className="side-nav-item-title">{title}</p>
               </NavLink>
@@ -134,7 +142,11 @@ const Wrapper = styled.div`
 
   .side-nav-item-active {
     color: var(--color-white);
-    background: linear-gradient(90deg, var(--color-primary-light), var(--color-primary-main));
+    background: linear-gradient(
+      90deg,
+      var(--color-primary-light),
+      var(--color-primary-main)
+    );
   }
 
   .side-nav-item-active .side-nav-item-icon {

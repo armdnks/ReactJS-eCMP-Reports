@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const Button = ({ type, title, onClick, className }) => {
+const Button = ({ type, title, onClick, className, disabled }) => {
   return (
-    <ButtonStyle type={type} onClick={onClick} className={className}>
+    <ButtonStyle type={type} onClick={onClick} className={className} disabled={disabled}>
       {title}
     </ButtonStyle>
   );
@@ -12,6 +12,7 @@ Button.defaultProps = {
   type: "button",
   title: "Title",
   className: "",
+  disabled: false,
 };
 
 const ButtonStyle = styled.button`

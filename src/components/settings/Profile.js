@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import { Button, FormInput } from "../shared";
-
-import useAuthContext from "../../context/auth-context";
+import useAuthContext from "../../context/actions/auth-context";
 import styled from "styled-components";
 
 const Profile = () => {

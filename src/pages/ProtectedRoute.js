@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
-import useAuthContext from "../context/auth-context";
+import useAuthContext from "../context/actions/auth-context";
 
 const ProtectedRoute = ({ children }) => {
-  const { userState } = useAuthContext();
-  if (!userState) {
+  const { user } = useAuthContext();
+  if (!user) {
     return <Navigate to="/landing" />;
   }
 

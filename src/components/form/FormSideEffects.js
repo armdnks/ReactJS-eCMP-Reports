@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormCheckbox } from "../shared";
-import useReportContext from "../../context/report-context";
+import useReportContext from "../../context/actions/report-context";
 import styled from "styled-components";
 
 const FormSideEffects = () => {

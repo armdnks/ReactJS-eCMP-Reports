@@ -1,26 +1,44 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
+import reducer from "../reducers/auth-reducer";
+
+import {
+  SETUP_USER_BEGIN,
+  SETUP_USER_SUCCESS,
+  SETUP_USER_ERROR,
+  LOGOUT_USER,
+} from "../constants/auth-constant";
+
+const token = localStorage.getItem("token");
+const user = localStorage.getItem("user");
+
+export const initialState = {
+  user_loading: false,
+  user_error: false,
+  user_alert_text: "",
+  user: user ? JSON.parse(user) : null,
+  token: token,
+};
+
 const AuthContext = createContext();
 
-const tokenStorage = localStorage.getItem("token");
-const userStorage = localStorage.getItem("user");
-
 export const AuthContextProvider = ({ children }) => {
-  const [tokenState, setTokenState] = useState(tokenStorage || null);
-  const [userState, setUserState] = useState(JSON.parse(userStorage) || null);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    const oneDay = 1000 * 60 * 60 * 24; // miliseconds
-    if (userState) setTimeout(() => localStorage.clear(), oneDay);
-  }, [userState]);
+  // useEffect(() => {
+  //   const oneDay = 1000 * 60 * 60 * 24; // miliseconds
+  //   if (userState) setTimeout(() => localStorage.clear(), oneDay);
+  // }, [userState]);
 
-  const authFetch = axios.create({ baseURL: `${process.env.REACT_APP_URL}/api/v1` });
+  const authFetch = axios.create({
+    baseURL: `${process.env.REACT_APP_URL}/api/v1`,
+  });
 
   authFetch.interceptors.request.use(
     (config) => {
-      config.headers.common["Authorization"] = `Bearer ${tokenState}`;
+      config.headers.common["Authorization"] = `Bearer ${token}`;
       return config;
     },
     (error) => {
@@ -50,26 +68,36 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.removeItem("user");
   }
 
-  async function setupUser({ currentUser, endpoint }) {
+  async function setupUser({ currentUser, endpoint, userAlertText }) {
+    dispatch({ type: SETUP_USER_BEGIN });
+
     try {
       const config = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       };
 
-      const { data } = await axios.post(`${process.env.REACT_APP_URL}/api/v1/auth/${endpoint}`, currentUser, config);
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_URL}/api/v1/auth/${endpoint}`,
+        currentUser,
+        config
+      );
 
       const { token, user } = data;
 
+      dispatch({
+        type: SETUP_USER_SUCCESS,
+        payload: { user, token, user_alert_text: userAlertText },
+      });
+
       addUserToLocalStorage({ token, user });
 
-      setTokenState(token);
-      setUserState(user);
-
-      toast.success(`Welcome ${user.name}`);
+      toast.success(userAlertText);
     } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.error);
+      dispatch({
+        type: SETUP_USER_ERROR,
+        payload: { error: error.response.data.error },
+      });
     }
   }
 
@@ -93,15 +121,13 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   async function logoutUser() {
-    setTokenState(null);
-    setUserState(null);
+    dispatch({ type: LOGOUT_USER });
     removeUserFromLocalStorage();
   }
 
   const value = {
+    ...state,
     authFetch,
-    tokenState,
-    userState,
     setupUser,
     updateUser,
     logoutUser,

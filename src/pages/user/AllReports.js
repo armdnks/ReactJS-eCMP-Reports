@@ -1,23 +1,16 @@
 import { useEffect } from "react";
-
 import { ReportItem } from "../../components/report";
 import { PageTitle } from "../../components/shared";
-
-import useReportContext from "../../context/report-context";
+import useReportContext from "../../context/actions/report-context";
 import styled from "styled-components";
 
 const AllReports = () => {
-  let {
-    reportsState: reports,
-    getAllReports,
-    searchReport,
-    setSearchReport,
-  } = useReportContext();
+  let { reports, getAllReports } = useReportContext();
 
   useEffect(() => {
-    getAllReports({ searchReport });
+    getAllReports();
     // eslint-disable-next-line
-  }, [searchReport]);
+  }, []);
 
   return (
     <Wrapper>
@@ -32,8 +25,8 @@ const AllReports = () => {
               <input
                 type="text"
                 name="search_report"
-                value={searchReport}
-                onChange={(e) => setSearchReport(e.target.value)}
+                value={""}
+                onChange={(e) => console.log("SEARCH")}
                 className="all-reports-filter-input"
               />
             </form>

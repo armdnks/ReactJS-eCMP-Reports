@@ -1,8 +1,8 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
 
-import useAuthContext from "../../context/auth-context";
-import useReportContext from "../../context/report-context";
+import useAuthContext from "../../context/actions/auth-context";
+import useReportContext from "../../context/actions/report-context";
 import links from "../../utils/links";
 import styled from "styled-components";
 

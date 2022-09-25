@@ -1,47 +1,34 @@
-import { useEffect } from "react";
-import { useParams, useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Button, FormSelect } from "../shared";
 import FormPatient from "./FormPatient";
 import FormDoctor from "./FormDoctor";
-import useReportContext from "../../context/report-context";
+import useReportContext from "../../context/actions/report-context";
 import styled from "styled-components";
 
 const Form = () => {
-  const { id } = useParams();
-
   const navigate = useNavigate();
   const location = useLocation();
 
-  let {
-    reportData,
-    reportState,
-    isEditReport,
-    onChangeHandler,
-    getReport,
-    createReport,
-    updateReport,
-  } = useReportContext();
+  const { report, is_editing, changeHandler, createReport, updateReport } =
+    useReportContext();
+
+  function onChangeHandler(e) {
+    const { name, value } = e.target;
+    changeHandler({ name, value });
+  }
 
   function onSubmitHandler(e) {
     e.preventDefault();
 
-    if (isEditReport) {
-      updateReport(id, reportData);
+    if (is_editing) {
+      updateReport();
       navigate(`/report`);
       return;
     }
 
-    createReport(reportData);
+    createReport();
     navigate(`/report`);
   }
-
-  useEffect(() => {
-    if (id) {
-      getReport(id);
-      Object.assign(reportData, reportState);
-    }
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <Wrapper>
@@ -76,8 +63,8 @@ const Form = () => {
                 "cellcept",
                 "reducer",
               ]}
-              value={reportData.brand || ""}
-              onChange={(e) => onChangeHandler(e)}
+              value={report.brand || ""}
+              onChange={onChangeHandler}
             />
           </section>
 

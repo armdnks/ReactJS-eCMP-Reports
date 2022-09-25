@@ -1,4 +1,4 @@
-import useUIContext from "../../context/ui-context";
+import useUIContext from "../../context/actions/ui-context";
 
 import styled from "styled-components";
 
@@ -7,7 +7,9 @@ const Alert = ({ type, message }) => {
 
   return (
     <Wrapper>
-      <div className={`alert-container bg-${type} ${isShowAlert ? "alert-active" : null}`}>
+      <div
+        className={`alert-container bg-${type} ${isShowAlert ? "alert-active" : null}`}
+      >
         <p className="alert-message">{message || "Alert..."}</p>
       </div>
     </Wrapper>
@@ -31,7 +33,8 @@ const Wrapper = styled.div`
   }
 
   .alert-active {
-    animation: showAlert 1s cubic-bezier(0.19, 1, 0.22, 1), hideAlert 1s cubic-bezier(0.19, 1, 0.22, 1) 3s;
+    animation: showAlert 1s cubic-bezier(0.19, 1, 0.22, 1),
+      hideAlert 1s cubic-bezier(0.19, 1, 0.22, 1) 3s;
   }
 
   @keyframes showAlert {

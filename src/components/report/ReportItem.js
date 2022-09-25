@@ -1,15 +1,14 @@
-/* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import snakeToCamel from "../../utils/snakeToCamel";
 
-import useReportContext from "../../context/report-context";
+import useReportContext from "../../context/actions/report-context";
 
 const ReportItem = ({ report }) => {
   const navigate = useNavigate();
 
-  const { setEditReport, deleteReport } = useReportContext();
+  const { setUpdateReport, deleteReport } = useReportContext();
 
   const reportChangeCase = snakeToCamel(report);
 
@@ -27,12 +26,14 @@ const ReportItem = ({ report }) => {
   } = reportChangeCase;
 
   function onEditReport() {
-    setEditReport();
+    setUpdateReport(id);
     navigate(`/report/edit/${id}`);
   }
 
   function onDeleteReport() {
-    if (window.confirm("are you sure?")) deleteReport(id);
+    if (window.confirm("are you sure?")) {
+      deleteReport(id);
+    }
   }
 
   return (
@@ -88,12 +89,12 @@ const ReportItem = ({ report }) => {
           <Link to={`/report/${id}`} className="report-item-actions-btn">
             preview
           </Link>
-          {/* <button onClick={onEditReport} className="report-item-actions-btn">
+          <button onClick={onEditReport} className="report-item-actions-btn">
             edit
           </button>
           <button onClick={onDeleteReport} className="report-item-actions-btn">
             delete
-          </button> */}
+          </button>
         </div>
       </div>
     </Wrapper>
