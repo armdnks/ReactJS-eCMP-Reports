@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -87,12 +88,12 @@ const ReportItem = ({ report }) => {
           <Link to={`/report/${id}`} className="report-item-actions-btn">
             preview
           </Link>
-          <button onClick={onEditReport} className="report-item-actions-btn">
+          {/* <button onClick={onEditReport} className="report-item-actions-btn">
             edit
           </button>
           <button onClick={onDeleteReport} className="report-item-actions-btn">
             delete
-          </button>
+          </button> */}
         </div>
       </div>
     </Wrapper>

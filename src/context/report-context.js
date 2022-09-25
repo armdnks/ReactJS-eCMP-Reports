@@ -99,6 +99,7 @@ export const ReportContextProvider = ({ children }) => {
   }
 
   function resetForm() {
+    localStorage.removeItem("report");
     setIsEditReport(false);
     setReportData({});
     setReportState({});

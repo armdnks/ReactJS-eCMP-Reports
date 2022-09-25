@@ -4,7 +4,7 @@ import useReportContext from "../../context/report-context";
 import styled from "styled-components";
 
 const FormPatient = () => {
-  const { reportData, onChangeHandler } = useReportContext();
+  let { reportData, onChangeHandler } = useReportContext();
 
   return (
     <Wrapper>

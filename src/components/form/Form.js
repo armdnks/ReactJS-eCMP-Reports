@@ -12,7 +12,7 @@ const Form = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const {
+  let {
     reportData,
     reportState,
     isEditReport,
@@ -40,9 +40,8 @@ const Form = () => {
       getReport(id);
       Object.assign(reportData, reportState);
     }
-
     // eslint-disable-next-line
-  }, [location]);
+  }, []);
 
   return (
     <Wrapper>
