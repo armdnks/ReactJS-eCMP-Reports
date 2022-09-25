@@ -5,6 +5,7 @@ const UIContext = createContext();
 
 export const UIContextProvider = ({ children }) => {
   const [isShowAlert, setIsShowAlert] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   function displayAlert() {
