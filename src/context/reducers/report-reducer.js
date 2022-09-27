@@ -9,6 +9,7 @@ import {
   CREATE_REPORT_BEGIN,
   CREATE_REPORT_SUCCESS,
   CREATE_REPORT_ERROR,
+  IS_SIDE_EFFECTS,
   SET_UPDATE_REPORT,
   UPDATE_REPORT_BEGIN,
   UPDATE_REPORT_SUCCESS,
@@ -94,6 +95,16 @@ const reducer = (state, action) => {
       ...state,
       report_loading: false,
       report_error: true,
+    };
+  }
+
+  if (action.type === IS_SIDE_EFFECTS) {
+    return {
+      ...state,
+      is_side_effects: {
+        ...state.is_side_effects,
+        [action.payload.key]: !state.is_side_effects[action.payload.key],
+      },
     };
   }
 

@@ -9,8 +9,15 @@ const Form = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { report, is_editing, changeHandler, createReport, updateReport } =
-    useReportContext();
+  const {
+    report,
+    is_side_effects,
+    brand_options,
+    is_editing,
+    changeHandler,
+    createReport,
+    updateReport,
+  } = useReportContext();
 
   function onChangeHandler(e) {
     const { name, value } = e.target;
@@ -19,6 +26,17 @@ const Form = () => {
 
   function onSubmitHandler(e) {
     e.preventDefault();
+
+    if (report.indication_common !== "other") {
+      report.indication_other = null;
+    }
+
+    Object.keys(is_side_effects).forEach((key) => {
+      if (!is_side_effects[key]) {
+        report[`s_effects_${key}_grade`] = null;
+        report[`s_effects_${key}_desc`] = null;
+      }
+    });
 
     if (is_editing) {
       updateReport();
@@ -54,15 +72,7 @@ const Form = () => {
           <section className="brand-section">
             <FormSelect
               name="brand"
-              options={[
-                "carnitor",
-                "ofloxacin",
-                "levaquin",
-                "aspirin",
-                "paracetamol",
-                "cellcept",
-                "reducer",
-              ]}
+              options={brand_options}
               value={report.brand || ""}
               onChange={onChangeHandler}
             />

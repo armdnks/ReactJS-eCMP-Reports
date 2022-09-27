@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -8,6 +8,9 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
   LOGOUT_USER,
 } from "../constants/auth-constant";
 
@@ -27,10 +30,10 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // useEffect(() => {
-  //   const oneDay = 1000 * 60 * 60 * 24; // miliseconds
-  //   if (userState) setTimeout(() => localStorage.clear(), oneDay);
-  // }, [userState]);
+  useEffect(() => {
+    const oneDay = 1000 * 60 * 60 * 24; // miliseconds
+    if (user) setTimeout(() => localStorage.clear(), oneDay);
+  }, []);
 
   const authFetch = axios.create({
     baseURL: `${process.env.REACT_APP_URL}/api/v1`,
@@ -102,21 +105,31 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   async function updateUser(currentUser) {
+    dispatch({ type: UPDATE_USER_BEGIN });
+
     try {
       const config = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
       };
 
-      await authFetch.put(`${process.env.REACT_APP_URL}/auth/me`, currentUser, config);
+      await authFetch.put(`/auth/me`, currentUser, config);
 
       const { data } = await authFetch.get(`/auth/me`);
       const { token, user } = data;
 
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { token, user },
+      });
+
       addUserToLocalStorage({ token, user });
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.error);
+      dispatch({
+        type: UPDATE_USER_ERROR,
+        payload: { error: error.response.data.error },
+      });
     }
   }
 

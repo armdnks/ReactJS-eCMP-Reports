@@ -5,7 +5,7 @@ import useAuthContext from "../../context/actions/auth-context";
 import styled from "styled-components";
 
 const Profile = () => {
-  const { userState: user, updateUser } = useAuthContext();
+  const { user, updateUser } = useAuthContext();
 
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);

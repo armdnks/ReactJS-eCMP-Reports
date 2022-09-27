@@ -4,7 +4,13 @@ import useReportContext from "../../context/actions/report-context";
 import styled from "styled-components";
 
 const FormPatient = () => {
-  let { report, changeHandler } = useReportContext();
+  let {
+    report,
+    patient_gender_options,
+    indication_common_options,
+    clinical_result_options,
+    changeHandler,
+  } = useReportContext();
 
   function onChangeHandler(e) {
     const { name, value } = e.target;
@@ -34,7 +40,7 @@ const FormPatient = () => {
 
       <FormRadio
         name="patient_gender"
-        options={["male", "female"]}
+        options={patient_gender_options}
         onChange={onChangeHandler}
         label="patient gender"
       />
@@ -69,7 +75,7 @@ const FormPatient = () => {
       <div className="form-control-column">
         <FormRadio
           name="indication_common"
-          options={["onco panel", "onco lung", "onco crc", "brca 1/2", "pd-l1", "other"]}
+          options={indication_common_options}
           onChange={onChangeHandler}
           label="indication"
         />
@@ -97,13 +103,13 @@ const FormPatient = () => {
       {/* MARK: CLINICAL RESULT */}
       <FormRadio
         name="clinical_result"
-        options={["cr", "pr", "sd", "pd"]}
+        options={clinical_result_options}
         onChange={onChangeHandler}
         label="clinical result"
       />
 
       {/* MARK: SIDE EFFECTS */}
-      {/* <FormSideEffects /> */}
+      <FormSideEffects />
     </Wrapper>
   );
 };

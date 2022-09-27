@@ -44,6 +44,7 @@ const ReportDetail = () => {
 
   useEffect(() => {
     if (id) getReport(id);
+    // if (Object.keys(report.length === 0)) navigate("/");
     // eslint-disable-next-line
   }, []);
 
@@ -131,10 +132,10 @@ const ReportDetail = () => {
 
           <div className="report-detail-section">
             <h1 className="report-detail-section-title">medical doctor</h1>
-            <ReportDetailRow title="name" body={mdName} />
-            <ReportDetailRow title="clinic" body={mdClinic} />
-            <ReportDetailRow title="email" body={mdEmail} />
-            <ReportDetailRow title="phone" body={mdPhone} />
+            <ReportDetailRow title="name" body={mdName || "-"} />
+            <ReportDetailRow title="clinic" body={mdClinic || "-"} />
+            <ReportDetailRow title="email" body={mdEmail || "-"} />
+            <ReportDetailRow title="phone" body={mdPhone || "-"} />
           </div>
         </main>
 

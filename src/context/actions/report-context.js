@@ -1,10 +1,11 @@
-import { createContext, useContext, useState, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 import useAuthContext from "./auth-context";
 import reducer from "../reducers/report-reducer";
 
 import {
   CHANGE_HANDLER,
+  IS_SIDE_EFFECTS,
   GET_REPORTS_BEGIN,
   GET_REPORTS_SUCCESS,
   GET_REPORTS_ERROR,
@@ -54,12 +55,7 @@ export const initialState = {
     "other",
   ],
   clinical_result_options: ["cr", "pr", "sd", "pd"],
-  s_effects_mild_grade: "",
-  s_effects_mild_desc: "",
-  s_effects_moderate_grade: "",
-  s_effects_moderate_desc: "",
-  s_effects_severe_grade: "",
-  s_effects_severe_desc: "",
+  is_side_effects: { mild: false, moderate: false, severe: false },
 };
 
 const ReportContext = createContext();
@@ -76,6 +72,13 @@ export const ReportContextProvider = ({ children }) => {
     });
   }
 
+  function isSideEffects({ key }) {
+    dispatch({
+      type: IS_SIDE_EFFECTS,
+      payload: { key },
+    });
+  }
+
   async function getAllReports() {
     let url = `/reports`;
 
@@ -89,7 +92,7 @@ export const ReportContextProvider = ({ children }) => {
         payload: { reports },
       });
     } catch (error) {
-      // logoutUser();
+      logoutUser();
       console.log(error);
     }
   }
@@ -105,7 +108,7 @@ export const ReportContextProvider = ({ children }) => {
         payload: { report, report_id: id },
       });
     } catch (error) {
-      // logoutUser();
+      logoutUser();
       console.log(error);
     }
   }
@@ -124,7 +127,7 @@ export const ReportContextProvider = ({ children }) => {
 
       dispatch({ type: CREATE_REPORT_SUCCESS });
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       dispatch({ type: CREATE_REPORT_ERROR });
     }
   }
@@ -164,10 +167,6 @@ export const ReportContextProvider = ({ children }) => {
     }
   }
 
-  function resetForm() {
-    localStorage.removeItem("report");
-  }
-
   const value = {
     ...state,
     getAllReports,
@@ -177,7 +176,7 @@ export const ReportContextProvider = ({ children }) => {
     setUpdateReport,
     updateReport,
     deleteReport,
-    resetForm,
+    isSideEffects,
   };
 
   return <ReportContext.Provider value={value}>{children}</ReportContext.Provider>;
