@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-const FormRadio = ({ name, options, onChange, label }) => {
-  let radio;
+const FormRadio = ({ label, name, options, checked, onChange }) => {
   return (
     <FormRadioWrapper>
       <label htmlFor={name} className="form-input-label">
@@ -9,7 +8,7 @@ const FormRadio = ({ name, options, onChange, label }) => {
       </label>
       <div className="form-input-radio">
         {options.map((option, index) => {
-          const id = name + "_" + option;
+          const id = name + "_" + option.replace(/[\s/-]/g, "_").trim();
           return (
             <div key={index} className="form-input-radio-container">
               <input
@@ -17,7 +16,7 @@ const FormRadio = ({ name, options, onChange, label }) => {
                 id={id}
                 name={name}
                 value={option}
-                checked={radio}
+                checked={checked === option}
                 onChange={onChange}
                 className="form-input-radio-field"
               />

@@ -39,10 +39,11 @@ const FormPatient = () => {
       />
 
       <FormRadio
+        label="patient gender"
         name="patient_gender"
         options={patient_gender_options}
+        checked={report.patient_gender}
         onChange={onChangeHandler}
-        label="patient gender"
       />
 
       <FormInput
@@ -74,10 +75,11 @@ const FormPatient = () => {
       {/* MARK: INDICATION */}
       <div className="form-control-column">
         <FormRadio
+          label="indication gender"
           name="indication_common"
           options={indication_common_options}
+          checked={report.indication_common}
           onChange={onChangeHandler}
-          label="indication"
         />
 
         <input
@@ -102,10 +104,11 @@ const FormPatient = () => {
 
       {/* MARK: CLINICAL RESULT */}
       <FormRadio
+        label="clinical result"
         name="clinical_result"
         options={clinical_result_options}
+        checked={report.clinical_result}
         onChange={onChangeHandler}
-        label="clinical result"
       />
 
       {/* MARK: SIDE EFFECTS */}
