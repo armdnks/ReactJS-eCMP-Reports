@@ -14,7 +14,8 @@ const ReportDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { report, getReport, setUpdateReport, deleteReport } = useReportContext();
+  const { report, getReport, setUpdateReport, deleteReport } =
+    useReportContext();
 
   const reportChangeCase = snakeToCamel(report);
 
@@ -30,11 +31,11 @@ const ReportDetail = () => {
     indicationOther,
     totalDosingPerCycle,
     clinicalResult,
-    sEffectsMildGrade,
+    sEffectsMild,
     sEffectsMildDesc,
-    sEffectsModerateGrade,
+    sEffectsModerate,
     sEffectsModerateDesc,
-    sEffectsSevereGrade,
+    sEffectsSevere,
     sEffectsSevereDesc,
     mdName,
     mdClinic,
@@ -70,7 +71,10 @@ const ReportDetail = () => {
           <button onClick={onEditReport} className="report-detail-actions-btn">
             edit
           </button>
-          <button onClick={onDeleteReport} className="report-detail-actions-btn">
+          <button
+            onClick={onDeleteReport}
+            className="report-detail-actions-btn"
+          >
             delete
           </button>
         </div>
@@ -95,11 +99,17 @@ const ReportDetail = () => {
             <ReportDetailRow title="gender" body={patientGender} />
             <ReportDetailRow title="age" body={patientAge} />
 
-            <ReportDetailRow title="theraphy start date" body={therapyStartDate} />
+            <ReportDetailRow
+              title="theraphy start date"
+              body={therapyStartDate}
+            />
             <ReportDetailRow title="theraphy end date" body={therapyEndDate} />
 
             <ReportDetailRow title="indication" body={indicationCommon} />
-            <ReportDetailRow title="indication other" body={indicationOther || "-"} />
+            <ReportDetailRow
+              title="indication other"
+              body={indicationOther || "-"}
+            />
 
             <ReportDetailRow
               title="total dosing per cycle"
@@ -112,21 +122,30 @@ const ReportDetail = () => {
 
               <ReportDetailRow
                 title="mild"
-                body={sEffectsMildGrade ? toCapitalize(sEffectsMildGrade) : "-"}
+                body={sEffectsMild ? toCapitalize(sEffectsMild) : "-"}
               />
-              <ReportDetailRow title="description" body={sEffectsMildDesc || "-"} />
+              <ReportDetailRow
+                title="description"
+                body={sEffectsMildDesc || "-"}
+              />
 
               <ReportDetailRow
                 title="moderate"
-                body={sEffectsModerateGrade ? toCapitalize(sEffectsModerateGrade) : "-"}
+                body={sEffectsModerate ? toCapitalize(sEffectsModerate) : "-"}
               />
-              <ReportDetailRow title="description" body={sEffectsModerateDesc || "-"} />
+              <ReportDetailRow
+                title="description"
+                body={sEffectsModerateDesc || "-"}
+              />
 
               <ReportDetailRow
                 title="severe"
-                body={sEffectsSevereGrade ? toCapitalize(sEffectsSevereGrade) : "-"}
+                body={sEffectsSevere ? toCapitalize(sEffectsSevere) : "-"}
               />
-              <ReportDetailRow title="description" body={sEffectsSevereDesc || "-"} />
+              <ReportDetailRow
+                title="description"
+                body={sEffectsSevereDesc || "-"}
+              />
             </div>
           </div>
 

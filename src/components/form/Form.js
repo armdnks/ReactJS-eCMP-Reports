@@ -31,12 +31,17 @@ const Form = () => {
       report.indication_other = null;
     }
 
-    Object.keys(is_side_effects).forEach((key) => {
-      if (!is_side_effects[key]) {
-        report[`s_effects_${key}_grade`] = null;
-        report[`s_effects_${key}_desc`] = null;
-      }
+    Object.keys(report).forEach((key) => {
+      const sideEffectsKey = ["s_effects_mild", "s_effects_moderate", "s_effects_severe"];
+      console.log(report.hasOwnProperty(sideEffectsKey));
     });
+
+    // Object.keys(is_side_effects).forEach((key) => {
+    //   if (!is_side_effects[key]) {
+    //     report[`s_effects_${key}_grade`] = null;
+    //     report[`s_effects_${key}_desc`] = null;
+    //   }
+    // });
 
     if (is_editing) {
       updateReport();

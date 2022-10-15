@@ -1,5 +1,7 @@
 import {
   CHANGE_HANDLER,
+  IS_SIDE_EFFECTS,
+  RESET_INPUT_FIELDS,
   GET_REPORTS_BEGIN,
   GET_REPORTS_SUCCESS,
   GET_REPORTS_ERROR,
@@ -9,7 +11,6 @@ import {
   CREATE_REPORT_BEGIN,
   CREATE_REPORT_SUCCESS,
   CREATE_REPORT_ERROR,
-  IS_SIDE_EFFECTS,
   SET_UPDATE_REPORT,
   UPDATE_REPORT_BEGIN,
   UPDATE_REPORT_SUCCESS,
@@ -19,13 +20,34 @@ import {
   DELETE_REPORT_ERROR,
 } from "../constants/report-constant";
 
-// import { initialState } from "../actions/report-context";
+import { initialState } from "../actions/report-context";
 
 const reducer = (state, action) => {
   if (action.type === CHANGE_HANDLER) {
     return {
       ...state,
-      report: { ...state.report, [action.payload.name]: action.payload.value },
+      report: {
+        ...state.report,
+        [action.payload.name]: action.payload.value,
+      },
+    };
+  }
+
+  if (action.type === IS_SIDE_EFFECTS) {
+    return {
+      ...state,
+      report: {
+        ...state.report,
+        [action.payload.key]:
+          state.report[action.payload.key] !== "yes" ? "yes" : "no",
+      },
+    };
+  }
+
+  if (action.type === RESET_INPUT_FIELDS) {
+    return {
+      ...state,
+      report: initialState.report,
     };
   }
 
@@ -98,18 +120,10 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === IS_SIDE_EFFECTS) {
-    return {
-      ...state,
-      is_side_effects: {
-        ...state.is_side_effects,
-        [action.payload.key]: !state.is_side_effects[action.payload.key],
-      },
-    };
-  }
-
   if (action.type === SET_UPDATE_REPORT) {
-    const report = state.reports.find((report) => report.id === action.payload.id);
+    const report = state.reports.find(
+      (report) => report.id === action.payload.id
+    );
 
     return {
       ...state,

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 const FormCheckbox = ({
-  name,
-  valueSelect,
-  valueInput,
-  onChange,
   label,
-  onClick,
+  name,
+  checked,
+  valueInput,
+  onChangeInput,
+  onChangeCheckBox,
   disabled,
 }) => {
   return (
@@ -15,34 +15,20 @@ const FormCheckbox = ({
         type="checkbox"
         name={name}
         id={name}
-        onClick={onClick}
+        checked={checked}
+        onChange={onChangeCheckBox}
         className="form-checkbox-check"
       />
+
       <label htmlFor={name} className="form-checkbox-label">
         {label}
       </label>
-
-      <select
-        name={name + "_grade"}
-        value={valueSelect}
-        onChange={onChange}
-        defaultValue=""
-        disabled={disabled}
-        className="form-checkbox-select"
-      >
-        <option value="" disabled>
-          choose
-        </option>
-        <option value="grade 1">grade 1</option>
-        <option value="grade 2">grade 2</option>
-        <option value="grade 3">grade 3</option>
-      </select>
 
       <input
         type="text"
         name={name + "_desc"}
         value={valueInput}
-        onChange={onChange}
+        onChange={onChangeInput}
         disabled={disabled}
         placeholder="Please input side effects"
         className="form-checkbox-input"

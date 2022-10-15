@@ -3,7 +3,7 @@ import useReportContext from "../../context/actions/report-context";
 import styled from "styled-components";
 
 const FormSideEffects = () => {
-  const { report, is_side_effects, changeHandler, isSideEffects } = useReportContext();
+  const { report, changeHandler, isSideEffects } = useReportContext();
 
   function onClickIsSideEffects(key) {
     isSideEffects({ key });
@@ -22,33 +22,33 @@ const FormSideEffects = () => {
         </label>
 
         <FormCheckbox
-          name="s_effects_mild"
-          valueSelect={report.s_effects_mild_grade}
-          valueInput={report.s_effects_mild_desc || ""}
-          onChange={(e) => onChangeHandler(e)}
           label="mild"
-          onClick={() => onClickIsSideEffects("mild")}
-          disabled={!is_side_effects.mild}
+          name="s_effects_mild"
+          checked={report.s_effects_mild === "yes"}
+          onChangeCheckBox={() => onClickIsSideEffects("s_effects_mild")}
+          valueInput={report.s_effects_mild_desc || ""}
+          onChangeInput={(e) => onChangeHandler(e)}
+          disabled={report.s_effects_mild !== "yes"}
         />
 
         <FormCheckbox
-          name="s_effects_moderate"
-          valueSelect={report.s_effects_moderate_grade}
-          valueInput={report.s_effects_moderate_desc || ""}
-          onChange={(e) => onChangeHandler(e)}
           label="moderate"
-          onClick={() => onClickIsSideEffects("moderate")}
-          disabled={!is_side_effects.moderate}
+          name="s_effects_moderate"
+          checked={report.s_effects_moderate === "yes"}
+          onChangeCheckBox={() => onClickIsSideEffects("s_effects_moderate")}
+          valueInput={report.s_effects_moderate_desc || ""}
+          onChangeInput={(e) => onChangeHandler(e)}
+          disabled={report.s_effects_moderate !== "yes"}
         />
 
         <FormCheckbox
-          name="s_effects_severe"
-          valueSelect={report.s_effects_severe_grade}
-          valueInput={report.s_effects_severe_desc || ""}
-          onChange={(e) => onChangeHandler(e)}
           label="severe"
-          onClick={() => onClickIsSideEffects("severe")}
-          disabled={!is_side_effects.severe}
+          name="s_effects_severe"
+          checked={report.s_effects_severe === "yes"}
+          onChangeCheckBox={() => onClickIsSideEffects("s_effects_severe")}
+          valueInput={report.s_effects_severe_desc || ""}
+          onChangeInput={(e) => onChangeHandler(e)}
+          disabled={report.s_effects_severe !== "yes"}
         />
       </div>
     </Wrapper>
