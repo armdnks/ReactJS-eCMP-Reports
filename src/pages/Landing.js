@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Login } from "../components/landing";
 
 const Landing = () => {
   return (
     <Wrapper>
       <div className="landing-page-container">
-        <Link to="/register" className="btn">
+        <Login />
+        {/* <Link to="/register" className="btn">
           login
-        </Link>
+        </Link> */}
       </div>
     </Wrapper>
   );

@@ -4,6 +4,8 @@ import { createContext, useContext, useReducer } from "react";
 import useAuthContext from "./auth-context";
 import reducer from "../reducers/report-reducer";
 
+import generateMD5 from "../../utils/generate-md5";
+
 import {
   CHANGE_HANDLER,
   IS_SIDE_EFFECTS,
@@ -24,6 +26,7 @@ import {
   DELETE_REPORT_BEGIN,
   DELETE_REPORT_SUCCESS,
   DELETE_REPORT_ERROR,
+  CANCEL_UPDATE_REPORT,
 } from "../constants/report-constant";
 
 /**
@@ -39,7 +42,7 @@ export const initialState = {
   reports: [],
   total_reports: 0,
   report: {
-    id: "", // from database
+    id: "",
     brand: "",
     patient_first_name: "",
     patient_last_name: "",
@@ -65,25 +68,10 @@ export const initialState = {
   report_id: "",
   is_editing: false,
   // brand data options
-  brand_options: [
-    "carnitor",
-    "ofloxacin",
-    "levaquin",
-    "aspirin",
-    "paracetamol",
-    "cellcept",
-    "reducer",
-  ],
+  brand_options: ["carnitor", "ofloxacin", "levaquin", "aspirin", "paracetamol", "cellcept", "reducer"],
   // patient data options
   patient_gender_options: ["male", "female"],
-  indication_common_options: [
-    "onco panel",
-    "onco lung",
-    "onco crc",
-    "brca 1/2",
-    "pd-l1",
-    "other",
-  ],
+  indication_common_options: ["onco panel", "onco lung", "onco crc", "brca 1/2", "pd-l1", "other"],
   clinical_result_options: ["cr", "pr", "sd", "pd"],
 };
 
@@ -186,16 +174,13 @@ export const ReportContextProvider = ({ children }) => {
       };
 
       const { report } = state;
+      // genereate ID
+      const id = generateMD5();
+      const reportAssign = Object.assign(report, { id });
 
-      await authFetch.post(
-        `${process.env.REACT_APP_URL}/api/v1/reports`,
-        report,
-        config
-      );
+      await authFetch.post(`${process.env.REACT_APP_URL}/api/v1/reports`, reportAssign, config);
 
-      dispatch({ type: CREATE_REPORT_SUCCESS });
-
-      resetInputFields();
+      dispatch({ type: CREATE_REPORT_SUCCESS, payload: { report_id: id } });
     } catch (error) {
       console.log(error);
       dispatch({ type: CREATE_REPORT_ERROR });
@@ -208,6 +193,14 @@ export const ReportContextProvider = ({ children }) => {
    */
   function setUpdateReport(id) {
     dispatch({ type: SET_UPDATE_REPORT, payload: { id } });
+  }
+
+  /**
+   * ### CANCEL UPDATE REPORT
+   *
+   */
+  function cancelUpdateReport() {
+    dispatch({ type: CANCEL_UPDATE_REPORT });
   }
 
   /**
@@ -227,8 +220,6 @@ export const ReportContextProvider = ({ children }) => {
       await authFetch.put(`/reports/${state.report_id}`, report, config);
 
       dispatch({ type: UPDATE_REPORT_SUCCESS });
-
-      resetInputFields();
     } catch (error) {
       console.log(error);
       dispatch({ type: UPDATE_REPORT_ERROR });
@@ -255,17 +246,17 @@ export const ReportContextProvider = ({ children }) => {
     ...state,
     changeHandler,
     isSideEffects,
+    resetInputFields,
     getAllReports,
     getReport,
     createReport,
     setUpdateReport,
+    cancelUpdateReport,
     updateReport,
     deleteReport,
   };
 
-  return (
-    <ReportContext.Provider value={value}>{children}</ReportContext.Provider>
-  );
+  return <ReportContext.Provider value={value}>{children}</ReportContext.Provider>;
 };
 
 export default function useReportContext() {

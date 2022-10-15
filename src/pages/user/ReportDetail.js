@@ -14,8 +14,7 @@ const ReportDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { report, getReport, setUpdateReport, deleteReport } =
-    useReportContext();
+  const { report, report_id, getReport, setUpdateReport, deleteReport } = useReportContext();
 
   const reportChangeCase = snakeToCamel(report);
 
@@ -45,13 +44,14 @@ const ReportDetail = () => {
 
   useEffect(() => {
     if (id) getReport(id);
+
     // if (Object.keys(report.length === 0)) navigate("/");
     // eslint-disable-next-line
   }, []);
 
   function onEditReport() {
     setUpdateReport(id);
-    navigate(`/report/edit/${id}`);
+    navigate(`/report/edit/${id ? id : report_id}`);
   }
 
   function onDeleteReport() {
@@ -71,10 +71,7 @@ const ReportDetail = () => {
           <button onClick={onEditReport} className="report-detail-actions-btn">
             edit
           </button>
-          <button
-            onClick={onDeleteReport}
-            className="report-detail-actions-btn"
-          >
+          <button onClick={onDeleteReport} className="report-detail-actions-btn">
             delete
           </button>
         </div>
@@ -91,61 +88,31 @@ const ReportDetail = () => {
           <div className="report-detail-section">
             <h1 className="report-detail-section-title">patient information</h1>
 
-            <ReportDetailRow
-              title="name"
-              body={patientFirstName + " " + patientLastName}
-            />
+            <ReportDetailRow title="name" body={patientFirstName + " " + patientLastName} />
 
             <ReportDetailRow title="gender" body={patientGender} />
             <ReportDetailRow title="age" body={patientAge} />
 
-            <ReportDetailRow
-              title="theraphy start date"
-              body={therapyStartDate}
-            />
+            <ReportDetailRow title="theraphy start date" body={therapyStartDate} />
             <ReportDetailRow title="theraphy end date" body={therapyEndDate} />
 
             <ReportDetailRow title="indication" body={indicationCommon} />
-            <ReportDetailRow
-              title="indication other"
-              body={indicationOther || "-"}
-            />
+            <ReportDetailRow title="indication other" body={indicationOther || "-"} />
 
-            <ReportDetailRow
-              title="total dosing per cycle"
-              body={totalDosingPerCycle + " mg"}
-            />
+            <ReportDetailRow title="total dosing per cycle" body={totalDosingPerCycle + " mg"} />
             <ReportDetailRow title="clinical result" body={clinicalResult} />
 
             <div className="report-detail-effects">
               <h4 className="report-detail-effects-title">side effects</h4>
 
-              <ReportDetailRow
-                title="mild"
-                body={sEffectsMild ? toCapitalize(sEffectsMild) : "-"}
-              />
-              <ReportDetailRow
-                title="description"
-                body={sEffectsMildDesc || "-"}
-              />
+              <ReportDetailRow title="mild" body={sEffectsMild ? toCapitalize(sEffectsMild) : "-"} />
+              <ReportDetailRow title="description" body={sEffectsMildDesc || "-"} />
 
-              <ReportDetailRow
-                title="moderate"
-                body={sEffectsModerate ? toCapitalize(sEffectsModerate) : "-"}
-              />
-              <ReportDetailRow
-                title="description"
-                body={sEffectsModerateDesc || "-"}
-              />
+              <ReportDetailRow title="moderate" body={sEffectsModerate ? toCapitalize(sEffectsModerate) : "-"} />
+              <ReportDetailRow title="description" body={sEffectsModerateDesc || "-"} />
 
-              <ReportDetailRow
-                title="severe"
-                body={sEffectsSevere ? toCapitalize(sEffectsSevere) : "-"}
-              />
-              <ReportDetailRow
-                title="description"
-                body={sEffectsSevereDesc || "-"}
-              />
+              <ReportDetailRow title="severe" body={sEffectsSevere ? toCapitalize(sEffectsSevere) : "-"} />
+              <ReportDetailRow title="description" body={sEffectsSevereDesc || "-"} />
             </div>
           </div>
 

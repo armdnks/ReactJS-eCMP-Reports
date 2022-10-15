@@ -10,7 +10,7 @@ const Navigation = () => {
   const location = useLocation();
 
   const { logoutUser } = useAuthContext();
-  const { resetForm } = useReportContext();
+  const { resetInputFields } = useReportContext();
 
   return (
     <Wrapper>
@@ -26,7 +26,7 @@ const Navigation = () => {
               <NavLink
                 key={id}
                 to={path}
-                onClick={resetForm}
+                onClick={resetInputFields}
                 className={
                   path === location.pathname
                     ? "main-nav-item main-nav-item-active"

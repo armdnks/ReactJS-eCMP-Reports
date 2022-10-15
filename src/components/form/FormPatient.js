@@ -4,13 +4,8 @@ import useReportContext from "../../context/actions/report-context";
 import styled from "styled-components";
 
 const FormPatient = () => {
-  let {
-    report,
-    patient_gender_options,
-    indication_common_options,
-    clinical_result_options,
-    changeHandler,
-  } = useReportContext();
+  let { report, patient_gender_options, indication_common_options, clinical_result_options, changeHandler } =
+    useReportContext();
 
   function onChangeHandler(e) {
     const { name, value } = e.target;

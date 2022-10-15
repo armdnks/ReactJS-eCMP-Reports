@@ -1,4 +1,4 @@
-import useUIContext from "../../context/actions/ui-context";
+import useUIContext from "../../context/actions/settings-context";
 
 import styled from "styled-components";
 
@@ -8,7 +8,9 @@ const Alert = ({ type, message }) => {
   return (
     <Wrapper>
       <div
-        className={`alert-container bg-${type} ${isShowAlert ? "alert-active" : null}`}
+        className={`alert-container bg-${type} ${
+          isShowAlert ? "alert-active" : null
+        }`}
       >
         <p className="alert-message">{message || "Alert..."}</p>
       </div>

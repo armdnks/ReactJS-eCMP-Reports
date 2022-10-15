@@ -1,4 +1,4 @@
-import {} from "../constants/ui-constant";
+import {} from "../constants/settings-constant";
 
 const reducer = (state, action) => {};
 

@@ -8,12 +8,12 @@
 import CombineProviders from "./combine-providers";
 import { AuthContextProvider } from "./actions/auth-context";
 import { ReportContextProvider } from "./actions/report-context";
-import { UIContextProvider } from "./actions/ui-context";
+import { SettingsContextProvider } from "./actions/settings-context";
 
 // Provider Order
 const providers = [
   AuthContextProvider,
-  UIContextProvider,
+  SettingsContextProvider,
   ReportContextProvider,
 ];
 

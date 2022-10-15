@@ -12,6 +12,7 @@ import {
   CREATE_REPORT_SUCCESS,
   CREATE_REPORT_ERROR,
   SET_UPDATE_REPORT,
+  CANCEL_UPDATE_REPORT,
   UPDATE_REPORT_BEGIN,
   UPDATE_REPORT_SUCCESS,
   UPDATE_REPORT_ERROR,
@@ -38,8 +39,7 @@ const reducer = (state, action) => {
       ...state,
       report: {
         ...state.report,
-        [action.payload.key]:
-          state.report[action.payload.key] !== "yes" ? "yes" : "no",
+        [action.payload.key]: state.report[action.payload.key] !== "yes" ? "yes" : "no",
       },
     };
   }
@@ -47,6 +47,8 @@ const reducer = (state, action) => {
   if (action.type === RESET_INPUT_FIELDS) {
     return {
       ...state,
+      is_editing: false,
+      report_id: "",
       report: initialState.report,
     };
   }
@@ -95,6 +97,9 @@ const reducer = (state, action) => {
       ...state,
       report_loading: false,
       report_error: true,
+      is_editing: false,
+      report_id: "",
+      report: initialState.report,
     };
   }
 
@@ -109,6 +114,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       report_loading: false,
+      report_id: action.payload.report_id,
     };
   }
 
@@ -121,15 +127,20 @@ const reducer = (state, action) => {
   }
 
   if (action.type === SET_UPDATE_REPORT) {
-    const report = state.reports.find(
-      (report) => report.id === action.payload.id
-    );
+    if (action.payload.id === undefined) {
+      return { ...state, is_editing: true };
+    } else {
+      const report = state.reports.find((report) => report.id === action.payload.id);
+      return { ...state, is_editing: true, report_id: report.id, report };
+    }
+  }
 
+  if (action.type === CANCEL_UPDATE_REPORT) {
     return {
       ...state,
-      is_editing: true,
-      report_id: report.id,
-      report,
+      is_editing: false,
+      report_id: "",
+      report: initialState.report,
     };
   }
 

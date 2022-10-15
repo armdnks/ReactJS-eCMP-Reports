@@ -9,15 +9,7 @@ const Form = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const {
-    report,
-    is_side_effects,
-    brand_options,
-    is_editing,
-    changeHandler,
-    createReport,
-    updateReport,
-  } = useReportContext();
+  const { report, brand_options, is_editing, changeHandler, createReport, updateReport } = useReportContext();
 
   function onChangeHandler(e) {
     const { name, value } = e.target;
@@ -27,21 +19,19 @@ const Form = () => {
   function onSubmitHandler(e) {
     e.preventDefault();
 
+    // if indication other not true, return empty string
     if (report.indication_common !== "other") {
       report.indication_other = null;
     }
 
-    Object.keys(report).forEach((key) => {
-      const sideEffectsKey = ["s_effects_mild", "s_effects_moderate", "s_effects_severe"];
-      console.log(report.hasOwnProperty(sideEffectsKey));
+    // if each side effects === no, return empty string on each description
+    const sideEffectsKey = ["s_effects_mild", "s_effects_moderate", "s_effects_severe"];
+    sideEffectsKey.map((key) => {
+      if (report[key] === "no") {
+        return (report[`${key}_desc`] = null);
+      }
+      return { ...report };
     });
-
-    // Object.keys(is_side_effects).forEach((key) => {
-    //   if (!is_side_effects[key]) {
-    //     report[`s_effects_${key}_grade`] = null;
-    //     report[`s_effects_${key}_desc`] = null;
-    //   }
-    // });
 
     if (is_editing) {
       updateReport();
@@ -67,20 +57,14 @@ const Form = () => {
         <header className="form-main-header">
           <h1 className="form-main-header-title">eCMP Report</h1>
           <p className="form-main-header-desc">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, illum
-            quisquam! Saepe eum minima quibusdam dicta distinctio voluptas exercitationem?
-            Eos.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, illum quisquam! Saepe eum minima quibusdam
+            dicta distinctio voluptas exercitationem? Eos.
           </p>
         </header>
 
         <form onSubmit={onSubmitHandler} className="form-main">
           <section className="brand-section">
-            <FormSelect
-              name="brand"
-              options={brand_options}
-              value={report.brand || ""}
-              onChange={onChangeHandler}
-            />
+            <FormSelect name="brand" options={brand_options} value={report.brand || ""} onChange={onChangeHandler} />
           </section>
 
           <h1 className="form-main-title">patient information</h1>
@@ -89,11 +73,7 @@ const Form = () => {
           <h1 className="form-main-title">doctor information</h1>
           <FormDoctor />
 
-          <Button
-            type="submit"
-            title="submit report"
-            className="form-main-submit-btn btn-block"
-          />
+          <Button type="submit" title="submit report" className="form-main-submit-btn btn-block" />
         </form>
       </div>
     </Wrapper>

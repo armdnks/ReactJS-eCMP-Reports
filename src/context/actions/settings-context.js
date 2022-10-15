@@ -1,15 +1,15 @@
 import { createContext, useContext, useState, useReducer } from "react";
-import {} from "../constants/ui-constant";
+import {} from "../constants/settings-constant";
 
-import reducer from "../reducers/ui-reducer";
+import reducer from "../reducers/settings-reducer";
 
 export const initialState = {
   dark_mode: false,
 };
 
-const UIContext = createContext();
+const SettingsContext = createContext();
 
-export const UIContextProvider = ({ children }) => {
+export const SettingsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [isShowAlert, setIsShowAlert] = useState(false);
@@ -34,14 +34,18 @@ export const UIContextProvider = ({ children }) => {
     displayAlert,
   };
 
-  return <UIContext.Provider value={value}>{children}</UIContext.Provider>;
+  return (
+    <SettingsContext.Provider value={value}>
+      {children}
+    </SettingsContext.Provider>
+  );
 };
 
-export default function useUIContext() {
-  const context = useContext(UIContext);
+export default function useSettingsContext() {
+  const context = useContext(SettingsContext);
 
   if (context === undefined) {
-    throw new Error("useUIContext must be used within UIContext!");
+    throw new Error("useSettingsContext must be used within SettingsContext!");
   }
 
   return context;
