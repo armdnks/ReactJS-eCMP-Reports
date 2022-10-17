@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   width: 100%;
 
   .add-report-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 3rem 1.5rem;
   }

@@ -10,6 +10,7 @@ export const initialState = {
 const SettingsContext = createContext();
 
 export const SettingsContextProvider = ({ children }) => {
+  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [isShowAlert, setIsShowAlert] = useState(false);
@@ -34,11 +35,7 @@ export const SettingsContextProvider = ({ children }) => {
     displayAlert,
   };
 
-  return (
-    <SettingsContext.Provider value={value}>
-      {children}
-    </SettingsContext.Provider>
-  );
+  return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>;
 };
 
 export default function useSettingsContext() {

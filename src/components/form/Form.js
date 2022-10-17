@@ -83,7 +83,7 @@ const Form = () => {
 const Wrapper = styled.div`
   .form-main-actions {
     width: 100%;
-    max-width: 720px;
+    /* max-width: 720px; */
     margin-bottom: 2rem;
     display: flex;
     justify-content: space-between;

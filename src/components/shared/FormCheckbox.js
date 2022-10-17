@@ -1,14 +1,6 @@
 import styled from "styled-components";
 
-const FormCheckbox = ({
-  label,
-  name,
-  checked,
-  valueInput,
-  onChangeInput,
-  onChangeCheckBox,
-  disabled,
-}) => {
+const FormCheckbox = ({ label, name, checked, valueInput, onChangeInput, onChangeCheckBox, disabled }) => {
   return (
     <FormCheckboxWrapper>
       <input
@@ -30,7 +22,7 @@ const FormCheckbox = ({
         value={valueInput}
         onChange={onChangeInput}
         disabled={disabled}
-        placeholder="Please input side effects"
+        placeholder={disabled ? "No side effects" : "Please input side effects"}
         className="form-checkbox-input"
       />
     </FormCheckboxWrapper>
@@ -57,9 +49,23 @@ const FormCheckboxWrapper = styled.div`
   }
 
   .form-checkbox-input {
-    padding: 0.5rem;
     width: 100%;
+    padding: 1rem;
+    /* border: 1px solid var(--color-gray-light); */
+    border: none;
+    border-radius: 0.25rem;
     font-size: 1rem;
+    color: var(--color-gray-dark);
+    background: #f3f3f3;
+  }
+
+  .form-checkbox-input:disabled {
+    background: #fee3e2;
+    color: #ff7770;
+  }
+
+  .form-checkbox-input:disabled::placeholder {
+    color: #ff7770;
   }
 `;
 

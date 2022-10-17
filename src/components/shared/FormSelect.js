@@ -6,14 +6,7 @@ const FormSelect = ({ type, name, value, onChange, label, options }) => {
       <label htmlFor={name} className="form-select-label">
         {label || name}
       </label>
-      <select
-        type={type}
-        name={name}
-        id={name}
-        value={value}
-        onChange={onChange}
-        className="form-select-field"
-      >
+      <select type={type} name={name} id={name} value={value} onChange={onChange} className="form-select-field">
         <option value="" disabled>
           choose
         </option>
@@ -49,10 +42,12 @@ const FormSelectWrapper = styled.div`
 
   .form-select-field {
     padding: 1rem;
-    border: 1px solid var(--color-gray-light);
+    /* border: 1px solid var(--color-gray-light); */
+    border: none;
     border-radius: 0.25rem;
     font-size: 1rem;
     color: var(--color-gray-dark);
+    background: #f3f3f3;
   }
 `;
 

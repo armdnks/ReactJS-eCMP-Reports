@@ -83,7 +83,9 @@ const FormPatient = () => {
           value={report.indication_other || ""}
           onChange={onChangeHandler}
           disabled={report.indication_common !== "other"}
-          placeholder="Other indication"
+          placeholder={
+            report.indication_common !== "other" ? "Other indication field" : "Please input other indication"
+          }
           className="form-patient-input"
         />
       </div>
@@ -116,16 +118,27 @@ const Wrapper = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.75rem;
 
   .form-patient-input {
     width: 100%;
     padding: 1rem;
-    border: 1px solid var(--color-gray-light);
+    /* border: 1px solid var(--color-gray-light); */
+    border: none;
     border-radius: 0.25rem;
     font-size: 1rem;
     color: var(--color-gray-dark);
+    background: #f3f3f3;
     margin-top: 1rem;
+  }
+
+  .form-patient-input:disabled {
+    background: #fee3e2;
+    color: #ff7770;
+  }
+
+  .form-patient-input:disabled::placeholder {
+    color: #ff7770;
   }
 `;
 

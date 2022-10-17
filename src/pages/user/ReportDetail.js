@@ -66,8 +66,8 @@ const ReportDetail = () => {
         </Link>
 
         <div className="report-detail-actions-btn-container">
-          <button className="report-detail-actions-btn">print</button>
-          <button className="report-detail-actions-btn">download</button>
+          {/* <button className="report-detail-actions-btn">print</button>
+          <button className="report-detail-actions-btn">download</button> */}
           <button onClick={onEditReport} className="report-detail-actions-btn">
             edit
           </button>

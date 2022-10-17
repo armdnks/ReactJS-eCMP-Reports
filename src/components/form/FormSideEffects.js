@@ -61,7 +61,7 @@ const Wrapper = styled.div`
   .form-control-column {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
   }
 
   .form-effects-label {

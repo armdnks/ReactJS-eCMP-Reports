@@ -62,22 +62,16 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1.5rem;
+    padding: 1rem 1.5rem;
   }
 
   .main-nav-logo {
-    width: 200px;
-    height: 70px;
+    height: 35px;
   }
 
   .main-nav-logo img {
-    width: 100%;
     height: 100%;
     object-fit: contain;
-  }
-
-  .main-nav-logo {
-    height: 100%;
   }
 
   .main-nav-links {

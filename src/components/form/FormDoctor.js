@@ -57,7 +57,7 @@ const Wrapper = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.75rem;
 `;
 
 export default FormDoctor;

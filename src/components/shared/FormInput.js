@@ -43,10 +43,12 @@ const FormInputWrapper = styled.div`
 
   .form-input-field {
     padding: 1rem;
-    border: 1px solid var(--color-gray-light);
+    /* border: 1px solid var(--color-gray-light); */
+    border: none;
     border-radius: 0.25rem;
     font-size: 1rem;
     color: var(--color-gray-dark);
+    background: #f3f3f3;
   }
 
   .form-input-field::placeholder {

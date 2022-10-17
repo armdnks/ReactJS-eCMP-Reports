@@ -54,9 +54,7 @@ export const AuthContextProvider = ({ children }) => {
       return response;
     },
     (error) => {
-      if (error.response.status === 401) {
-        logoutUser();
-      }
+      if (error.response.status === 401) logoutUser();
       return Promise.reject(error);
     }
   );
@@ -80,11 +78,7 @@ export const AuthContextProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
       };
 
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_URL}/api/v1/auth/${endpoint}`,
-        currentUser,
-        config
-      );
+      const { data } = await axios.post(`${process.env.REACT_APP_URL}/api/v1/auth/${endpoint}`, currentUser, config);
 
       const { token, user } = data;
 

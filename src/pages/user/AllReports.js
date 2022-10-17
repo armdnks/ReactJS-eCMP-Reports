@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { ReportItem } from "../../components/report";
-import { PageTitle } from "../../components/shared";
+import { Loader, PageTitle } from "../../components/shared";
 import useReportContext from "../../context/actions/report-context";
 import styled from "styled-components";
 
 const AllReports = () => {
-  let { reports, getAllReports } = useReportContext();
+  let { report_loading: loading, reports, getAllReports } = useReportContext();
 
   useEffect(() => {
     getAllReports();
@@ -18,16 +18,15 @@ const AllReports = () => {
         <div className="all-reports-filter">
           <div className="all-reports-filter-content">
             <h1 className="all-reports-filter-title">search</h1>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="all-reports-filter-form"
-            >
+            <form onSubmit={(e) => e.preventDefault()} className="all-reports-filter-form">
               <input
-                type="text"
+                å="text"
                 name="search_report"
                 value={""}
                 onChange={(e) => console.log("SEARCH")}
                 className="all-reports-filter-input"
+                disabled
+                placeholder="disabled"
               />
             </form>
           </div>
@@ -36,6 +35,7 @@ const AllReports = () => {
         <main className="all-reports-main">
           <PageTitle title="all reports" />
 
+          {loading && <Loader />}
           <div className="all-reports-list">
             {reports.map((report) => {
               return <ReportItem key={report.id} report={report} />;
