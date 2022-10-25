@@ -1,13 +1,17 @@
 import styled from "styled-components";
 
-const FormInput = ({ type, name, value, onChange, label, placeholder, className }) => {
+const FormInput = ({ type, name, value, onChange, label, placeholder, className, notes, required }) => {
   return (
     <FormInputWrapper className={className}>
       {name !== "" && (
         <label htmlFor={name} className="form-input-label">
           {label || name}
+          <span className="form-input-label-required">{required && "*"}</span>
         </label>
       )}
+
+      <p className="form-input-notes">{notes}</p>
+
       <input
         type={type}
         name={name}
@@ -16,6 +20,7 @@ const FormInput = ({ type, name, value, onChange, label, placeholder, className 
         onChange={onChange}
         placeholder={placeholder}
         className="form-input-field"
+        required={required}
       />
     </FormInputWrapper>
   );
@@ -27,6 +32,8 @@ FormInput.defaultProps = {
   value: "",
   placeholder: "Please input value",
   className: "",
+  notes: "",
+  required: false,
 };
 
 const FormInputWrapper = styled.div`
@@ -39,6 +46,17 @@ const FormInputWrapper = styled.div`
     font-weight: bold;
     color: var(--color-primary-main);
     font-size: 1rem;
+  }
+
+  .form-input-label-required {
+    font-weight: 400;
+    color: #f00;
+    margin-left: 1px;
+  }
+
+  .form-input-notes {
+    font-size: 0.8rem;
+    color: #aaa;
   }
 
   .form-input-field {

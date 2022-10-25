@@ -26,8 +26,9 @@ const ReportDetail = () => {
     patientAge,
     therapyStartDate,
     therapyEndDate,
-    indicationCommon,
-    indicationOther,
+    indication,
+    molecularDiagnosticCommon,
+    molecularDiagnosticOther,
     totalDosingPerCycle,
     clinicalResult,
     sEffectsMild,
@@ -36,8 +37,10 @@ const ReportDetail = () => {
     sEffectsModerateDesc,
     sEffectsSevere,
     sEffectsSevereDesc,
-    mdName,
+    mdFirstName,
+    mdLastName,
     mdClinic,
+    mdCity,
     mdEmail,
     mdPhone,
   } = reportChangeCase;
@@ -96,8 +99,9 @@ const ReportDetail = () => {
             <ReportDetailRow title="theraphy start date" body={therapyStartDate} />
             <ReportDetailRow title="theraphy end date" body={therapyEndDate} />
 
-            <ReportDetailRow title="indication" body={indicationCommon} />
-            <ReportDetailRow title="indication other" body={indicationOther || "-"} />
+            <ReportDetailRow title="indication" body={indication} />
+            <ReportDetailRow title="molecular diagnostic" body={molecularDiagnosticCommon} />
+            <ReportDetailRow title="other" body={molecularDiagnosticOther || "-"} />
 
             <ReportDetailRow title="total dosing per cycle" body={totalDosingPerCycle + " mg"} />
             <ReportDetailRow title="clinical result" body={clinicalResult} />
@@ -118,8 +122,9 @@ const ReportDetail = () => {
 
           <div className="report-detail-section">
             <h1 className="report-detail-section-title">medical doctor</h1>
-            <ReportDetailRow title="name" body={mdName || "-"} />
+            <ReportDetailRow title="name" body={mdFirstName + " " + mdLastName || "-"} />
             <ReportDetailRow title="clinic" body={mdClinic || "-"} />
+            <ReportDetailRow title="city" body={mdCity || "-"} />
             <ReportDetailRow title="email" body={mdEmail || "-"} />
             <ReportDetailRow title="phone" body={mdPhone || "-"} />
           </div>

@@ -1,11 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { ReportItem } from "../../components/report";
 import { Loader, PageTitle } from "../../components/shared";
+import { FiltersForm } from "../../components/filters";
 import useReportContext from "../../context/actions/report-context";
+import useFilterContext from "../../context/actions/filter-context";
 import styled from "styled-components";
 
 const AllReports = () => {
   let { report_loading: loading, reports, getAllReports } = useReportContext();
+  const { filters, filtered_reports } = useFilterContext();
 
   useEffect(() => {
     getAllReports();
@@ -16,20 +20,7 @@ const AllReports = () => {
     <Wrapper>
       <div className="all-reports-container">
         <div className="all-reports-filter">
-          <div className="all-reports-filter-content">
-            <h1 className="all-reports-filter-title">search</h1>
-            <form onSubmit={(e) => e.preventDefault()} className="all-reports-filter-form">
-              <input
-                å="text"
-                name="search_report"
-                value={""}
-                onChange={(e) => console.log("SEARCH")}
-                className="all-reports-filter-input"
-                disabled
-                placeholder="disabled"
-              />
-            </form>
-          </div>
+          <FiltersForm />
         </div>
 
         <main className="all-reports-main">
@@ -37,7 +28,7 @@ const AllReports = () => {
 
           {loading && <Loader />}
           <div className="all-reports-list">
-            {reports.map((report) => {
+            {filtered_reports.map((report) => {
               return <ReportItem key={report.id} report={report} />;
             })}
           </div>
@@ -55,42 +46,14 @@ const Wrapper = styled.div`
     margin: 0 auto;
     padding: 3.5rem 1.5rem 5rem;
 
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 2rem;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 3fr; */
+    /* gap: 2rem; */
   }
 
   .all-reports-filter {
     width: 100%;
     height: 100%;
-  }
-
-  .all-reports-filter-content {
-    position: sticky;
-    top: 2.5rem;
-    left: 0;
-    padding: 1rem;
-    /* background: var(--color-gray-light); */
-    /* border-radius: 0.25rem; */
-    border-right: 1px solid var(--color-gray-light);
-  }
-
-  .all-reports-filter-title {
-    text-transform: capitalize;
-    margin-bottom: 1rem;
-    color: var(--color-gray-main);
-    font-weight: 500;
-    border-left: 0.25rem solid var(--color-gray-light);
-    padding-left: 1rem;
-  }
-
-  .all-reports-filter-input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--color-gray-light);
-    border-radius: 0.25rem;
-    font-size: 1rem;
-    color: var(--color-gray-dark);
   }
 
   .all-reports-main {

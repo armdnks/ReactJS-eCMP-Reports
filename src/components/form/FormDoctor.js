@@ -16,11 +16,20 @@ const FormDoctor = () => {
       {/* MARK: DOCTOR INFORMATION */}
       <FormInput
         type="text"
-        name="md_name"
-        value={report.md_name || ""}
+        name="md_first_name"
+        value={report.md_first_name || ""}
         onChange={onChangeHandler}
-        label="md name"
-        placeholder="Please input doctor's name"
+        label="md first name"
+        placeholder="Please input doctor's first name"
+      />
+
+      <FormInput
+        type="text"
+        name="md_last_name"
+        value={report.md_last_name || ""}
+        onChange={onChangeHandler}
+        label="md last name"
+        placeholder="Please input doctor's last name"
       />
 
       <FormInput
@@ -29,6 +38,15 @@ const FormDoctor = () => {
         value={report.md_clinic || ""}
         onChange={onChangeHandler}
         label="md clinic"
+        placeholder="Please input doctor's workplace"
+      />
+
+      <FormInput
+        type="text"
+        name="md_city"
+        value={report.md_city || ""}
+        onChange={onChangeHandler}
+        label="md city"
         placeholder="Please input doctor's workplace"
       />
 

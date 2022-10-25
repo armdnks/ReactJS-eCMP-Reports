@@ -4,7 +4,7 @@ import useReportContext from "../../context/actions/report-context";
 import styled from "styled-components";
 
 const FormPatient = () => {
-  let { report, patient_gender_options, indication_common_options, clinical_result_options, changeHandler } =
+  let { report, patient_gender_options, molecular_diagnostic_common_options, clinical_result_options, changeHandler } =
     useReportContext();
 
   function onChangeHandler(e) {
@@ -57,6 +57,7 @@ const FormPatient = () => {
         value={report.therapy_start_date || ""}
         onChange={onChangeHandler}
         label="therapy start date"
+        notes="*Please input patient start therapy date"
       />
 
       <FormInput
@@ -65,26 +66,38 @@ const FormPatient = () => {
         value={report.therapy_end_date || ""}
         onChange={onChangeHandler}
         label="therapy end date"
+        notes="*Please input patient end therapy date"
       />
 
-      {/* MARK: INDICATION */}
+      <FormInput
+        type="text"
+        name="indication"
+        value={report.indication || ""}
+        onChange={onChangeHandler}
+        placeholder="Please input indication"
+        notes="e.g. Headache, Stomache, Brainache, etc"
+      />
+
+      {/* MARK: MOLECULAR DIAGNOSTIC */}
       <div className="form-control-column">
         <FormRadio
-          label="indication gender"
-          name="indication_common"
-          options={indication_common_options}
-          checked={report.indication_common}
+          label="molecular diagnostic"
+          name="molecular_diagnostic_common"
+          options={molecular_diagnostic_common_options}
+          checked={report.molecular_diagnostic_common}
           onChange={onChangeHandler}
         />
 
         <input
           type="text"
-          name="indication_other"
-          value={report.indication_other || ""}
+          name="molecular_diagnostic_other"
+          value={report.molecular_diagnostic_other || ""}
           onChange={onChangeHandler}
-          disabled={report.indication_common !== "other"}
+          disabled={report.molecular_diagnostic_common !== "other"}
           placeholder={
-            report.indication_common !== "other" ? "Other indication field" : "Please input other indication"
+            report.molecular_diagnostic_common !== "other"
+              ? "Other molecular diagnostic field"
+              : "Please input other molecular diagnostic"
           }
           className="form-patient-input"
         />
@@ -97,6 +110,7 @@ const FormPatient = () => {
         onChange={onChangeHandler}
         label="total dosing"
         placeholder="Please input total dosing"
+        notes={`Brand : ${report.brand ? report.brand : "Please choose brand"}`}
       />
 
       {/* MARK: CLINICAL RESULT */}

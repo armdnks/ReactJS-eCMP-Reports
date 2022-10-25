@@ -44,25 +44,34 @@ export const initialState = {
   report: {
     id: "",
     brand: "",
+
+    // Patient Data
     patient_first_name: "",
     patient_last_name: "",
     patient_gender: "male",
     patient_age: "",
     therapy_start_date: "",
     therapy_end_date: "",
-    indication_common: "onco panel",
-    indication_other: "",
+    molecular_diagnostic: "",
+    indication: "",
+    molecular_diagnostic_common: "onco panel",
+    molecular_diagnostic_other: "",
     total_dosing_per_cycle: "",
     clinical_result: "cr",
+    // side effects
     s_effects_mild: "no",
     s_effects_mild_desc: "",
     s_effects_moderate: "no",
     s_effects_moderate_desc: "",
     s_effects_severe: "no",
     s_effects_severe_desc: "",
-    md_name: "",
-    md_email: "",
+
+    // MD Data
+    md_first_name: "",
+    md_last_name: "",
     md_clinic: "",
+    md_city: "",
+    md_email: "",
     md_phone: "",
   },
   report_id: "",
@@ -71,8 +80,8 @@ export const initialState = {
   brand_options: ["carnitor", "ofloxacin", "levaquin", "aspirin", "paracetamol", "cellcept", "reducer"],
   // patient data options
   patient_gender_options: ["male", "female"],
-  indication_common_options: ["onco panel", "onco lung", "onco crc", "brca 1/2", "pd-l1", "other"],
-  clinical_result_options: ["cr", "pr", "sd", "pd"],
+  molecular_diagnostic_common_options: ["onco panel", "onco lung", "onco crc", "brca 1/2", "pd-l1", "other"],
+  clinical_result_options: ["cr", "pr", "sd", "pd", "n/a"],
 };
 
 const ReportContext = createContext();
@@ -89,6 +98,7 @@ export const ReportContextProvider = ({ children }) => {
    * @components  ...
    *
    */
+
   function changeHandler({ name, value }) {
     dispatch({
       type: CHANGE_HANDLER,
@@ -103,6 +113,7 @@ export const ReportContextProvider = ({ children }) => {
    * @components  ...
    *
    */
+
   function isSideEffects({ key }) {
     dispatch({
       type: IS_SIDE_EFFECTS,
@@ -115,6 +126,7 @@ export const ReportContextProvider = ({ children }) => {
    * @desc reset input fields back to initial state value
    *
    */
+
   function resetInputFields() {
     dispatch({ type: RESET_INPUT_FIELDS });
   }
@@ -123,6 +135,7 @@ export const ReportContextProvider = ({ children }) => {
    * ### GET ALL REPORTS
    *
    */
+
   async function getAllReports() {
     let url = `/reports`;
 
@@ -145,6 +158,7 @@ export const ReportContextProvider = ({ children }) => {
    * ### GET SINGLE REPORT
    *
    */
+
   async function getReport(id) {
     dispatch({ type: GET_REPORT_BEGIN });
     try {
@@ -165,6 +179,7 @@ export const ReportContextProvider = ({ children }) => {
    * ### CREATE REPORT
    *
    */
+
   async function createReport() {
     dispatch({ type: CREATE_REPORT_BEGIN });
     try {
@@ -191,6 +206,7 @@ export const ReportContextProvider = ({ children }) => {
    * ### SET UPDATE REPORT
    *
    */
+
   function setUpdateReport(id) {
     dispatch({ type: SET_UPDATE_REPORT, payload: { id } });
   }
@@ -199,6 +215,7 @@ export const ReportContextProvider = ({ children }) => {
    * ### CANCEL UPDATE REPORT
    *
    */
+
   function cancelUpdateReport() {
     dispatch({ type: CANCEL_UPDATE_REPORT });
   }
@@ -207,6 +224,7 @@ export const ReportContextProvider = ({ children }) => {
    * ### UPDATE REPORT
    *
    */
+
   async function updateReport() {
     dispatch({ type: UPDATE_REPORT_BEGIN });
 
@@ -230,6 +248,7 @@ export const ReportContextProvider = ({ children }) => {
    * ### DELETE REPORT
    *
    */
+
   async function deleteReport(id) {
     dispatch({ type: DELETE_REPORT_BEGIN });
 

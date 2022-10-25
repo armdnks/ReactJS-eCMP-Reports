@@ -19,9 +19,9 @@ const Form = () => {
   function onSubmitHandler(e) {
     e.preventDefault();
 
-    // if indication other not true, return empty string
-    if (report.indication_common !== "other") {
-      report.indication_other = null;
+    // if molecular diagnostic other not true, return empty string || null
+    if (report.molecular_diagnostic_common !== "other") {
+      report.molecular_diagnostic_other = null;
     }
 
     // if each side effects === no, return empty string on each description
