@@ -1,4 +1,6 @@
-import { LOAD_REPORTS, FILTER_REPORTS, ON_CHANGE_FILTERS } from "../constants/filter-constant";
+import { LOAD_REPORTS, FILTER_REPORTS, ON_CHANGE_FILTERS, CLEAR_FILTERS } from "../constants/filter-constant";
+
+import { initialState } from "../actions/filter-context";
 
 const reducer = (state, action) => {
   if (action.type === LOAD_REPORTS) {
@@ -48,6 +50,13 @@ const reducer = (state, action) => {
     }
 
     return { ...state, filtered_reports: temporary_reports };
+  }
+
+  if (action.type === CLEAR_FILTERS) {
+    return {
+      ...state,
+      filters: initialState.filters,
+    };
   }
 };
 

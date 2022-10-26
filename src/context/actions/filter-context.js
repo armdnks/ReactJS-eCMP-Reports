@@ -2,9 +2,9 @@ import { createContext, useContext, useReducer, useEffect } from "react";
 import reducer from "../reducers/filter-reducer";
 import useReportContext from "./report-context";
 
-import { LOAD_REPORTS, FILTER_REPORTS, UPDATE_FILTERS, ON_CHANGE_FILTERS } from "../constants/filter-constant";
+import { LOAD_REPORTS, FILTER_REPORTS, ON_CHANGE_FILTERS, CLEAR_FILTERS } from "../constants/filter-constant";
 
-const initialState = {
+export const initialState = {
   filter_loading: false,
   filter_error: false,
   filter_error_message: "",
@@ -38,9 +38,14 @@ export const FilterContextProvider = ({ children }) => {
     dispatch({ type: ON_CHANGE_FILTERS, payload: { name, value } });
   }
 
+  function clearFilters() {
+    dispatch({ type: CLEAR_FILTERS });
+  }
+
   const value = {
     ...state,
     onChangeFilters,
+    clearFilters,
   };
   return <FilterContext.Provider value={value}>{children}</FilterContext.Provider>;
 };

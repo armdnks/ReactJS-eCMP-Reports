@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const FiltersInputText = ({ label, name, type, value, onChange, placeholder }) => {
+const FiltersInputText = ({ label, name, type, value, onChange, placeholder, className }) => {
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       {/* <label htmlFor={name} className="filters-input-text-label">
         {label || name}
       </label> */}
@@ -32,10 +32,10 @@ const Wrapper = styled.div`
   .filters-input-text-field {
     width: 100%;
     border: none;
-    background: none;
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-    border-bottom: 0.1rem solid #ccc;
+    background: #f3f3f3;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
   }
 `;
 

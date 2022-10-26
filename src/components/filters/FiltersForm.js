@@ -5,9 +5,11 @@ import useReportContext from "../../context/actions/report-context";
 import FiltersInputText from "./FiltersInputText";
 import FiltersSelect from "./FiltersSelect";
 
+import { Button } from "../shared";
+
 const FiltersForm = () => {
   const { brand_options, molecular_diagnostic_common_options, clinical_result_options } = useReportContext();
-  const { filters, onChangeFilters } = useFilterContext();
+  const { filters, onChangeFilters, clearFilters } = useFilterContext();
 
   function onSubmitHandler(e) {
     e.preventDefault();
@@ -15,13 +17,14 @@ const FiltersForm = () => {
 
   return (
     <Wrapper>
-      <h1 className="filters-form-title">search</h1>
+      <h3 className="filters-form-title">filter reports</h3>
       <form onSubmit={onSubmitHandler} className="filters-form-container">
         <FiltersInputText
           name="text"
           value={filters.text}
           onChange={(e) => onChangeFilters(e)}
           placeholder="Search Report"
+          className="col-1-span-4"
         />
 
         <FiltersSelect
@@ -32,6 +35,7 @@ const FiltersForm = () => {
         />
 
         <FiltersSelect
+          label="molecular diagnostic"
           name="molecular_diagnostic"
           options={["all", ...molecular_diagnostic_common_options]}
           value={filters.molecular_diagnostic}
@@ -39,28 +43,27 @@ const FiltersForm = () => {
         />
 
         <FiltersSelect
+          label="clinical result"
           name="clinical_result"
           options={["all", ...clinical_result_options]}
           value={filters.clinical_result}
           onChange={(e) => onChangeFilters(e)}
         />
+
+        <Button type="button" title="clear filters" onClick={clearFilters} />
       </form>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  position: sticky;
-  top: 2.5rem;
-  left: 0;
-  padding: 1rem;
-  /* background: var(--color-gray-light); */
-  /* border-radius: 0.25rem; */
-  /* border-right: 1px solid var(--color-gray-light); */
+  padding-bottom: 2.5rem;
+  border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.5rem;
 
   .filters-form-title {
     text-transform: capitalize;
-    margin-bottom: 1rem;
+    margin-bottom: 1.75rem;
     color: var(--color-gray-main);
     font-weight: 500;
     border-left: 0.25rem solid var(--color-gray-light);
@@ -68,7 +71,14 @@ const Wrapper = styled.div`
   }
 
   .filters-form-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: flex-end;
+    gap: 1.25rem;
+  }
+
+  .col-1-span-4 {
+    grid-column: 1 / span 4;
   }
 
   .all-reports-filter-input {

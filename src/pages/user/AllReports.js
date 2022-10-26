@@ -24,9 +24,9 @@ const AllReports = () => {
         </div>
 
         <main className="all-reports-main">
-          <PageTitle title="all reports" />
+          {/* <PageTitle title="all reports" /> */}
 
-          {loading && <Loader />}
+          {/* {loading && <Loader />} */}
           <div className="all-reports-list">
             {filtered_reports.map((report) => {
               return <ReportItem key={report.id} report={report} />;
