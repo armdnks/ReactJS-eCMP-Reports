@@ -9,14 +9,14 @@ import { Button } from "../shared";
 
 const FiltersForm = () => {
   const { brand_options, molecular_diagnostic_common_options, clinical_result_options } = useReportContext();
-  const { filters, onChangeFilters, clearFilters } = useFilterContext();
+  const { filters, onChangeFilters, clearFilters, showFilters } = useFilterContext();
 
   function onSubmitHandler(e) {
     e.preventDefault();
   }
 
   return (
-    <Wrapper>
+    <Wrapper className={showFilters ? "show" : null}>
       <h3 className="filters-form-title">filter reports</h3>
       <form onSubmit={onSubmitHandler} className="filters-form-container">
         <FiltersInputText
@@ -60,6 +60,11 @@ const Wrapper = styled.div`
   padding-bottom: 2.5rem;
   border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
   margin-bottom: 2.5rem;
+  display: none;
+
+  &.show {
+    display: block;
+  }
 
   .filters-form-title {
     text-transform: capitalize;

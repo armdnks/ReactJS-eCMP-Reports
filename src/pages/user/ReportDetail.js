@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import { ReportDetailRow } from "../../components/report";
 
 import useReportContext from "../../context/actions/report-context";
-import snakeToCamel from "../../utils/snakeToCamel";
-import toCapitalize from "../../utils/toCapitalize";
+import snakeToCamel from "../../utils/snake-to-camel";
+import toCapitalize from "../../utils/to-capitalize";
 
 import styled from "styled-components";
 

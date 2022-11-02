@@ -1,4 +1,10 @@
-import { LOAD_REPORTS, FILTER_REPORTS, ON_CHANGE_FILTERS, CLEAR_FILTERS } from "../constants/filter-constant";
+import {
+  LOAD_REPORTS,
+  FILTER_REPORTS,
+  ON_CHANGE_FILTERS,
+  CLEAR_FILTERS,
+  SHOW_FILTERS,
+} from "../constants/filter-constant";
 
 import { initialState } from "../actions/filter-context";
 
@@ -8,6 +14,13 @@ const reducer = (state, action) => {
       ...state,
       all_reports: action.payload.reports,
       filtered_reports: action.payload.reports,
+    };
+  }
+
+  if (action.type === SHOW_FILTERS) {
+    return {
+      ...state,
+      showFilters: !state.showFilters,
     };
   }
 

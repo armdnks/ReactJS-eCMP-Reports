@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import snakeToCamel from "../../utils/snakeToCamel";
+import snakeToCamel from "../../utils/snake-to-camel";
 
 import useReportContext from "../../context/actions/report-context";
 

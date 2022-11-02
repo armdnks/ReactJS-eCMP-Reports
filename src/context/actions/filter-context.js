@@ -2,9 +2,16 @@ import { createContext, useContext, useReducer, useEffect } from "react";
 import reducer from "../reducers/filter-reducer";
 import useReportContext from "./report-context";
 
-import { LOAD_REPORTS, FILTER_REPORTS, ON_CHANGE_FILTERS, CLEAR_FILTERS } from "../constants/filter-constant";
+import {
+  LOAD_REPORTS,
+  FILTER_REPORTS,
+  ON_CHANGE_FILTERS,
+  CLEAR_FILTERS,
+  SHOW_FILTERS,
+} from "../constants/filter-constant";
 
 export const initialState = {
+  showFilters: false,
   filter_loading: false,
   filter_error: false,
   filter_error_message: "",
@@ -32,8 +39,12 @@ export const FilterContextProvider = ({ children }) => {
     dispatch({ type: FILTER_REPORTS });
   }, [state.filters]);
 
+  function toggleFilters() {
+    dispatch({ type: SHOW_FILTERS });
+  }
+
   function onChangeFilters(e) {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
 
     dispatch({ type: ON_CHANGE_FILTERS, payload: { name, value } });
   }
@@ -44,9 +55,11 @@ export const FilterContextProvider = ({ children }) => {
 
   const value = {
     ...state,
+    toggleFilters,
     onChangeFilters,
     clearFilters,
   };
+
   return <FilterContext.Provider value={value}>{children}</FilterContext.Provider>;
 };
 

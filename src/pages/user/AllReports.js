@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useEffect } from "react";
-import { ReportItem } from "../../components/report";
+import { ReportItem, ReportItemTr, ReportTable, ReportNavigation } from "../../components/report";
 import { Loader, PageTitle } from "../../components/shared";
 import { FiltersForm } from "../../components/filters";
 import useReportContext from "../../context/actions/report-context";
@@ -22,16 +22,18 @@ const AllReports = () => {
         <div className="all-reports-filter">
           <FiltersForm />
         </div>
-
+        <ReportNavigation />
         <main className="all-reports-main">
           {/* <PageTitle title="all reports" /> */}
 
           {/* {loading && <Loader />} */}
-          <div className="all-reports-list">
+          {/* <div className="all-reports-list">
             {filtered_reports.map((report) => {
               return <ReportItem key={report.id} report={report} />;
             })}
-          </div>
+          </div> */}
+
+          <ReportTable />
         </main>
       </div>
     </Wrapper>
