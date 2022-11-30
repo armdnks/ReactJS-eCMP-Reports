@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { useEffect } from "react";
-import { ReportItem, ReportItemTr, ReportTable, ReportNavigation } from "../../components/report";
+import { ReportItemGrid, ReportItemTable, ReportNavigation } from "../../components/report";
 import { Loader, PageTitle } from "../../components/shared";
 import { FiltersForm } from "../../components/filters";
 import useReportContext from "../../context/actions/report-context";
 import useFilterContext from "../../context/actions/filter-context";
+import useSettingsContext from "../../context/actions/settings-context";
 import styled from "styled-components";
 
 const AllReports = () => {
   let { report_loading: loading, reports, getAllReports } = useReportContext();
   const { filters, filtered_reports } = useFilterContext();
+  const { is_grid_view } = useSettingsContext();
 
   useEffect(() => {
     getAllReports();
@@ -19,21 +21,17 @@ const AllReports = () => {
   return (
     <Wrapper>
       <div className="all-reports-container">
+        <PageTitle title="all reports" />
+
         <div className="all-reports-filter">
           <FiltersForm />
         </div>
+
         <ReportNavigation />
         <main className="all-reports-main">
-          {/* <PageTitle title="all reports" /> */}
+          {loading && <Loader />}
 
-          {/* {loading && <Loader />} */}
-          {/* <div className="all-reports-list">
-            {filtered_reports.map((report) => {
-              return <ReportItem key={report.id} report={report} />;
-            })}
-          </div> */}
-
-          <ReportTable />
+          {is_grid_view ? <ReportItemGrid /> : <ReportItemTable />}
         </main>
       </div>
     </Wrapper>

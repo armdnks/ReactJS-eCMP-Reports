@@ -1,10 +1,10 @@
-import { createContext, useContext, useState, useReducer } from "react";
-import {} from "../constants/settings-constant";
+import { createContext, useContext, useReducer } from "react";
+import { SET_GRID_VIEW, SET_TABLE_VIEW } from "../constants/settings-constant";
 
 import reducer from "../reducers/settings-reducer";
 
 export const initialState = {
-  dark_mode: false,
+  is_grid_view: false,
 };
 
 const SettingsContext = createContext();
@@ -13,26 +13,18 @@ export const SettingsContextProvider = ({ children }) => {
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const [isShowAlert, setIsShowAlert] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  function displayAlert() {
-    setIsShowAlert(true);
-    clearAlert();
+  function setGridView() {
+    dispatch({ type: SET_GRID_VIEW });
   }
 
-  function clearAlert() {
-    setTimeout(() => {
-      setIsShowAlert(false);
-    }, 4000);
+  function setTableView() {
+    dispatch({ type: SET_TABLE_VIEW });
   }
 
   const value = {
     ...state,
-    isShowAlert,
-    isDarkMode,
-    displayAlert,
+    setGridView,
+    setTableView,
   };
 
   return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>;

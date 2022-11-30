@@ -1,7 +1,8 @@
 import ReportDetailRow from "./ReportDetailRow";
 import ReportItem from "./ReportItem";
-import ReportItemTr from "./ReportItemTr";
-import ReportTable from "./ReportTable";
+import ReportItemTable from "./ReportItemTable";
+import ReportItemTableRow from "./ReportItemTableRow";
 import ReportNavigation from "./ReportNavigation";
+import ReportItemGrid from "./ReportItemGrid";
 
-export { ReportDetailRow, ReportItem, ReportItemTr, ReportTable, ReportNavigation };
+export { ReportDetailRow, ReportItem, ReportItemGrid, ReportItemTable, ReportItemTableRow, ReportNavigation };

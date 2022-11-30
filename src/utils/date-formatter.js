@@ -17,7 +17,7 @@ export default function dateFormatter(date) {
 
   const newDate = new Date(date);
   return (
-    DAYS[newDate.getDay()] +
+    DAYS[newDate.getDay()].slice(0, 3) +
     ", " +
     MONTHS[newDate.getMonth()].slice(0, 3) +
     " " +

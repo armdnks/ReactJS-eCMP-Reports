@@ -1,9 +1,9 @@
-import ReportItemTr from "./ReportItemTr";
+import ReportItemTableRow from "./ReportItemTableRow";
 import useFilterContext from "../../context/actions/filter-context";
 import styled from "styled-components";
 
-const ReportTable = () => {
-  const { filters, filtered_reports } = useFilterContext();
+const ReportItemTable = () => {
+  const { filtered_reports } = useFilterContext();
 
   return (
     <Wrapper>
@@ -23,7 +23,7 @@ const ReportTable = () => {
         </thead>
         <tbody>
           {filtered_reports.map((report) => {
-            return <ReportItemTr key={report.id} report={report} />;
+            return <ReportItemTableRow key={report.id} report={report} />;
           })}
         </tbody>
       </table>
@@ -34,12 +34,17 @@ const ReportTable = () => {
 const Wrapper = styled.div`
   text-align: center;
   overflow: auto;
+  width: 100%;
 
   table {
-    width: 1920px;
+    width: 100%;
+
+    width: 1810px;
+    font-size: 1rem;
   }
 
   thead {
+    width: 100%;
     padding: 1rem 0;
     display: block;
     margin-bottom: 1rem;
@@ -49,6 +54,7 @@ const Wrapper = styled.div`
   }
 
   tr {
+    width: 100%;
     text-transform: capitalize;
     display: flex;
     align-items: center;
@@ -64,4 +70,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default ReportTable;
+export default ReportItemTable;

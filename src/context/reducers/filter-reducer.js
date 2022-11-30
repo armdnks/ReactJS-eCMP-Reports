@@ -4,11 +4,27 @@ import {
   ON_CHANGE_FILTERS,
   CLEAR_FILTERS,
   SHOW_FILTERS,
+  SET_GRID_VIEW,
+  SET_LIST_VIEW,
 } from "../constants/filter-constant";
 
 import { initialState } from "../actions/filter-context";
 
 const reducer = (state, action) => {
+  if (action.type === SET_GRID_VIEW) {
+    return {
+      ...state,
+      grid_view: true,
+    };
+  }
+
+  if (action.type === SET_LIST_VIEW) {
+    return {
+      ...state,
+      grid_view: false,
+    };
+  }
+
   if (action.type === LOAD_REPORTS) {
     return {
       ...state,

@@ -41,7 +41,7 @@ export const AuthContextProvider = ({ children }) => {
 
   authFetch.interceptors.request.use(
     (config) => {
-      config.headers.common["Authorization"] = `Bearer ${token}`;
+      config.headers.common["Authorization"] = `Bearer ${state.token}`;
       return config;
     },
     (error) => {

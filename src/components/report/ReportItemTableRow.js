@@ -1,10 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import useReportContext from "../../context/actions/report-context";
 import { snakeToCamel, toCapitalize, dateFormatter } from "../../utils";
 
 import styled from "styled-components";
 
-const ReportItemTr = ({ report }) => {
+const ReportItemTableRow = ({ report }) => {
   const navigate = useNavigate();
 
   const { setUpdateReport, deleteReport } = useReportContext();
@@ -21,7 +22,6 @@ const ReportItemTr = ({ report }) => {
     therapyEndDate,
     molecularDiagnosticCommon,
     clinicalResult,
-    user,
     createdAt,
   } = reportChangeCase;
 
@@ -35,6 +35,7 @@ const ReportItemTr = ({ report }) => {
       deleteReport(id);
     }
   }
+
   return (
     <Wrapper>
       <td>{dateFormatter(createdAt)}</td>
@@ -46,11 +47,14 @@ const ReportItemTr = ({ report }) => {
       <td>{molecularDiagnosticCommon.toUpperCase()}</td>
       <td>{clinicalResult.toUpperCase()}</td>
       <td className="report-item-tr-actions">
+        <Link to={`/report/${id}`} className="report-item-tr-action-btn preview-btn">
+          <FaEye />
+        </Link>
         <button onClick={onEditReport} className="report-item-tr-action-btn edit-btn">
-          edit
+          <FaEdit />
         </button>
         <button onClick={onDeleteReport} className="report-item-tr-action-btn delete-btn">
-          delete
+          <FaTrash />
         </button>
       </td>
     </Wrapper>
@@ -61,11 +65,12 @@ const Wrapper = styled.tr`
   padding: 1rem 0;
   background: #fff;
   /* box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.5); */
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
+  /* margin-bottom: 1rem; */
+  /* border-radius: 0.5rem; */
+  border-bottom: 1px solid #ddd;
 
   &:nth-child(even) {
-    background: #f0f0f0;
+    background: #f6f6f6;
   }
 
   .report-item-tr-actions {
@@ -74,10 +79,16 @@ const Wrapper = styled.tr`
   }
 
   .report-item-tr-action-btn {
-    padding: 0.7rem 1rem;
+    /* padding: 0.7rem 1rem; */
     background: #ccc;
     border-radius: 0.25rem;
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
-export default ReportItemTr;
+export default ReportItemTableRow;

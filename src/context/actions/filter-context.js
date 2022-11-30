@@ -8,6 +8,8 @@ import {
   ON_CHANGE_FILTERS,
   CLEAR_FILTERS,
   SHOW_FILTERS,
+  SET_GRID_VIEW,
+  SET_LIST_VIEW,
 } from "../constants/filter-constant";
 
 export const initialState = {
@@ -23,6 +25,9 @@ export const initialState = {
     molecular_diagnostic: "all",
     clinical_result: "all",
   },
+
+  // view setup
+  grid_view: false,
 };
 
 const FilterContext = createContext();
@@ -39,8 +44,17 @@ export const FilterContextProvider = ({ children }) => {
     dispatch({ type: FILTER_REPORTS });
   }, [state.filters]);
 
+  function setGridView() {
+    dispatch({ type: SET_GRID_VIEW });
+  }
+
+  function setListView() {
+    dispatch({ type: SET_LIST_VIEW });
+  }
+
   function toggleFilters() {
     dispatch({ type: SHOW_FILTERS });
+    if (state.showFilters) clearFilters();
   }
 
   function onChangeFilters(e) {
@@ -58,6 +72,8 @@ export const FilterContextProvider = ({ children }) => {
     toggleFilters,
     onChangeFilters,
     clearFilters,
+    setGridView,
+    setListView,
   };
 
   return <FilterContext.Provider value={value}>{children}</FilterContext.Provider>;

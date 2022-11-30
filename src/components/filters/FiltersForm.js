@@ -59,7 +59,7 @@ const FiltersForm = () => {
 const Wrapper = styled.div`
   padding-bottom: 2.5rem;
   border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1);
-  margin-bottom: 2.5rem;
+  /* margin-bottom: 2.5rem; */
   display: none;
 
   &.show {
